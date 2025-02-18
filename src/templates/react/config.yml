@@ -1,0 +1,40 @@
+build_cmd:
+  command: "npm install && npx tsc --noEmit && npm test -- --ci"
+  working_directory: "/tmp/kavia/codegen-1157"
+
+env:
+  environment_initialized: true
+  node_version: "18.19.1"
+  npm_version: "9.2.0"
+
+init_files: []
+
+init_minimal: "Minimal React Tic Tac Toe application initialized"
+
+run_tool:
+  command: "npm start"
+  working_directory: "/tmp/kavia/codegen-1157"
+
+test_tool:
+  command: "npm test"
+  working_directory: "/tmp/kavia/codegen-1157"
+
+init_style: ""
+
+linter:
+  script_content: |
+    #!/bin/bash
+    cd /tmp/kavia/codegen-1157/tic-tac-toe
+    npx eslint --fix "$@"
+    ESLINT_EXIT_CODE=$?
+    npm run build
+    BUILD_EXIT_CODE=$?
+    if [ $ESLINT_EXIT_CODE -ne 0 ] || [ $BUILD_EXIT_CODE -ne 0 ]; then
+       exit 1
+    fi
+
+post_processing:
+  script: |
+    #!/bin/bash
+    cd {project_directory}
+    npm install
