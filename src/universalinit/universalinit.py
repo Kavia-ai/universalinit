@@ -8,7 +8,7 @@ from typing import Dict, List, Optional, Any
 from pathlib import Path
 import json
 
-from templateconfig import TemplateConfigProvider, TemplateInitInfo
+from .templateconfig import TemplateConfigProvider, TemplateInitInfo
 
 class ProjectType(Enum):
     """Supported project types."""
@@ -51,7 +51,6 @@ class TemplateProvider:
     def get_template_path(self, project_type: ProjectType) -> Path:
         """Get the template path for a specific project type."""
         template_path = self.base_path / project_type.value
-        print("template_path", template_path)
         if not template_path.exists():
             raise FileNotFoundError(f"Template not found for {project_type.value}")
         return template_path
@@ -144,7 +143,6 @@ class ProjectTemplate(ABC):
                     text=True
                 )
 
-                print(f"Post-processing output:\n{result.stdout}")
                 if result.stderr:
                     print(f"Post-processing errors:\n{result.stderr}")
 
@@ -172,7 +170,7 @@ class ProjectTemplateFactory:
         """Create a template instance for the specified project type."""
         template_class = self._template_classes.get(config.project_type)
         if not template_class:
-            raise ValueError(f"No template registered for {config.project_type.value}")
+            raise ValueError(f"---> No template registered for {config.project_type.value}")
         return template_class(config, self.template_provider)
 
 
@@ -181,6 +179,7 @@ class ProjectInitializer:
 
     def __init__(self):
         self.template_factory = ProjectTemplateFactory()
+        self.template_factory.register_template(ProjectType.REACT, ReactTemplate)
 
     def initialize_project(self, config: ProjectConfig) -> bool:
         """Initialize a project using the appropriate template."""
@@ -266,7 +265,6 @@ class FileSystemHelper:
             if item.is_dir():
                 destination.mkdir(exist_ok=True)
             else:
-                print("processing", item)
 
                 # Handle variable replacement in file names
                 dest_path_str = str(destination)
@@ -289,10 +287,8 @@ class FileSystemHelper:
 def main():
     initializer = ProjectInitializer()
 
-    # Register templates
+   # Register templates
     factory = initializer.template_factory
-    factory.register_template(ProjectType.REACT, ReactTemplate)
-
     config = ProjectConfig(
         name="my-react-app",
         version="1.0.0",

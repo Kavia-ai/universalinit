@@ -1,6 +1,6 @@
 [project]
 name = "universalinit"
-version = "0.1.1"
+version = "0.1.5"
 description = ""
 authors = [
     {name = "Zoltan Kuscsik",email = "zoltan@s57.io"}
@@ -12,11 +12,14 @@ dependencies = [
     "pytest (>=8.3.4,<9.0.0)"
 ]
 
-
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.poetry]
+packages = [
+    { from = "src", include = "universalinit" }
+]
 
 [tool.poetry.scripts]
 uniinit = "universalinit.cli:main"

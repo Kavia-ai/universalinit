@@ -1,13 +1,11 @@
 import argparse
 import json
+import os
 from pathlib import Path
 from typing import Dict, Any
 
-from universalinit import (
-    ProjectInitializer,
-    ProjectConfig,
-    ProjectType
-)
+from universalinit.templateconfig import TemplateInitInfo
+from universalinit.universalinit import ProjectConfig, ProjectType, ProjectInitializer
 
 
 def parse_parameters(params_str: str) -> Dict[str, Any]:
@@ -43,6 +41,51 @@ def create_project_config(args) -> ProjectConfig:
         parameters=parse_parameters(args.parameters)
     )
 
+def make_path_absolute(path: str, base_path: Path) -> str:
+    """Convert a relative path to absolute path."""
+    return str(base_path / path)
+
+def template_init_info_to_dict(init_info: TemplateInitInfo, project_path: Path) -> dict:
+    """Convert TemplateInitInfo to a dictionary with absolute paths for JSON serialization."""
+    full_project_path = os.path.abspath(project_path).__str__()
+
+    return {
+        "build_cmd": {
+            "command": init_info.build_cmd.command,
+            "working_directory": full_project_path
+        },
+        "env_config": {
+            "environment_initialized": init_info.env_config.environment_initialized,
+            "node_version": init_info.env_config.node_version,
+            "npm_version": init_info.env_config.npm_version
+        },
+        "init_files": [make_path_absolute(f, project_path) for f in init_info.init_files],
+        "init_minimal": init_info.init_minimal,
+        "run_tool": {
+            "command": init_info.run_tool.command,
+            "working_directory": full_project_path
+        },
+        "test_tool": {
+            "command": init_info.test_tool.command,
+            "working_directory": full_project_path
+        },
+        "init_style": init_info.init_style,
+        "linter_script": init_info.linter_script,
+        "post_processing": {
+            "script": init_info.post_processing.script
+        }
+    }
+
+def output_json(success: bool, message: str, template_info: TemplateInitInfo = None, project_path: Path = None):
+    """Helper function to format JSON output."""
+    result = {
+        "success": success,
+        "message": message,
+        "template_config": template_init_info_to_dict(template_info, project_path) if template_info and project_path else {}
+    }
+    print("[OUTPUT]")
+    print(json.dumps(result, indent=2))
+    return 0 if success else 1
 
 def main():
     parser = argparse.ArgumentParser(
@@ -97,21 +140,12 @@ Available project types:
         success = initializer.initialize_project(config)
 
         if success:
-            print("\n✅ Project initialized successfully!")
-            print(f"\nNext steps:")
-            print(f"1. cd {config.output_path}")
-            if init_info.build_cmd.command:
-                print(f"2. {init_info.build_cmd.command}")
-            if init_info.run_tool.command:
-                print(f"3. {init_info.run_tool.command}")
+            return output_json(True, "Project initialized successfully!", init_info, config.output_path)
         else:
-            print("\n❌ Project initialization failed")
-            exit(1)
+            return output_json(False, "Project initialization failed", init_info, config.output_path)
 
     except Exception as e:
-        print(f"\n❌ Error: {str(e)}")
-        exit(1)
-
+        return output_json(False, f"Error: {str(e)}")
 
 if __name__ == '__main__':
     main()
