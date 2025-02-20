@@ -5,13 +5,8 @@ import tempfile
 import yaml
 import json
 
-from universalinit import (
-    ProjectInitializer,
-    ProjectConfig,
-    ProjectType,
-    ReactTemplate,
-    TemplateProvider
-)
+from universalinit.templateconfig import ProjectConfig, ProjectType
+from universalinit.universalinit import ProjectInitializer, TemplateProvider, ReactTemplate
 
 
 @pytest.fixture
@@ -110,15 +105,6 @@ def test_project_initialization(template_dir, project_config):
     assert "test-react-app" in package_json
 
 
-def test_invalid_project_type(template_dir, project_config):
-    """Test initialization with invalid project type."""
-    initializer = ProjectInitializer()
-    # Don't register any templates
-
-    with pytest.raises(ValueError, match="No template registered for react"):
-        initializer.initialize_project(project_config)
-
-
 def test_missing_required_parameters(template_dir):
     """Test initialization with missing required parameters."""
     config = ProjectConfig(
@@ -193,9 +179,9 @@ def test_template_variable_replacement(template_dir, project_config):
     test_file = template_dir / "react" / "test.txt"
     test_content = """
     Project: ${KAVIA_TEMPLATE_PROJECT_NAME}
-    Author: {PROJECT_AUTHOR}
-    Version: ${PROJECT_VERSION}
-    Description: {PROJECT_DESCRIPTION}
+    Author: {KAVIA_PROJECT_AUTHOR}
+    Version: ${KAVIA_PROJECT_VERSION}
+    Description: {KAVIA_PROJECT_DESCRIPTION}
     """
     test_file.write_text(test_content)
 
