@@ -1,6 +1,6 @@
 build_cmd:
   command: "npm install && npx tsc --noEmit && npm test -- --ci"
-  working_directory: "/tmp/kavia/codegen-1157"
+  working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 env:
   environment_initialized: true
@@ -9,22 +9,24 @@ env:
 
 init_files: []
 
-init_minimal: "Minimal React Tic Tac Toe application initialized"
+init_minimal: "Minimal application initialized"
 
 run_tool:
   command: "npm start"
-  working_directory: "/tmp/kavia/codegen-1157"
+  working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
   command: "npm test"
-  working_directory: "/tmp/kavia/codegen-1157"
+  working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 init_style: ""
+
+
 
 linter:
   script_content: |
     #!/bin/bash
-    cd /tmp/kavia/codegen-1157/tic-tac-toe
+    cd {KAVIA_PROJECT_DIRECTORY}
     npx eslint --fix "$@"
     ESLINT_EXIT_CODE=$?
     npm run build
@@ -36,5 +38,5 @@ linter:
 post_processing:
   script: |
     #!/bin/bash
-    cd {project_directory}
+    cd {KAVIA_PROJECT_DIRECTORY}
     npm install

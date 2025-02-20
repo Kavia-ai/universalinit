@@ -47,12 +47,11 @@ def make_path_absolute(path: str, base_path: Path) -> str:
 
 def template_init_info_to_dict(init_info: TemplateInitInfo, project_path: Path) -> dict:
     """Convert TemplateInitInfo to a dictionary with absolute paths for JSON serialization."""
-    full_project_path = os.path.abspath(project_path).__str__()
 
     return {
         "build_cmd": {
             "command": init_info.build_cmd.command,
-            "working_directory": full_project_path
+            "working_directory": init_info.build_cmd.working_directory
         },
         "env_config": {
             "environment_initialized": init_info.env_config.environment_initialized,
@@ -63,11 +62,11 @@ def template_init_info_to_dict(init_info: TemplateInitInfo, project_path: Path) 
         "init_minimal": init_info.init_minimal,
         "run_tool": {
             "command": init_info.run_tool.command,
-            "working_directory": full_project_path
+            "working_directory": init_info.run_tool.working_directory
         },
         "test_tool": {
             "command": init_info.test_tool.command,
-            "working_directory": full_project_path
+            "working_directory": init_info.test_tool.working_directory
         },
         "init_style": init_info.init_style,
         "linter_script": init_info.linter_script,
@@ -119,10 +118,7 @@ Available project types:
     initializer = ProjectInitializer()
 
     try:
-        if args.config:
-            config = ProjectInitializer.load_config(Path(args.config))
-        else:
-            config = create_project_config(args)
+        config = create_project_config(args)
 
         template = initializer.template_factory.create_template(config)
         init_info = template.get_init_info()

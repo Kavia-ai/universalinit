@@ -8,34 +8,7 @@ from typing import Dict, List, Optional, Any
 from pathlib import Path
 import json
 
-from .templateconfig import TemplateConfigProvider, TemplateInitInfo
-
-class ProjectType(Enum):
-    """Supported project types."""
-    REACT = "react"
-    IOS = "ios"
-    ANDROID = "android"
-    PYTHON = "python"
-    NODE = "node"
-
-    @classmethod
-    def from_string(cls, value: str) -> 'ProjectType':
-        try:
-            return cls(value.lower())
-        except ValueError:
-            raise ValueError(f"Unsupported project type: {value}")
-
-
-@dataclass
-class ProjectConfig:
-    """Configuration for project initialization."""
-    name: str
-    version: str
-    description: str
-    author: str
-    project_type: ProjectType
-    output_path: Path
-    parameters: Dict[str, Any]
+from .templateconfig import TemplateConfigProvider, TemplateInitInfo, ProjectType, ProjectConfig
 
 
 class TemplateProvider:
@@ -63,7 +36,7 @@ class ProjectTemplate(ABC):
         self.config = config
         self.template_provider = template_provider
         self.template_path = template_provider.get_template_path(config.project_type)
-        self.config_provider = TemplateConfigProvider(self.template_path)
+        self.config_provider = TemplateConfigProvider(self.template_path, self.config)
 
     @abstractmethod
     def validate_parameters(self) -> bool:
@@ -100,29 +73,11 @@ class ProjectTemplate(ABC):
             print(f"Failed to initialize project: {str(e)}")
             return False
 
-    def get_replacement_dict(self) -> Dict[str, str]:
-        """Get dictionary of replaceable parameters."""
-        return {
-            'project_directory': str(self.config.output_path),
-            'project_name': self.config.name,
-            'project_version': self.config.version,
-            'project_description': self.config.description,
-            'project_author': self.config.author
-        }
-
-    def process_script_content(self, script: str) -> str:
-        """Process script content by replacing parameters."""
-        result = script
-        replacements = self.get_replacement_dict()
-        for key, value in replacements.items():
-            result = result.replace(f"{{{key}}}", value)
-        return result
-
     def run_post_processing(self) -> None:
         """Run post-processing script if available."""
         init_info = self.get_init_info()
         if init_info.post_processing and init_info.post_processing.script:
-            script_content = self.process_script_content(init_info.post_processing.script)
+            script_content = init_info.post_processing.script
 
             # Create a temporary script file
             with tempfile.NamedTemporaryFile(mode='w', suffix='.sh', delete=False) as temp_file:
@@ -131,10 +86,8 @@ class ProjectTemplate(ABC):
                 script_path = temp_file.name
 
             try:
-                # Make the script executable
                 os.chmod(script_path, 0o755)
 
-                # Execute the script
                 result = subprocess.run(
                     [script_path],
                     check=True,
@@ -153,6 +106,7 @@ class ProjectTemplate(ABC):
             finally:
                 # Clean up the temporary script file
                 Path(script_path).unlink()
+
 
 class ProjectTemplateFactory:
     """Factory for creating project templates."""
@@ -211,14 +165,7 @@ class ReactTemplate(ProjectTemplate):
         return all(param in self.config.parameters for param in required_params)
 
     def generate_structure(self) -> None:
-        replacements = {
-            'KAVIA_TEMPLATE_PROJECT_NAME': self.config.name,
-            'PROJECT_DESCRIPTION': self.config.description,
-            'PROJECT_AUTHOR': self.config.author,
-            'PROJECT_VERSION': self.config.version,
-            'USE_TYPESCRIPT': str(self.config.parameters.get('typescript', False)).lower(),
-            'STYLING_SOLUTION': self.config.parameters.get('styling_solution', 'css')
-        }
+        replacements = self.config.get_replaceable_parameters()
 
         FileSystemHelper.copy_template(
             self.template_path,
@@ -284,10 +231,11 @@ class FileSystemHelper:
                     # Just copy the file as is if it can't be decoded as text
                     destination.write_bytes(item.read_bytes())
 
+
 def main():
     initializer = ProjectInitializer()
 
-   # Register templates
+    # Register templates
     factory = initializer.template_factory
     config = ProjectConfig(
         name="my-react-app",
@@ -301,7 +249,6 @@ def main():
             "styling_solution": "styled-components"
         }
     )
-
 
     template = factory.create_template(config)
     init_info = template.get_init_info()

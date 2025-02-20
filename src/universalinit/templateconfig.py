@@ -1,7 +1,57 @@
 from dataclasses import dataclass
-from typing import Dict, List, Optional
+from enum import Enum
+from typing import Dict, List, Optional, Any
 from pathlib import Path
 import yaml
+
+
+class ProjectType(Enum):
+    """Supported project types."""
+    REACT = "react"
+    IOS = "ios"
+    ANDROID = "android"
+    PYTHON = "python"
+    NODE = "node"
+
+    @classmethod
+    def from_string(cls, value: str) -> 'ProjectType':
+        try:
+            return cls(value.lower())
+        except ValueError:
+            raise ValueError(f"Unsupported project type: {value}")
+
+@dataclass
+class ProjectConfig:
+    """Configuration for project initialization."""
+    name: str
+    version: str
+    description: str
+    author: str
+    project_type: ProjectType
+    output_path: Path
+    parameters: Dict[str, Any]
+
+    def get_replaceable_parameters(self) -> Dict[str, str]:
+        """Get dictionary of replaceable parameters."""
+        replacements = {
+            'KAVIA_TEMPLATE_PROJECT_NAME': self.name,
+            'KAVIA_PROJECT_DESCRIPTION': self.description,
+            'KAVIA_PROJECT_AUTHOR': self.author,
+            'KAVIA_PROJECT_VERSION': self.version,
+            'KAVIA_USE_TYPESCRIPT': str(self.parameters.get('typescript', False)).lower(),
+            'KAVIA_STYLING_SOLUTION': self.parameters.get('styling_solution', 'css'),
+            'KAVIA_PROJECT_DIRECTORY': str(self.output_path)
+        }
+        return replacements
+
+    def replace_parameters(self, content: str) -> str:
+        """Replace parameters in content."""
+        replacements = self.get_replaceable_parameters()
+        for key, value in replacements.items():
+            content = content.replace(f"${key}", value)
+            content = content.replace(f"{{{key}}}", value)
+        return content
+
 
 @dataclass
 class PostProcessing:
@@ -49,9 +99,10 @@ class TemplateInitInfo:
 
 class TemplateConfigProvider:
     """Provides template initialization configuration."""
-    def __init__(self, template_path: Path):
+    def __init__(self, template_path: Path, config: ProjectConfig):
         self.template_path = template_path
         self.config_path = template_path / "config.yml"
+        self.project_config = config
 
     def get_init_info(self) -> TemplateInitInfo:
         """Get template initialization information."""
@@ -59,7 +110,10 @@ class TemplateConfigProvider:
             raise FileNotFoundError(f"Configuration file not found at {self.config_path}")
 
         with open(self.config_path, 'r') as f:
-            config_data = yaml.safe_load(f)
+            data = f.read()
+            data = self.project_config.replace_parameters(data)
+
+            config_data = yaml.safe_load(data)
 
         return TemplateInitInfo(
             build_cmd=BuildCommand(
