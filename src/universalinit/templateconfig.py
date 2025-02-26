@@ -12,6 +12,7 @@ class ProjectType(Enum):
     ANDROID = "android"
     PYTHON = "python"
     NODE = "node"
+    VUE = "vue"
 
     @classmethod
     def from_string(cls, value: str) -> 'ProjectType':
