@@ -50,7 +50,7 @@ def template_dir(temp_dir):
             'script_content': '#!/bin/bash\neslint --fix "$@"'
         },
         'post_processing': {
-            'script': '#!/bin/bash\ncd {project_directory}\nnpm install'
+            'script': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\nnpm install'
         }
     }
 
