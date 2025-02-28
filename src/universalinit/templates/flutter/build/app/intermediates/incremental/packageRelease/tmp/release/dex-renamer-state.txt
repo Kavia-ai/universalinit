@@ -1,0 +1,4 @@
+#Fri Feb 28 16:10:46 GMT 2025
+base.0=/tmp/kavia/template/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
