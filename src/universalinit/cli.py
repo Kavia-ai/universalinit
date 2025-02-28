@@ -94,6 +94,7 @@ def main():
 Example usage:
   uniinit --name my-app --type react --output ./my-app --parameters typescript=true,styling_solution=styled-components
   uniinit --name myservice --type python --output ./myservice --parameters async=true,use_fastapi=true
+  uniinit --name my-vue-app --type vue --output ./my-vue-app
 
 Available project types:
   - react
@@ -101,8 +102,9 @@ Available project types:
   - android
   - python
   - node
-        """
-    )
+  - vue
+    """
+)
 
     parser.add_argument('--name', required=True, help='Project name')
     parser.add_argument('--version', default='0.1.0', help='Project version (default: 0.1.0)')

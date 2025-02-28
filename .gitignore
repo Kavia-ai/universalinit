@@ -3,3 +3,4 @@ src/__pycache__/*
 test/__pycache__/*
 dist/
 src/universalinit/__pycache__/
+*venv*

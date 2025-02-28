@@ -134,6 +134,7 @@ class ProjectInitializer:
     def __init__(self):
         self.template_factory = ProjectTemplateFactory()
         self.template_factory.register_template(ProjectType.REACT, ReactTemplate)
+        self.template_factory.register_template(ProjectType.VUE, VueTemplate) 
 
     def initialize_project(self, config: ProjectConfig) -> bool:
         """Initialize a project using the appropriate template."""
@@ -183,6 +184,24 @@ class ReactTemplate(ProjectTemplate):
                 {'{KAVIA_TEMPLATE_PROJECT_NAME}': self.config.name}
             )
 
+class VueTemplate(ProjectTemplate):
+    """Template implementation for Vue projects."""
+
+    def validate_parameters(self) -> bool:
+        # Vue template has predetermined configurations, no required parameters
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements
+        )
+
+    def setup_testing(self) -> None:
+        # Testing is already configured in the template
+        pass
 
 class FileSystemHelper:
     """Helper class for file system operations."""

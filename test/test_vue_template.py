@@ -6,7 +6,7 @@ import yaml
 import json
 
 from universalinit.templateconfig import ProjectConfig, ProjectType
-from universalinit.universalinit import ProjectInitializer, TemplateProvider, ReactTemplate
+from universalinit.universalinit import ProjectInitializer, TemplateProvider, VueTemplate
 
 
 @pytest.fixture
@@ -21,14 +21,14 @@ def temp_dir():
 def template_dir(temp_dir):
     """Create a mock template directory with necessary files."""
     templates_path = temp_dir / "templates"
-    react_path = templates_path / "react"
-    react_path.mkdir(parents=True)
+    vue_path = templates_path / "vue"
+    vue_path.mkdir(parents=True)
 
     # Create mock config.yml
     config = {
         'build_cmd': {
-            'command': 'npm install && npx tsc --noEmit && npm test -- --ci',
-            'working_directory': str(react_path)
+            'command': 'npm install && npm run type-check && npm run test:unit -- --run',
+            'working_directory': str(vue_path)
         },
         'env': {
             'environment_initialized': True,
@@ -36,31 +36,31 @@ def template_dir(temp_dir):
             'npm_version': '9.2.0'
         },
         'init_files': [],
-        'init_minimal': 'Minimal React application initialized',
+        'init_minimal': 'Minimal Vue application initialized',
         'run_tool': {
-            'command': 'npm start',
-            'working_directory': str(react_path)
+            'command': 'npm run dev',
+            'working_directory': str(vue_path)
         },
         'test_tool': {
-            'command': 'npm test',
-            'working_directory': str(react_path)
+            'command': 'npm run test:unit',
+            'working_directory': str(vue_path)
         },
         'init_style': '',
         'linter': {
-            'script_content': '#!/bin/bash\neslint --fix "$@"'
+            'script_content': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\nnpx eslint --fix "$@"\nESLINT_EXIT_CODE=$?\nnpm run build\nBUILD_EXIT_CODE=$?\nif [ $ESLINT_EXIT_CODE -ne 0 ] || \n$BUILD_EXIT_CODE -ne 0 ]; then\n\t   exit 1\nfi'
         },
         'post_processing': {
             'script': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\nnpm install'
         }
     }
 
-    with open(react_path / "config.yml", 'w') as f:
+    with open(vue_path / "config.yml", 'w') as f:
         yaml.dump(config, f)
 
     # Create some mock template files
-    (react_path / "src").mkdir()
-    (react_path / "src" / "index.tsx").write_text("// ${KAVIA_TEMPLATE_PROJECT_NAME}")
-    (react_path / "package.json").write_text('{"name": "${KAVIA_TEMPLATE_PROJECT_NAME}"}')
+    (vue_path / "src").mkdir()
+    (vue_path / "src" / "main.js").write_text("// ${KAVIA_TEMPLATE_PROJECT_NAME}")
+    (vue_path / "package.json").write_text('{"name": "${KAVIA_TEMPLATE_PROJECT_NAME}"}')
 
     return templates_path
 
@@ -69,16 +69,13 @@ def template_dir(temp_dir):
 def project_config(temp_dir):
     """Create a test project configuration."""
     return ProjectConfig(
-        name="test-react-app",
+        name="test-vue-app",
         version="1.0.0",
-        description="Test React Application",
+        description="Test Vue Application",
         author="Test Author",
-        project_type=ProjectType.REACT,
+        project_type=ProjectType.VUE,
         output_path=temp_dir / "output",
-        parameters={
-            "typescript": True,
-            "styling_solution": "styled-components"
-        }
+        parameters={}
     )
 
 
@@ -86,7 +83,7 @@ def test_project_initialization(template_dir, project_config):
     """Test basic project initialization."""
     initializer = ProjectInitializer()
     initializer.template_factory.template_provider = TemplateProvider(template_dir)
-    initializer.template_factory.register_template(ProjectType.REACT, ReactTemplate)
+    initializer.template_factory.register_template(ProjectType.VUE, VueTemplate)
 
     success = initializer.initialize_project(project_config)
     assert success
@@ -94,41 +91,20 @@ def test_project_initialization(template_dir, project_config):
     # Verify output directory structure
     output_dir = project_config.output_path
     assert output_dir.exists()
-    assert (output_dir / "src" / "index.tsx").exists()
+    assert (output_dir / "src" / "main.js").exists()
     assert (output_dir / "package.json").exists()
 
     # Verify content replacement
-    index_content = (output_dir / "src" / "index.tsx").read_text()
-    assert "test-react-app" in index_content
+    main_content = (output_dir / "src" / "main.js").read_text()
+    assert "test-vue-app" in main_content
 
     package_json = (output_dir / "package.json").read_text()
-    assert "test-react-app" in package_json
-
-
-def test_missing_required_parameters(template_dir):
-    """Test initialization with missing required parameters."""
-    config = ProjectConfig(
-        name="test-react-app",
-        version="1.0.0",
-        description="Test React Application",
-        author="Test Author",
-        project_type=ProjectType.REACT,
-        output_path=Path("output"),
-        parameters={}  # Missing required parameters
-    )
-
-    initializer = ProjectInitializer()
-    initializer.template_factory.template_provider = TemplateProvider(template_dir)
-    initializer.template_factory.register_template(ProjectType.REACT, ReactTemplate)
-
-    success = initializer.initialize_project(config)
-    assert not success
-
+    assert "test-vue-app" in package_json
 
 def test_post_processing_execution(template_dir, project_config, temp_dir):
     """Test that post-processing script is executed."""
     # Create a test post-processing script that creates a marker file
-    config_path = template_dir / "react" / "config.yml"
+    config_path = template_dir / "vue" / "config.yml"
     with open(config_path, 'r') as f:
         config = yaml.safe_load(f)
 
@@ -142,7 +118,7 @@ def test_post_processing_execution(template_dir, project_config, temp_dir):
 
     initializer = ProjectInitializer()
     initializer.template_factory.template_provider = TemplateProvider(template_dir)
-    initializer.template_factory.register_template(ProjectType.REACT, ReactTemplate)
+    initializer.template_factory.register_template(ProjectType.VUE, VueTemplate)
 
     success = initializer.initialize_project(project_config)
     assert success
@@ -156,12 +132,9 @@ def test_config_file_loading(temp_dir):
         "version": "1.0.0",
         "description": "Test from JSON config",
         "author": "Test Author",
-        "project_type": "react",
+        "project_type": "vue",
         "output_path": str(temp_dir / "output"),
-        "parameters": {
-            "typescript": True,
-            "styling_solution": "styled-components"
-        }
+        "parameters": {}
     }
 
     config_file = temp_dir / "config.json"
@@ -170,13 +143,11 @@ def test_config_file_loading(temp_dir):
 
     config = ProjectInitializer.load_config(config_file)
     assert config.name == "json-config-test"
-    assert config.project_type == ProjectType.REACT
-    assert config.parameters["typescript"] is True
-
+    assert config.project_type == ProjectType.VUE
 
 def test_template_variable_replacement(template_dir, project_config):
     """Test template variable replacement in file contents."""
-    test_file = template_dir / "react" / "test.txt"
+    test_file = template_dir / "vue" / "test.txt"
     test_content = """
     Project: ${KAVIA_TEMPLATE_PROJECT_NAME}
     Author: {KAVIA_PROJECT_AUTHOR}
@@ -187,7 +158,7 @@ def test_template_variable_replacement(template_dir, project_config):
 
     initializer = ProjectInitializer()
     initializer.template_factory.template_provider = TemplateProvider(template_dir)
-    initializer.template_factory.register_template(ProjectType.REACT, ReactTemplate)
+    initializer.template_factory.register_template(ProjectType.VUE, VueTemplate)
 
     success = initializer.initialize_project(project_config)
     assert success
