@@ -135,6 +135,7 @@ class ProjectInitializer:
         self.template_factory = ProjectTemplateFactory()
         self.template_factory.register_template(ProjectType.REACT, ReactTemplate)
         self.template_factory.register_template(ProjectType.VUE, VueTemplate) 
+        self.template_factory.register_template(ProjectType.FLUTTER, FlutterTemplate) 
 
     def initialize_project(self, config: ProjectConfig) -> bool:
         """Initialize a project using the appropriate template."""
@@ -203,11 +204,32 @@ class VueTemplate(ProjectTemplate):
         # Testing is already configured in the template
         pass
 
+class FlutterTemplate(ProjectTemplate):
+    """Template implementation for Flutter projects."""
+
+    def validate_parameters(self) -> bool:
+        # Flutter has simpler requirements, most configuration is in the template
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True # Flutter relies on hidden files
+        )
+
+    def setup_testing(self) -> None:
+        # Flutter testing is already configured in the standard template
+        pass
+
 class FileSystemHelper:
     """Helper class for file system operations."""
 
     @staticmethod
-    def copy_template(src: Path, dst: Path, replacements: Dict[str, str]) -> None:
+    def copy_template(src: Path, dst: Path, replacements: Dict[str, str], include_hidden: bool = False) -> None:
         """Copy template files with variable replacement."""
         if not src.exists():
             raise FileNotFoundError(f"Template path {src} does not exist")
@@ -221,8 +243,10 @@ class FileSystemHelper:
         for item in src.rglob("*"):
             # Skip excluded files, hidden files, and python special files
             if (item.name in excluded_files or
-                    item.name.startswith('.') or
                     item.name.startswith('__')):
+                continue
+                
+            if not include_hidden and item.name.startswith('.'):
                 continue
 
             relative_path = item.relative_to(src)

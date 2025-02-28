@@ -95,6 +95,7 @@ Example usage:
   uniinit --name my-app --type react --output ./my-app --parameters typescript=true,styling_solution=styled-components
   uniinit --name myservice --type python --output ./myservice --parameters async=true,use_fastapi=true
   uniinit --name my-vue-app --type vue --output ./my-vue-app
+  uniinit --name my-flutter-app --type flutter --output ./my-flutter-app
 
 Available project types:
   - react
@@ -103,6 +104,7 @@ Available project types:
   - python
   - node
   - vue
+  - flutter
     """
 )
 
