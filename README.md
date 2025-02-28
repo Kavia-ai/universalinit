@@ -5,7 +5,7 @@ A versatile tool for initializing software projects from templates. Create React
 ## Features
 
 - Configurable template-based project creation
-- Support for multiple project types (React, Vue)
+- Support for multiple project types (React, Vue, Flutter)
 - Parameter-based customization
 - Variable replacement in template files
 - Post-processing support for additional setup tasks
@@ -48,6 +48,7 @@ uniinit --name my-app --type react --output ./my-app --author "Your Name" --para
 
 - `react`: React application
 - `vue`: Vue application
+- `flutter`: Flutter application
 
 ### Parameter Examples
 
@@ -102,8 +103,9 @@ pytest
 1. Create a new directory in `src/universalinit/templates/` for your template
 2. Add a `config.yml` file with template configuration
 3. Add new template type in `ProjectType` enum in `src/universalinit/templateconfig.py`
-4. Add new replaceable parameters if necessary in the function `get_replaceable_parameters` in `src/universalinit/templateconfig.py`
-4. Add new template at `TEMPLATE_MAP` in `src/universalinit/templates.py`
-5. Register the template class in the `ProjectInitializer` constructor in `src/universalinit/universalinit.py`
-6. Create a new template class in `src/universalinit/universalinit.py`
-7. Update the epilog in `main` in `src/universalinit/cli.py`
+4. Add new replaceable parameters if necessary in the function `ProjectConfig.get_replaceable_parameters` in `src/universalinit/templateconfig.py`
+5. Add new environment parameters if necessary in the function `TemplateConfigProvider.get_init_info` in `src/universalinit/templateconfig.py`
+6. Add new template at `TEMPLATE_MAP` in `src/universalinit/templates.py`
+7. Register the template class in the `ProjectInitializer` constructor in `src/universalinit/universalinit.py`
+8. Create a new template class in `src/universalinit/universalinit.py`
+9. Update the epilog in `main` in `src/universalinit/cli.py`

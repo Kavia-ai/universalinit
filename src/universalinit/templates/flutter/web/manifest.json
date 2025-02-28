@@ -1,6 +1,6 @@
 {
-    "name": "flutterkavia",
-    "short_name": "flutterkavia",
+    "name": "template",
+    "short_name": "template",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
