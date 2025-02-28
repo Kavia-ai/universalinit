@@ -13,6 +13,7 @@ class ProjectType(Enum):
     PYTHON = "python"
     NODE = "node"
     VUE = "vue"
+    FLUTTER = "flutter"
 
     @classmethod
     def from_string(cls, value: str) -> 'ProjectType':
@@ -71,6 +72,8 @@ class EnvironmentConfig:
     environment_initialized: bool
     node_version: str
     npm_version: str
+    flutter_version: str
+    dart_version: str
 
 @dataclass
 class RunTool:
@@ -123,8 +126,10 @@ class TemplateConfigProvider:
             ),
             env_config=EnvironmentConfig(
                 environment_initialized=config_data['env']['environment_initialized'],
-                node_version=config_data['env']['node_version'],
-                npm_version=config_data['env']['npm_version']
+                 node_version=config_data['env'].get('node_version', ''),
+                npm_version=config_data['env'].get('npm_version', ''),
+                flutter_version=config_data['env'].get('flutter_version', ''),
+                dart_version=config_data['env'].get('dart_version', ''),
             ),
             init_files=config_data.get('init_files', []),
             init_minimal=config_data['init_minimal'],
