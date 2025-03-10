@@ -136,6 +136,7 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.REACT, ReactTemplate)
         self.template_factory.register_template(ProjectType.VUE, VueTemplate) 
         self.template_factory.register_template(ProjectType.FLUTTER, FlutterTemplate) 
+        self.template_factory.register_template(ProjectType.ANDROID, AndroidTemplate) 
 
     def initialize_project(self, config: ProjectConfig) -> bool:
         """Initialize a project using the appropriate template."""
@@ -156,6 +157,50 @@ class ProjectInitializer:
                 output_path=Path(config_data['output_path']),
                 parameters=config_data.get('parameters', {})
             )
+
+
+class AndroidTemplate(ProjectTemplate):
+    """Template implementation for Android projects."""
+
+    def validate_parameters(self) -> bool:
+        # No required parameters for basic template, but we'll support optional ones
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True  # Android projects may have hidden files
+        )
+
+    def setup_testing(self) -> None:
+        # Testing is already configured in the template
+        pass
+
+
+class FlutterTemplate(ProjectTemplate):
+    """Template implementation for Flutter projects."""
+
+    def validate_parameters(self) -> bool:
+        # Flutter has simpler requirements, most configuration is in the template
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True # Flutter relies on hidden files
+        )
+
+    def setup_testing(self) -> None:
+        # Flutter testing is already configured in the standard template
+        pass
 
 
 # Example implementation for React projects
@@ -204,26 +249,6 @@ class VueTemplate(ProjectTemplate):
         # Testing is already configured in the template
         pass
 
-class FlutterTemplate(ProjectTemplate):
-    """Template implementation for Flutter projects."""
-
-    def validate_parameters(self) -> bool:
-        # Flutter has simpler requirements, most configuration is in the template
-        return True
-
-    def generate_structure(self) -> None:
-        replacements = self.config.get_replaceable_parameters()
-        
-        FileSystemHelper.copy_template(
-            self.template_path,
-            self.config.output_path,
-            replacements,
-            include_hidden=True # Flutter relies on hidden files
-        )
-
-    def setup_testing(self) -> None:
-        # Flutter testing is already configured in the standard template
-        pass
 
 class FileSystemHelper:
     """Helper class for file system operations."""
