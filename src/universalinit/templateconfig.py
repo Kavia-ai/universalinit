@@ -14,6 +14,7 @@ class ProjectType(Enum):
     NODE = "node"
     PYTHON = "python"
     REACT = "react"
+    VITE = "vite"
     VUE = "vue"
 
     @classmethod

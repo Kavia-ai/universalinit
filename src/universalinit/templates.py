@@ -5,5 +5,6 @@ TEMPLATE_MAP = {
    ProjectType.ASTRO: "astro-kavia",
    ProjectType.FLUTTER: "flutter-kavia",
    ProjectType.REACT : "react-kavia",
+   ProjectType.VITE: "vite-kavia",
    ProjectType.VUE: "vue-kavia",
 }

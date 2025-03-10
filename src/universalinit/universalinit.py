@@ -137,6 +137,7 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.ASTRO, AstroTemplate) 
         self.template_factory.register_template(ProjectType.FLUTTER, FlutterTemplate) 
         self.template_factory.register_template(ProjectType.REACT, ReactTemplate)
+        self.template_factory.register_template(ProjectType.VITE, ViteTemplate) 
         self.template_factory.register_template(ProjectType.VUE, VueTemplate) 
 
     def initialize_project(self, config: ProjectConfig) -> bool:
@@ -258,6 +259,28 @@ class ReactTemplate(ProjectTemplate):
                 self.config.output_path / "test",
                 {'{KAVIA_TEMPLATE_PROJECT_NAME}': self.config.name}
             )
+
+
+class ViteTemplate(ProjectTemplate):
+    """Template implementation for Vite projects."""
+
+    def validate_parameters(self) -> bool:
+        # Vite has no required parameters for basic setup
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements
+        )
+
+    def setup_testing(self) -> None:
+        # Testing is configured in the template
+        pass
+
 
 class VueTemplate(ProjectTemplate):
     """Template implementation for Vue projects."""
