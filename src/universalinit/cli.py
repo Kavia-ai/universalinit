@@ -97,15 +97,18 @@ Example usage:
   uniinit --name my-vue-app --type vue --output ./my-vue-app
   uniinit --name my-flutter-app --type flutter --output ./my-flutter-app
   uniinit --name my-android-app --type android --output ./my-android-app --parameters min_sdk=24,target_sdk=34,gradle_version=8.12
+  uniinit --name my-astro-site --type astro --output ./my-astro-site --parameters typescript=true,integration_tailwind=true
+
 
 Available project types:
-  - react
-  - ios
   - android
-  - python
-  - node
-  - vue
+  - astro
   - flutter
+  - ios
+  - node
+  - python
+  - react
+  - vue
     """
 )
 

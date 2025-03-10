@@ -133,10 +133,11 @@ class ProjectInitializer:
 
     def __init__(self):
         self.template_factory = ProjectTemplateFactory()
+        self.template_factory.register_template(ProjectType.ANDROID, AndroidTemplate) 
+        self.template_factory.register_template(ProjectType.ASTRO, AstroTemplate) 
+        self.template_factory.register_template(ProjectType.FLUTTER, FlutterTemplate) 
         self.template_factory.register_template(ProjectType.REACT, ReactTemplate)
         self.template_factory.register_template(ProjectType.VUE, VueTemplate) 
-        self.template_factory.register_template(ProjectType.FLUTTER, FlutterTemplate) 
-        self.template_factory.register_template(ProjectType.ANDROID, AndroidTemplate) 
 
     def initialize_project(self, config: ProjectConfig) -> bool:
         """Initialize a project using the appropriate template."""
@@ -178,6 +179,34 @@ class AndroidTemplate(ProjectTemplate):
 
     def setup_testing(self) -> None:
         # Testing is already configured in the template
+        pass
+
+
+class AstroTemplate(ProjectTemplate):
+    """Template implementation for Astro projects."""
+
+    def validate_parameters(self) -> bool:
+        # Define which parameters are allowed (not required)
+        allowed_params = {'typescript', 'integration_tailwind', 'integration_react', 
+                         'integration_vue', 'integration_svelte'}
+        # If no parameters provided, that's fine
+        if not self.config.parameters:
+            return True
+        # All provided parameters should be in the allowed list
+        return all(param in allowed_params for param in self.config.parameters.keys())
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True  # Include hidden files like .gitignore
+        )
+
+    def setup_testing(self) -> None:
+        # Astro testing is already configured in the standard template
         pass
 
 

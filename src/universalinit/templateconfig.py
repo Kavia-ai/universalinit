@@ -8,6 +8,7 @@ import yaml
 class ProjectType(Enum):
     """Supported project types."""
     ANDROID = "android"
+    ASTRO = "astro"
     FLUTTER = "flutter"
     IOS = "ios"
     NODE = "node"
@@ -133,7 +134,7 @@ class TemplateConfigProvider:
             ),
             env_config=EnvironmentConfig(
                 environment_initialized=config_data['env']['environment_initialized'],
-                 node_version=config_data['env'].get('node_version', ''),
+                node_version=config_data['env'].get('node_version', ''),
                 npm_version=config_data['env'].get('npm_version', ''),
                 flutter_version=config_data['env'].get('flutter_version', ''),
                 dart_version=config_data['env'].get('dart_version', ''),
