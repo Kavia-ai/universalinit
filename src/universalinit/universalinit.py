@@ -136,6 +136,7 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.ANDROID, AndroidTemplate) 
         self.template_factory.register_template(ProjectType.ASTRO, AstroTemplate) 
         self.template_factory.register_template(ProjectType.FLUTTER, FlutterTemplate) 
+        self.template_factory.register_template(ProjectType.NEXTJS, NextJSTemplate) 
         self.template_factory.register_template(ProjectType.REACT, ReactTemplate)
         self.template_factory.register_template(ProjectType.VITE, ViteTemplate) 
         self.template_factory.register_template(ProjectType.VUE, VueTemplate) 
@@ -230,6 +231,32 @@ class FlutterTemplate(ProjectTemplate):
 
     def setup_testing(self) -> None:
         # Flutter testing is already configured in the standard template
+        pass
+
+
+class NextJSTemplate(ProjectTemplate):
+    """Template implementation for NextJS projects."""
+
+    def validate_parameters(self) -> bool:
+        # NextJS has similar configuration patterns as React
+        required_params = {'typescript', 'styling_solution'}
+        for param in required_params:
+            if param not in self.config.parameters:
+                self.config.parameters[param] = True if param == 'typescript' else 'css'
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True  # Include .gitignore, .eslintrc, etc.
+        )
+
+    def setup_testing(self) -> None:
+        # Testing is already configured in the NextJS template
         pass
 
 
