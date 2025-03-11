@@ -140,6 +140,7 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.NEXTJS, NextJSTemplate)
         self.template_factory.register_template(ProjectType.NUXT, NuxtTemplate)
         self.template_factory.register_template(ProjectType.REACT, ReactTemplate)
+        self.template_factory.register_template(ProjectType.SLIDEV, SlidevTemplate)
         self.template_factory.register_template(ProjectType.VITE, ViteTemplate)
         self.template_factory.register_template(ProjectType.VUE, VueTemplate)
 
@@ -330,6 +331,28 @@ class ReactTemplate(ProjectTemplate):
                 self.config.output_path / "test",
                 {'{KAVIA_TEMPLATE_PROJECT_NAME}': self.config.name}
             )
+
+
+class SlidevTemplate(ProjectTemplate):
+    """Template implementation for Slidev presentations."""
+
+    def validate_parameters(self) -> bool:
+        # Slidev has simpler requirements, most configuration is in the template
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True  # Slidev uses hidden files like .gitignore, netlify.toml, vercel.json
+        )
+
+    def setup_testing(self) -> None:
+        # Slidev testing is configured through the package.json in the template
+        pass
 
 
 class ViteTemplate(ProjectTemplate):

@@ -8,6 +8,7 @@ TEMPLATE_MAP = {
    ProjectType.NEXTJS: "nextjs-kavia",
    ProjectType.NUXT: "nuxt-kavia",
    ProjectType.REACT : "react-kavia",
+   ProjectType.SLIDEV: "slidev-kavia",
    ProjectType.VITE: "vite-kavia",
    ProjectType.VUE: "vue-kavia",
 }

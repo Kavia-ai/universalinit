@@ -17,6 +17,7 @@ class ProjectType(Enum):
     NUXT = "nuxt"
     PYTHON = "python"
     REACT = "react"
+    SLIDEV = "slidev"
     VITE = "vite"
     VUE = "vue"
 

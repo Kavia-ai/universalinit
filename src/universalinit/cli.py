@@ -102,6 +102,7 @@ Example usage:
   uniinit --name my-nextjs-app --type nextjs --output ./my-nextjs-app --parameters styling_solution=tailwind
   uniinit --name my-nuxt-app --type nuxt --output ./my-nuxt-app
   uniinit --name my-ns-app --type nativescript --output ./my-ns-app --parameters typescript=true,vue=false
+  uniinit --name my-slides --type slidev --output ./my-slides
 
 
 Available project types:
@@ -115,6 +116,7 @@ Available project types:
   - nuxt
   - python
   - react
+  - slidev
   - vite
   - vue
     """
