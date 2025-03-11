@@ -100,6 +100,7 @@ Example usage:
   uniinit --name my-astro-site --type astro --output ./my-astro-site --parameters typescript=true,integration_tailwind=true
   uniinit --name my-vite-app --type vite --output ./my-vite-app --parameters typescript=true
   uniinit --name my-nextjs-app --type nextjs --output ./my-nextjs-app --parameters styling_solution=tailwind
+  uniinit --name my-nuxt-app --type nuxt --output ./my-nuxt-app
 
 
 Available project types:
@@ -107,12 +108,13 @@ Available project types:
   - astro
   - flutter
   - ios
+  - nextjs
   - node
+  - nuxt
   - python
   - react
   - vite
   - vue
-  - nextjs
     """
 )
 

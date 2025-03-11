@@ -137,6 +137,7 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.ASTRO, AstroTemplate) 
         self.template_factory.register_template(ProjectType.FLUTTER, FlutterTemplate) 
         self.template_factory.register_template(ProjectType.NEXTJS, NextJSTemplate) 
+        self.template_factory.register_template(ProjectType.NUXT, NuxtTemplate) 
         self.template_factory.register_template(ProjectType.REACT, ReactTemplate)
         self.template_factory.register_template(ProjectType.VITE, ViteTemplate) 
         self.template_factory.register_template(ProjectType.VUE, VueTemplate) 
@@ -257,6 +258,26 @@ class NextJSTemplate(ProjectTemplate):
 
     def setup_testing(self) -> None:
         # Testing is already configured in the NextJS template
+        pass
+
+
+class NuxtTemplate(ProjectTemplate):
+    """Template implementation for Nuxt projects."""
+
+    def validate_parameters(self) -> bool:
+        # Nuxt template has predetermined configurations, similar to Vue
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements
+        )
+
+    def setup_testing(self) -> None:
+        # Testing is already configured in the template
         pass
 
 

@@ -13,6 +13,7 @@ class ProjectType(Enum):
     IOS = "ios"
     NEXTJS = "nextjs"
     NODE = "node"
+    NUXT = "nuxt"
     PYTHON = "python"
     REACT = "react"
     VITE = "vite"
