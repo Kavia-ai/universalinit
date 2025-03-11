@@ -62,8 +62,9 @@ class ProjectConfig:
         """Replace parameters in content."""
         replacements = self.get_replaceable_parameters()
         for key, value in replacements.items():
-            content = content.replace(f"${key}", value)
-            content = content.replace(f"{{{key}}}", value)
+            str_value = str(value)
+            content = content.replace(f"${key}", str_value)
+            content = content.replace(f"{{{key}}}", str_value)
         return content
 
 

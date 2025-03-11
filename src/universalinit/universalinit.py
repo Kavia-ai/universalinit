@@ -484,32 +484,32 @@ class FileSystemHelper:
         for item in src.rglob("*"):
             # Skip excluded files, hidden files, and python special files
             if (item.name in excluded_files or
-                    item.name.startswith('__')):
+                    item.name.startswith('__') and item.name.endswith('__')):
                 continue
                 
-            if not include_hidden and item.name.startswith('.'):
-                continue
+            if not include_hidden and item.name.startswith('.') and item.is_file():
+                continue  # Skip hidden files but allow hidden directories
 
             relative_path = item.relative_to(src)
             destination = dst / relative_path
 
             if item.is_dir():
-                destination.mkdir(exist_ok=True)
+                destination.mkdir(exist_ok=True, parents=True)  # Added parents=True
             else:
-
                 # Handle variable replacement in file names
                 dest_path_str = str(destination)
                 for key, value in replacements.items():
-                    dest_path_str = dest_path_str.replace(f"${key}", value)
+                    dest_path_str = dest_path_str.replace(f"${key}", str(value))
                 destination = Path(dest_path_str)
 
+                # Ensure parent directories exist
                 destination.parent.mkdir(parents=True, exist_ok=True)
 
                 try:
                     content = item.read_text()
                     for key, value in replacements.items():
-                        content = content.replace(f"${key}", value)
-                        content = content.replace(f"{{{key}}}", value)
+                        content = content.replace(f"${key}", str(value))
+                        content = content.replace(f"{{{key}}}", str(value))
                     destination.write_text(content)
                 except UnicodeDecodeError:
                     # Just copy the file as is if it can't be decoded as text
