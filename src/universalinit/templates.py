@@ -9,6 +9,7 @@ TEMPLATE_MAP = {
    ProjectType.NUXT: "nuxt-kavia",
    ProjectType.REACT : "react-kavia",
    ProjectType.SLIDEV: "slidev-kavia",
+   ProjectType.SVELTE : "svelte-kavia",
    ProjectType.VITE: "vite-kavia",
    ProjectType.VUE: "vue-kavia",
 }

@@ -141,6 +141,7 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.NUXT, NuxtTemplate)
         self.template_factory.register_template(ProjectType.REACT, ReactTemplate)
         self.template_factory.register_template(ProjectType.SLIDEV, SlidevTemplate)
+        self.template_factory.register_template(ProjectType.SVELTE, SvelteTemplate)
         self.template_factory.register_template(ProjectType.VITE, ViteTemplate)
         self.template_factory.register_template(ProjectType.VUE, VueTemplate)
 
@@ -352,6 +353,27 @@ class SlidevTemplate(ProjectTemplate):
 
     def setup_testing(self) -> None:
         # Slidev testing is configured through the package.json in the template
+        pass
+
+
+class SvelteTemplate(ProjectTemplate):
+    """Template implementation for Svelte projects."""
+
+    def validate_parameters(self) -> bool:
+        # Svelte has simpler requirements, most configuration is in the template
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements
+        )
+
+    def setup_testing(self) -> None:
+        # Testing is already configured in the template
         pass
 
 

@@ -103,6 +103,7 @@ Example usage:
   uniinit --name my-nuxt-app --type nuxt --output ./my-nuxt-app
   uniinit --name my-ns-app --type nativescript --output ./my-ns-app --parameters typescript=true,vue=false
   uniinit --name my-slides --type slidev --output ./my-slides
+  uniinit --name my-svelte-app --type svelte --output ./my-svelte-app
 
 
 Available project types:
@@ -117,6 +118,7 @@ Available project types:
   - python
   - react
   - slidev
+  - svelte
   - vite
   - vue
     """

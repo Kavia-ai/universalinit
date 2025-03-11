@@ -18,6 +18,7 @@ class ProjectType(Enum):
     PYTHON = "python"
     REACT = "react"
     SLIDEV = "slidev"
+    SVELTE = "svelte"
     VITE = "vite"
     VUE = "vue"
 
