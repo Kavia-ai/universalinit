@@ -101,6 +101,7 @@ Example usage:
   uniinit --name my-vite-app --type vite --output ./my-vite-app --parameters typescript=true
   uniinit --name my-nextjs-app --type nextjs --output ./my-nextjs-app --parameters styling_solution=tailwind
   uniinit --name my-nuxt-app --type nuxt --output ./my-nuxt-app
+  uniinit --name my-ns-app --type nativescript --output ./my-ns-app --parameters typescript=true,vue=false
 
 
 Available project types:
@@ -108,6 +109,7 @@ Available project types:
   - astro
   - flutter
   - ios
+  - nativescript
   - nextjs
   - node
   - nuxt

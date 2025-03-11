@@ -11,6 +11,7 @@ class ProjectType(Enum):
     ASTRO = "astro"
     FLUTTER = "flutter"
     IOS = "ios"
+    NATIVESCRIPT = "nativescript"
     NEXTJS = "nextjs"
     NODE = "node"
     NUXT = "nuxt"

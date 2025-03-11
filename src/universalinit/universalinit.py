@@ -133,14 +133,15 @@ class ProjectInitializer:
 
     def __init__(self):
         self.template_factory = ProjectTemplateFactory()
-        self.template_factory.register_template(ProjectType.ANDROID, AndroidTemplate) 
-        self.template_factory.register_template(ProjectType.ASTRO, AstroTemplate) 
-        self.template_factory.register_template(ProjectType.FLUTTER, FlutterTemplate) 
-        self.template_factory.register_template(ProjectType.NEXTJS, NextJSTemplate) 
-        self.template_factory.register_template(ProjectType.NUXT, NuxtTemplate) 
+        self.template_factory.register_template(ProjectType.ANDROID, AndroidTemplate)
+        self.template_factory.register_template(ProjectType.ASTRO, AstroTemplate)
+        self.template_factory.register_template(ProjectType.FLUTTER, FlutterTemplate)
+        self.template_factory.register_template(ProjectType.NATIVESCRIPT, NativeScriptTemplate)
+        self.template_factory.register_template(ProjectType.NEXTJS, NextJSTemplate)
+        self.template_factory.register_template(ProjectType.NUXT, NuxtTemplate)
         self.template_factory.register_template(ProjectType.REACT, ReactTemplate)
-        self.template_factory.register_template(ProjectType.VITE, ViteTemplate) 
-        self.template_factory.register_template(ProjectType.VUE, VueTemplate) 
+        self.template_factory.register_template(ProjectType.VITE, ViteTemplate)
+        self.template_factory.register_template(ProjectType.VUE, VueTemplate)
 
     def initialize_project(self, config: ProjectConfig) -> bool:
         """Initialize a project using the appropriate template."""
@@ -232,6 +233,28 @@ class FlutterTemplate(ProjectTemplate):
 
     def setup_testing(self) -> None:
         # Flutter testing is already configured in the standard template
+        pass
+
+
+class NativeScriptTemplate(ProjectTemplate):
+    """Template implementation for NativeScript projects."""
+
+    def validate_parameters(self) -> bool:
+        # No required parameters for the basic NativeScript template
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True  # NativeScript uses hidden files
+        )
+
+    def setup_testing(self) -> None:
+        # Testing configuration is included in the template
         pass
 
 
