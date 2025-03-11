@@ -140,6 +140,7 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.NEXTJS, NextJSTemplate)
         self.template_factory.register_template(ProjectType.NUXT, NuxtTemplate)
         self.template_factory.register_template(ProjectType.REACT, ReactTemplate)
+        self.template_factory.register_template(ProjectType.REMIX, RemixTemplate)
         self.template_factory.register_template(ProjectType.SLIDEV, SlidevTemplate)
         self.template_factory.register_template(ProjectType.SVELTE, SvelteTemplate)
         self.template_factory.register_template(ProjectType.VITE, ViteTemplate)
@@ -325,6 +326,34 @@ class ReactTemplate(ProjectTemplate):
 
     def setup_testing(self) -> None:
         # Setup Jest and React Testing Library
+        test_setup_path = self.template_path / "test-setup"
+        if test_setup_path.exists():
+            FileSystemHelper.copy_template(
+                test_setup_path,
+                self.config.output_path / "test",
+                {'{KAVIA_TEMPLATE_PROJECT_NAME}': self.config.name}
+            )
+
+
+class RemixTemplate(ProjectTemplate):
+    """Template implementation for Remix projects."""
+
+    def validate_parameters(self) -> bool:
+        # Required parameters for Remix projects
+        required_params = {'typescript', 'styling_solution'}
+        return all(param in self.config.parameters for param in required_params)
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements
+        )
+
+    def setup_testing(self) -> None:
+        # Setup testing for Remix if test-setup directory exists
         test_setup_path = self.template_path / "test-setup"
         if test_setup_path.exists():
             FileSystemHelper.copy_template(

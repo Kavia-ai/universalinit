@@ -17,6 +17,7 @@ class ProjectType(Enum):
     NUXT = "nuxt"
     PYTHON = "python"
     REACT = "react"
+    REMIX = "remix"
     SLIDEV = "slidev"
     SVELTE = "svelte"
     VITE = "vite"
