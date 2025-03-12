@@ -134,6 +134,7 @@ class ProjectInitializer:
     def __init__(self):
         self.template_factory = ProjectTemplateFactory()
         self.template_factory.register_template(ProjectType.ANDROID, AndroidTemplate)
+        self.template_factory.register_template(ProjectType.ANGULAR, AngularTemplate)
         self.template_factory.register_template(ProjectType.ASTRO, AstroTemplate)
         self.template_factory.register_template(ProjectType.FLUTTER, FlutterTemplate)
         self.template_factory.register_template(ProjectType.NATIVESCRIPT, NativeScriptTemplate)
@@ -188,6 +189,27 @@ class AndroidTemplate(ProjectTemplate):
 
     def setup_testing(self) -> None:
         # Testing is already configured in the template
+        pass
+
+
+class AngularTemplate(ProjectTemplate):
+    """Template implementation for Angular projects."""
+
+    def validate_parameters(self) -> bool:
+        # Angular template has predetermined configurations, no required parameters
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements
+        )
+
+    def setup_testing(self) -> None:
+        # Angular testing is already configured in the standard template
         pass
 
 

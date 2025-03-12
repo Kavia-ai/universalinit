@@ -107,10 +107,12 @@ Example usage:
   uniinit --name my-remix-app --type remix --author "Kavia" --output ./my-remix-app --parameters typescript=true,styling_solution=tailwind
   uniinit --name my-ts-app --type typescript --author "Kavia" --output ./my-ts-app
   uniinit --name my-remotion-app --type remotion --author "Kavia" --output ./my-remotion-app
+  uniinit --name my-angular-app --type angular --author "Kavia" --output ./my-angular-app
 
 
 Available project types:
   - android
+  - angular
   - astro
   - flutter
   - ios

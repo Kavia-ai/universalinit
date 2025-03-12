@@ -8,6 +8,7 @@ import yaml
 class ProjectType(Enum):
     """Supported project types."""
     ANDROID = "android"
+    ANGULAR = "angular"
     ASTRO = "astro"
     FLUTTER = "flutter"
     IOS = "ios"

@@ -2,6 +2,7 @@ from src.universalinit.templateconfig import ProjectType
 
 TEMPLATE_MAP = {
    ProjectType.ANDROID: "android-kavia",
+   ProjectType.ANGULAR: "angular-kavia",
    ProjectType.ASTRO: "astro-kavia",
    ProjectType.FLUTTER: "flutter-kavia",
    ProjectType.NATIVESCRIPT: "nativescript-kavia",
