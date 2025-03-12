@@ -141,6 +141,7 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.NUXT, NuxtTemplate)
         self.template_factory.register_template(ProjectType.REACT, ReactTemplate)
         self.template_factory.register_template(ProjectType.REMIX, RemixTemplate)
+        self.template_factory.register_template(ProjectType.REMOTION, RemotionTemplate)
         self.template_factory.register_template(ProjectType.SLIDEV, SlidevTemplate)
         self.template_factory.register_template(ProjectType.SVELTE, SvelteTemplate)
         self.template_factory.register_template(ProjectType.TYPESCRIPT, TypeScriptTemplate)
@@ -362,6 +363,27 @@ class RemixTemplate(ProjectTemplate):
                 self.config.output_path / "test",
                 {'{KAVIA_TEMPLATE_PROJECT_NAME}': self.config.name}
             )
+
+
+class RemotionTemplate(ProjectTemplate):
+    """Template implementation for Remotion projects."""
+
+    def validate_parameters(self) -> bool:
+        # Remotion is TypeScript-based by default, no required parameters
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements
+        )
+
+    def setup_testing(self) -> None:
+        # Testing is already configured in the template
+        pass
 
 
 class SlidevTemplate(ProjectTemplate):

@@ -18,6 +18,7 @@ class ProjectType(Enum):
     PYTHON = "python"
     REACT = "react"
     REMIX = "remix"
+    REMOTION = "remotion"
     SLIDEV = "slidev"
     SVELTE = "svelte"
     TYPESCRIPT = "typescript"
