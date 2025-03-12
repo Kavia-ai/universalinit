@@ -143,6 +143,7 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.REMIX, RemixTemplate)
         self.template_factory.register_template(ProjectType.SLIDEV, SlidevTemplate)
         self.template_factory.register_template(ProjectType.SVELTE, SvelteTemplate)
+        self.template_factory.register_template(ProjectType.TYPESCRIPT, TypeScriptTemplate)
         self.template_factory.register_template(ProjectType.VITE, ViteTemplate)
         self.template_factory.register_template(ProjectType.VUE, VueTemplate)
 
@@ -403,6 +404,27 @@ class SvelteTemplate(ProjectTemplate):
 
     def setup_testing(self) -> None:
         # Testing is already configured in the template
+        pass
+
+
+class TypeScriptTemplate(ProjectTemplate):
+    """Template implementation for TypeScript projects."""
+
+    def validate_parameters(self) -> bool:
+        # TypeScript has simpler requirements, module configurations can be optional
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements
+        )
+
+    def setup_testing(self) -> None:
+        # TypeScript testing is already configured in the template
         pass
 
 

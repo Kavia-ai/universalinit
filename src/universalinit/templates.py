@@ -11,6 +11,7 @@ TEMPLATE_MAP = {
    ProjectType.REMIX : "remix-kavia",
    ProjectType.SLIDEV: "slidev-kavia",
    ProjectType.SVELTE : "svelte-kavia",
+   ProjectType.TYPESCRIPT: "typescript-kavia",
    ProjectType.VITE: "vite-kavia",
    ProjectType.VUE: "vue-kavia",
 }

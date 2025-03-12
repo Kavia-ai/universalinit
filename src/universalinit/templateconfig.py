@@ -20,6 +20,7 @@ class ProjectType(Enum):
     REMIX = "remix"
     SLIDEV = "slidev"
     SVELTE = "svelte"
+    TYPESCRIPT = "typescript"
     VITE = "vite"
     VUE = "vue"
 

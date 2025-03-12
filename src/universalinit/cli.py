@@ -105,6 +105,7 @@ Example usage:
   uniinit --name my-slides --type slidev --author "Kavia" --output ./my-slides
   uniinit --name my-svelte-app --type svelte --author "Kavia" --output ./my-svelte-app
   uniinit --name my-remix-app --type remix --author "Kavia" --output ./my-remix-app --parameters typescript=true,styling_solution=tailwind
+  uniinit --name my-ts-app --type typescript --author "Kavia" --output ./my-ts-app
 
 
 Available project types:
@@ -121,6 +122,7 @@ Available project types:
   - remix
   - slidev
   - svelte
+  - typescript
   - vite
   - vue
     """
