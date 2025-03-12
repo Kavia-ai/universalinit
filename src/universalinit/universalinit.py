@@ -140,6 +140,7 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.NATIVESCRIPT, NativeScriptTemplate)
         self.template_factory.register_template(ProjectType.NEXTJS, NextJSTemplate)
         self.template_factory.register_template(ProjectType.NUXT, NuxtTemplate)
+        self.template_factory.register_template(ProjectType.QWIK, QwikTemplate)
         self.template_factory.register_template(ProjectType.REACT, ReactTemplate)
         self.template_factory.register_template(ProjectType.REMIX, RemixTemplate)
         self.template_factory.register_template(ProjectType.REMOTION, RemotionTemplate)
@@ -324,6 +325,27 @@ class NuxtTemplate(ProjectTemplate):
             self.template_path,
             self.config.output_path,
             replacements
+        )
+
+    def setup_testing(self) -> None:
+        # Testing is already configured in the template
+        pass
+
+
+class QwikTemplate(ProjectTemplate):
+    """Template implementation for Qwik projects."""
+
+    def validate_parameters(self) -> bool:
+        # Qwik template has predetermined configurations, no required parameters
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True  # Qwik may have important hidden files like .vscode
         )
 
     def setup_testing(self) -> None:

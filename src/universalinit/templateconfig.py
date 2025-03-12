@@ -17,6 +17,7 @@ class ProjectType(Enum):
     NODE = "node"
     NUXT = "nuxt"
     PYTHON = "python"
+    QWIK = "qwik"
     REACT = "react"
     REMIX = "remix"
     REMOTION = "remotion"

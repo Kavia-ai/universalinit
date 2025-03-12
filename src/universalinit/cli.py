@@ -108,6 +108,7 @@ Example usage:
   uniinit --name my-ts-app --type typescript --author "Kavia" --output ./my-ts-app
   uniinit --name my-remotion-app --type remotion --author "Kavia" --output ./my-remotion-app
   uniinit --name my-angular-app --type angular --author "Kavia" --output ./my-angular-app
+  uniinit --name my-qwik-app --type qwik --author "Kavia" --output ./my-qwik-app
 
 
 Available project types:
@@ -121,6 +122,7 @@ Available project types:
   - node
   - nuxt
   - python
+  - qwik
   - react
   - remix
   - remotion
