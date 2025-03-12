@@ -1,4 +1,4 @@
-from src.universalinit.templateconfig import ProjectType
+from .templateconfig import ProjectType
 
 TEMPLATE_MAP = {
    ProjectType.ANDROID: "android-kavia",

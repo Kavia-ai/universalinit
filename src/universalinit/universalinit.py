@@ -533,26 +533,7 @@ class VueTemplate(ProjectTemplate):
     def setup_testing(self) -> None:
         # Testing is already configured in the template
         pass
-class FlutterTemplate(ProjectTemplate):
-    """Template implementation for Flutter projects."""
 
-    def validate_parameters(self) -> bool:
-        # Flutter has simpler requirements, most configuration is in the template
-        return True
-
-    def generate_structure(self) -> None:
-        replacements = self.config.get_replaceable_parameters()
-
-        FileSystemHelper.copy_template(
-            self.template_path,
-            self.config.output_path,
-            replacements,
-            include_hidden=True # Flutter relies on hidden files
-        )
-
-    def setup_testing(self) -> None:
-        # Flutter testing is already configured in the standard template
-        pass
 
 class FileSystemHelper:
     """Helper class for file system operations."""
