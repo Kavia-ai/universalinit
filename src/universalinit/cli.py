@@ -92,19 +92,45 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Example usage:
-  uniinit --name my-app --type react --output ./my-app --parameters typescript=true,styling_solution=styled-components
-  uniinit --name myservice --type python --output ./myservice --parameters async=true,use_fastapi=true
-  uniinit --name my-vue-app --type vue --output ./my-vue-app
-  uniinit --name my-flutter-app --type flutter --output ./my-flutter-app
+  uniinit --name my-app --type react --author "Kavia" --output ./my-react-app --parameters typescript=true,styling_solution=styled-components
+  uniinit --name myservice --type python --author "Kavia" --output ./myservice --parameters async=true,use_fastapi=true
+  uniinit --name my-vue-app --type vue --author "Kavia" --output ./my-vue-app
+  uniinit --name my-flutter-app --type flutter --author "Kavia" --output ./my-flutter-app
+  uniinit --name my-android-app --type android --author "Kavia" --output ./my-android-app --parameters min_sdk=24,target_sdk=34,gradle_version=8.12
+  uniinit --name my-astro-site --type astro --author "Kavia" --output ./my-astro-site --parameters typescript=true
+  uniinit --name my-vite-app --type vite --author "Kavia" --output ./my-vite-app --parameters typescript=true
+  uniinit --name my-nextjs-app --type nextjs --author "Kavia" --output ./my-nextjs-app
+  uniinit --name my-nuxt-app --type nuxt --author "Kavia" --output ./my-nuxt-app
+  uniinit --name my-ns-app --type nativescript --author "Kavia" --output ./my-ns-app --parameters typescript=true
+  uniinit --name my-slides --type slidev --author "Kavia" --output ./my-slides
+  uniinit --name my-svelte-app --type svelte --author "Kavia" --output ./my-svelte-app
+  uniinit --name my-remix-app --type remix --author "Kavia" --output ./my-remix-app --parameters typescript=true,styling_solution=tailwind
+  uniinit --name my-ts-app --type typescript --author "Kavia" --output ./my-ts-app
+  uniinit --name my-remotion-app --type remotion --author "Kavia" --output ./my-remotion-app
+  uniinit --name my-angular-app --type angular --author "Kavia" --output ./my-angular-app
+  uniinit --name my-qwik-app --type qwik --author "Kavia" --output ./my-qwik-app
+
 
 Available project types:
-  - react
-  - ios
   - android
-  - python
-  - node
-  - vue
+  - angular
+  - astro
   - flutter
+  - ios
+  - nativescript
+  - nextjs
+  - node
+  - nuxt
+  - python
+  - qwik
+  - react
+  - remix
+  - remotion
+  - slidev
+  - svelte
+  - typescript
+  - vite
+  - vue
     """
 )
 

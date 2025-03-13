@@ -5,7 +5,7 @@ A versatile tool for initializing software projects from templates. Create React
 ## Features
 
 - Configurable template-based project creation
-- Support for multiple project types (React, Vue, Flutter)
+- Support for multiple project types (React, Vue, Flutter, and many more)
 - Parameter-based customization
 - Variable replacement in template files
 - Post-processing support for additional setup tasks
@@ -46,9 +46,22 @@ uniinit --name my-app --type react --output ./my-app --author "Your Name" --para
 
 ### Available Project Types
 
-- `react`: React application
-- `vue`: Vue application
+- `android`: Android application
+- `angular`: Angular application
+- `astro`: Astro website
 - `flutter`: Flutter application
+- `nativescript`: NativeScript application
+- `nextjs`: Next.js application
+- `nuxt`: Nuxt.js application
+- `qwik`: Qwik application
+- `react`: React application
+- `remix`: Remix application
+- `remotion`: Remotion video project
+- `slidev`: Slidev presentation
+- `svelte`: Svelte application
+- `typescript`: TypeScript application
+- `vite`: Vite application
+- `vue`: Vue application
 
 ### Parameter Examples
 
@@ -60,6 +73,76 @@ uniinit --name my-react-app --type react --output ./my-react-app --author "Your 
 #### Vue Project
 ```bash
 uniinit --name myservice --type vue --output ./myservice --author "Your Name"
+```
+
+#### Flutter Project
+```bash
+uniinit --name my-flutter-app --type flutter --output ./my-flutter-app --author "Your Name"
+```
+
+#### Android Project
+```bash
+uniinit --name my-android-app --type android --output ./my-android-app --author "Your Name" --parameters min_sdk=24,target_sdk=34,gradle_version=8.12
+```
+
+#### Astro Project
+```bash
+uniinit --name my-astro-site --type astro --output ./my-astro-site --author "Your Name" --parameters typescript=true
+```
+
+#### Next.js Project
+```bash
+uniinit --name my-nextjs-app --type nextjs --output ./my-nextjs-app --author "Your Name" --parameters typescript=true,styling_solution=tailwind
+```
+
+#### Nuxt Project
+```bash
+uniinit --name my-nuxt-app --type nuxt --output ./my-nuxt-app --author "Your Name"
+```
+
+#### NativeScript Project
+```bash
+uniinit --name my-ns-app --type nativescript --output ./my-ns-app --author "Your Name" --parameters typescript=true
+```
+
+#### Slidev Project
+```bash
+uniinit --name my-slides --type slidev --output ./my-slides --author "Your Name"
+```
+
+#### Svelte Project
+```bash
+uniinit --name my-svelte-app --type svelte --output ./my-svelte-app --author "Your Name" --parameters typescript=true,styling_solution=css
+```
+
+#### Remix Project
+```bash
+uniinit --name my-remix-app --type remix --output ./my-remix-app --author "Your Name" --parameters typescript=true,styling_solution=tailwind
+```
+
+#### TypeScript Project
+```bash
+uniinit --name my-ts-app --type typescript --output ./my-ts-app --author "Your Name"
+```
+
+#### Remotion Project
+```bash
+uniinit --name my-remotion-app --type remotion --output ./my-remotion-app --author "Your Name"
+```
+
+#### Angular Project
+```bash
+uniinit --name my-angular-app --type angular --output ./my-angular-app --author "Your Name"
+```
+
+#### Qwik Project
+```bash
+uniinit --name my-qwik-app --type qwik --output ./my-qwik-app --author "Your Name"
+```
+
+#### Vite Project
+```bash
+uniinit --name my-vite-app --type vite --output ./my-vite-app --author "Your Name" --parameters typescript=true,framework=react
 ```
 
 ## JSON Configuration

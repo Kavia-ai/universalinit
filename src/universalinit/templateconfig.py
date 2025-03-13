@@ -7,13 +7,25 @@ import yaml
 
 class ProjectType(Enum):
     """Supported project types."""
-    REACT = "react"
-    IOS = "ios"
     ANDROID = "android"
-    PYTHON = "python"
-    NODE = "node"
-    VUE = "vue"
+    ANGULAR = "angular"
+    ASTRO = "astro"
     FLUTTER = "flutter"
+    IOS = "ios"
+    NATIVESCRIPT = "nativescript"
+    NEXTJS = "nextjs"
+    NODE = "node"
+    NUXT = "nuxt"
+    PYTHON = "python"
+    QWIK = "qwik"
+    REACT = "react"
+    REMIX = "remix"
+    REMOTION = "remotion"
+    SLIDEV = "slidev"
+    SVELTE = "svelte"
+    TYPESCRIPT = "typescript"
+    VITE = "vite"
+    VUE = "vue"
 
     @classmethod
     def from_string(cls, value: str) -> 'ProjectType':
@@ -42,7 +54,11 @@ class ProjectConfig:
             'KAVIA_PROJECT_VERSION': self.version,
             'KAVIA_USE_TYPESCRIPT': str(self.parameters.get('typescript', False)).lower(),
             'KAVIA_STYLING_SOLUTION': self.parameters.get('styling_solution', 'css'),
-            'KAVIA_PROJECT_DIRECTORY': str(self.output_path)
+            'KAVIA_PROJECT_DIRECTORY': str(self.output_path),
+            'KAVIA_ANDROID_PACKAGE_NAME': self.parameters.get('package_name', f"com.example.{self.name.lower().replace(' ', '').replace('-', '')}"),
+            'KAVIA_ANDROID_MIN_SDK': str(self.parameters.get('min_sdk', '24')),
+            'KAVIA_ANDROID_TARGET_SDK': str(self.parameters.get('target_sdk', '34')),
+            'KAVIA_ANDROID_GRADLE_VERSION': self.parameters.get('gradle_version', '8.12'),
         }
         return replacements
 
@@ -50,8 +66,9 @@ class ProjectConfig:
         """Replace parameters in content."""
         replacements = self.get_replaceable_parameters()
         for key, value in replacements.items():
-            content = content.replace(f"${key}", value)
-            content = content.replace(f"{{{key}}}", value)
+            str_value = str(value)
+            content = content.replace(f"${key}", str_value)
+            content = content.replace(f"{{{key}}}", str_value)
         return content
 
 
@@ -70,10 +87,13 @@ class BuildCommand:
 class EnvironmentConfig:
     """Environment configuration."""
     environment_initialized: bool
-    node_version: str
-    npm_version: str
-    flutter_version: str
-    dart_version: str
+    node_version: str = ""
+    npm_version: str = ""
+    flutter_version: str = ""
+    dart_version: str = ""
+    java_version: str = ""
+    gradle_version: str = ""
+    android_sdk_version: str = ""
 
 @dataclass
 class RunTool:
@@ -126,10 +146,12 @@ class TemplateConfigProvider:
             ),
             env_config=EnvironmentConfig(
                 environment_initialized=config_data['env']['environment_initialized'],
-                 node_version=config_data['env'].get('node_version', ''),
+                node_version=config_data['env'].get('node_version', ''),
                 npm_version=config_data['env'].get('npm_version', ''),
                 flutter_version=config_data['env'].get('flutter_version', ''),
                 dart_version=config_data['env'].get('dart_version', ''),
+                java_version=config_data['env'].get('java_version', ''),
+                gradle_version=config_data['env'].get('gradle_version', ''),
             ),
             init_files=config_data.get('init_files', []),
             init_minimal=config_data['init_minimal'],
