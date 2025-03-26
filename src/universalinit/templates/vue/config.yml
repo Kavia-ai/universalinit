@@ -25,7 +25,7 @@ linter:
   script_content: |
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
-    npx eslint --fix "$@"
+    npm run lint
     ESLINT_EXIT_CODE=$?
     npm run build
     BUILD_EXIT_CODE=$?

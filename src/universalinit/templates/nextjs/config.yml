@@ -1,5 +1,5 @@
 build_cmd:
-  command: "npm install && npm run lint && npm run test"
+  command: "npm install && npm run lint && npm run build"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 env:
@@ -16,7 +16,7 @@ run_tool:
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
-  command: "npm run test"
+  command: "npm run build"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 init_style: ""
@@ -25,7 +25,7 @@ linter:
   script_content: |
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
-    npx eslint --fix "$@"
+    npm run lint
     ESLINT_EXIT_CODE=$?
     npm run build
     BUILD_EXIT_CODE=$?

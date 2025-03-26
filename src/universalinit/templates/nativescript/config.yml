@@ -1,5 +1,5 @@
 build_cmd:
-  command: "npm install && ns build"
+  command: "npm install && ns build" # TODO: FIX
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 env:
@@ -12,22 +12,22 @@ init_files: []
 init_minimal: "Minimal NativeScript application initialized"
 
 run_tool:
-  command: "ns run"
+  command: "ns run" # TODO: FIX
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
-  command: "ns test"
+  command: "ns test" # TODO: FIX
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 init_style: ""
 
-linter:
+linter: # TODO: FIX
   script_content: |
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
     ns lint
 
-post_processing:
+post_processing: # TODO: FIX
   script: |
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
