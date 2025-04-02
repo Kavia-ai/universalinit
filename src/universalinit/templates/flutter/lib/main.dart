@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'AI Build Tool'),
+      home: const MyHomePage(title: '{KAVIA_TEMPLATE_PROJECT_NAME}'),
     );
   }
 }
@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'AI App is being generated...',
+              '{KAVIA_TEMPLATE_PROJECT_NAME} App is being generated...',
               style: TextStyle(fontSize: 18),
             ),
             SizedBox(height: 20),

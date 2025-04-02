@@ -251,7 +251,7 @@ class FlutterTemplate(ProjectTemplate):
 
     def generate_structure(self) -> None:
         replacements = self.config.get_replaceable_parameters()
-        
+
         FileSystemHelper.copy_template(
             self.template_path,
             self.config.output_path,

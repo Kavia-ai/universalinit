@@ -4,8 +4,8 @@ build_cmd:
 
 env:
   environment_initialized: true
-  flutter_version: "stable"
-  dart_version: "3.3.0"
+  flutter_version: "3.27.3"
+  dart_version: "3.6.1"
 
 init_files: []
 
