@@ -63,6 +63,7 @@ class ProjectTemplate(ABC):
             if not self.validate_parameters():
                 raise ValueError("Invalid project parameters")
 
+            self.run_pre_processing()
             self.generate_structure()
             self.setup_testing()
             self.run_post_processing()
@@ -73,40 +74,52 @@ class ProjectTemplate(ABC):
             print(f"Failed to initialize project: {str(e)}")
             return False
 
+    def run_pre_processing(self) -> None:
+        """Run pre-processing script if available."""
+        init_info = self.get_init_info()
+        if init_info.pre_processing and init_info.pre_processing.script:
+            self._run_processing_script(init_info.pre_processing.script, "Pre-processing")
+
     def run_post_processing(self) -> None:
         """Run post-processing script if available."""
         init_info = self.get_init_info()
         if init_info.post_processing and init_info.post_processing.script:
-            script_content = init_info.post_processing.script
+            self._run_processing_script(init_info.post_processing.script, "Post-processing")
 
-            # Create a temporary script file
-            with tempfile.NamedTemporaryFile(mode='w', suffix='.sh', delete=False) as temp_file:
-                temp_file.write(script_content)
-                temp_file.flush()
-                script_path = temp_file.name
+    def _run_processing_script(self, script_content: str, process_type: str) -> None:
+        """Run a processing script with the given content.
+        
+        Args:
+            script_content: The content of the script to run
+            process_type: The type of processing ("Pre-processing" or "Post-processing")
+        """
+        # Create a temporary script file
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.sh', delete=False) as temp_file:
+            temp_file.write(script_content)
+            temp_file.flush()
+            script_path = temp_file.name
 
-            try:
-                os.chmod(script_path, 0o755)
+        try:
+            os.chmod(script_path, 0o755)
 
-                result = subprocess.run(
-                    [script_path],
-                    check=True,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
-                    text=True
-                )
+            result = subprocess.run(
+                [script_path],
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True
+            )
 
-                if result.stderr:
-                    print(f"Post-processing errors:\n{result.stderr}")
+            if result.stderr:
+                print(f"{process_type} errors:\n{result.stderr}")
 
-            except subprocess.CalledProcessError as e:
-                print(f"Post-processing failed with exit code {e.returncode}")
-                print(f"Error output:\n{e.stderr}")
-                raise
-            finally:
-                # Clean up the temporary script file
-                Path(script_path).unlink()
-
+        except subprocess.CalledProcessError as e:
+            print(f"{process_type} failed with exit code {e.returncode}")
+            print(f"Error output:\n{e.stderr}")
+            raise
+        finally:
+            # Clean up the temporary script file
+            Path(script_path).unlink()
 
 class ProjectTemplateFactory:
     """Factory for creating project templates."""

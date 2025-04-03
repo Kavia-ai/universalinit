@@ -73,7 +73,7 @@ class ProjectConfig:
 
 
 @dataclass
-class PostProcessing:
+class ProcessingScript:
     """Post processing configuration."""
     script: str
 
@@ -118,7 +118,8 @@ class TemplateInitInfo:
     test_tool: TestTool
     init_style: str
     linter_script: str
-    post_processing: PostProcessing
+    pre_processing: ProcessingScript
+    post_processing: ProcessingScript
 
 
 class TemplateConfigProvider:
@@ -165,7 +166,10 @@ class TemplateConfigProvider:
             ),
             init_style=config_data.get('init_style', ''),
             linter_script=config_data['linter']['script_content'],
-            post_processing=PostProcessing(
+            pre_processing=ProcessingScript(
+                script=config_data.get('pre_processing', {}).get('script', '')
+            ),
+            post_processing=ProcessingScript(
                 script=config_data.get('post_processing', {}).get('script', '')
             )
         )
