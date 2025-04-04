@@ -395,7 +395,8 @@ class RemixTemplate(ProjectTemplate):
         FileSystemHelper.copy_template(
             self.template_path,
             self.config.output_path,
-            replacements
+            replacements, 
+            include_hidden=True
         )
 
     def setup_testing(self) -> None:
