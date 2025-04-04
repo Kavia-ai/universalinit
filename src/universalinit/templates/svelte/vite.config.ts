@@ -28,5 +28,9 @@ export default defineConfig({
                 exclude: ['src/**/*.svelte.{test,spec}.{js,ts}']
             }
         }]
+    },
+    
+    server: {
+        port: 3000
     }
 });

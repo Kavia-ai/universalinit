@@ -47,7 +47,7 @@ def template_dir(temp_dir):
         },
         'init_style': '',
         'linter': {
-            'script_content': '#!/bin/bash\neslint --fix "$@"'
+            'script_content': '#!/bin/bash\neslint "$@"'
         },
         'post_processing': {
             'script': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\nnpm install'
