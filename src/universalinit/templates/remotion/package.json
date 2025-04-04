@@ -19,6 +19,8 @@
     "@remotion/eslint-config-flat": "4.0.273",
     "@types/react": "19.0.0",
     "@types/web": "0.0.166",
+    "@typescript-eslint/eslint-plugin": "^8.29.0",
+    "@typescript-eslint/parser": "^8.29.0",
     "eslint": "9.19.0",
     "prettier": "3.3.3",
     "typescript": "5.5.4"
