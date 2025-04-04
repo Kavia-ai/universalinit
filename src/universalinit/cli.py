@@ -70,6 +70,9 @@ def template_init_info_to_dict(init_info: TemplateInitInfo, project_path: Path) 
         },
         "init_style": init_info.init_style,
         "linter_script": init_info.linter_script,
+        "pre_processing": {
+            "script": init_info.pre_processing.script
+        },
         "post_processing": {
             "script": init_info.post_processing.script
         }

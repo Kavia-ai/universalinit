@@ -49,6 +49,9 @@ def template_dir(temp_dir):
         'linter': {
             'script_content': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\nflutter analyze'
         },
+        'pre_processing': {
+            'script': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\necho "Pre-processing step executed"'
+        },
         'post_processing': {
             'script': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\nflutter pub get'
         }
@@ -135,6 +138,32 @@ def test_post_processing_execution(template_dir, project_config, temp_dir):
 
     marker_path = temp_dir / "post_processing_executed"
     config['post_processing']['script'] = f"""#!/bin/bash
+    touch {marker_path}
+    """
+
+    with open(config_path, 'w') as f:
+        yaml.dump(config, f)
+
+    initializer = ProjectInitializer()
+    initializer.template_factory.template_provider = TemplateProvider(template_dir)
+    initializer.template_factory.register_template(ProjectType.FLUTTER, FlutterTemplate)
+
+    success = initializer.initialize_project(project_config)
+    assert success
+    assert marker_path.exists()
+
+def test_pre_processing_execution(template_dir, project_config, temp_dir):
+    """Test that pre-processing script is executed."""
+    # Create a test pre-processing script that creates a marker file
+    config_path = template_dir / "flutter" / "config.yml"
+    with open(config_path, 'r') as f:
+        config = yaml.safe_load(f)
+
+    # Add pre-processing configuration to the config
+    marker_path = temp_dir / "pre_processing_executed"
+    if 'pre_processing' not in config:
+        config['pre_processing'] = {}
+    config['pre_processing']['script'] = f"""#!/bin/bash
     touch {marker_path}
     """
 

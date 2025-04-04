@@ -4,8 +4,8 @@ build_cmd:
 
 env:
   environment_initialized: true
-  flutter_version: "stable"
-  dart_version: "3.3.0"
+  flutter_version: "3.27.3"
+  dart_version: "3.6.1"
 
 init_files: []
 
@@ -26,6 +26,11 @@ linter:
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
     flutter analyze
+
+pre_processing:
+  script: |
+    #!/bin/bash
+    flutter create {KAVIA_TEMPLATE_PROJECT_NAME}
 
 post_processing:
   script: |
