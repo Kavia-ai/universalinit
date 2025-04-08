@@ -54,11 +54,7 @@ class ProjectConfig:
             'KAVIA_PROJECT_VERSION': self.version,
             'KAVIA_USE_TYPESCRIPT': str(self.parameters.get('typescript', False)).lower(),
             'KAVIA_STYLING_SOLUTION': self.parameters.get('styling_solution', 'css'),
-            'KAVIA_PROJECT_DIRECTORY': str(self.output_path),
-            'KAVIA_ANDROID_PACKAGE_NAME': self.parameters.get('package_name', f"com.example.{self.name.lower().replace(' ', '').replace('-', '')}"),
-            'KAVIA_ANDROID_MIN_SDK': str(self.parameters.get('min_sdk', '24')),
-            'KAVIA_ANDROID_TARGET_SDK': str(self.parameters.get('target_sdk', '34')),
-            'KAVIA_ANDROID_GRADLE_VERSION': self.parameters.get('gradle_version', '8.12'),
+            'KAVIA_PROJECT_DIRECTORY': str(self.output_path)
         }
         return replacements
 

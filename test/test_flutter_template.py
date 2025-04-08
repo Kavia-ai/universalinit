@@ -24,36 +24,36 @@ def template_dir(temp_dir):
     flutter_path = templates_path / "flutter"
     flutter_path.mkdir(parents=True)
 
-    # Create mock config.yml
+    # Create mock config.yml with commands that don't require Flutter
     config = {
         'build_cmd': {
-            'command': 'flutter pub get',
+            'command': 'echo "Build command executed"',
             'working_directory': str(flutter_path)
         },
         'env': {
             'environment_initialized': True,
-            'flutter_version': 'stable',
-            'dart_version': '3.3.0'
+            'flutter_version': '3.27.3',
+            'dart_version': '3.6.1'
         },
         'init_files': [],
         'init_minimal': 'Minimal Flutter application initialized',
         'run_tool': {
-            'command': 'flutter run',
+            'command': 'echo "Run command executed"',
             'working_directory': str(flutter_path)
         },
         'test_tool': {
-            'command': 'flutter test',
+            'command': 'echo "Test command executed"',
             'working_directory': str(flutter_path)
         },
         'init_style': '',
         'linter': {
-            'script_content': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\nflutter analyze'
+            'script_content': '#!/bin/bash\necho "Linting executed"'
         },
         'pre_processing': {
-            'script': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\necho "Pre-processing step executed"'
+            'script': '#!/bin/bash\nmkdir -p {KAVIA_PROJECT_DIRECTORY}\necho "Pre-processing step executed"'
         },
         'post_processing': {
-            'script': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\nflutter pub get'
+            'script': '#!/bin/bash\necho "Post-processing step executed"'
         }
     }
 
@@ -70,7 +70,7 @@ name: {KAVIA_TEMPLATE_PROJECT_NAME}
 description: {KAVIA_PROJECT_DESCRIPTION}
 
 environment:
-  sdk: "^3.5.4"
+  sdk: "^3.6.1"
 
 dependencies:
   flutter:
@@ -83,7 +83,7 @@ dependencies:
     (idea_path / "workspace.xml").write_text('<project name="${KAVIA_TEMPLATE_PROJECT_NAME}" />')
 
     return templates_path
-    
+
 @pytest.fixture
 def project_config(temp_dir):
     """Create a test project configuration."""

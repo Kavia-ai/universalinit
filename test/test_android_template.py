@@ -176,9 +176,6 @@ def test_template_variable_replacement(template_dir, project_config):
     Author: {KAVIA_PROJECT_AUTHOR}
     Version: ${KAVIA_PROJECT_VERSION}
     Description: {KAVIA_PROJECT_DESCRIPTION}
-    Package: {KAVIA_ANDROID_PACKAGE_NAME}
-    Min SDK: ${KAVIA_ANDROID_MIN_SDK}
-    Target SDK: ${KAVIA_ANDROID_TARGET_SDK}
     """
     test_file.write_text(test_content)
 
@@ -197,6 +194,3 @@ def test_template_variable_replacement(template_dir, project_config):
     assert project_config.author in content
     assert project_config.version in content
     assert project_config.description in content
-    assert project_config.parameters['android_package_name'] in content
-    assert project_config.parameters['android_min_sdk'] in content
-    assert project_config.parameters['android_target_sdk'] in content
