@@ -339,7 +339,6 @@ class NuxtTemplate(ProjectTemplate):
             self.config.output_path,
             replacements,
             include_hidden=True
-
         )
 
     def setup_testing(self) -> None:
