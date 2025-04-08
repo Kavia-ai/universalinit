@@ -25,9 +25,11 @@ linter:
   script_content: |
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
+    npx eslint
+    ESLINT_EXIT_CODE=$?
     npm run build
-    EXIT_CODE=$?
-    if [ $EXIT_CODE -ne 0 ]; then
+    BUILD_EXIT_CODE=$?
+     if [ $ESLINT_EXIT_CODE -ne 0 ] || [ $BUILD_EXIT_CODE -ne 0 ]; then
        exit 1
     fi
 
