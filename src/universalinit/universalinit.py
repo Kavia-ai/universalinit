@@ -338,7 +338,7 @@ class NuxtTemplate(ProjectTemplate):
             self.template_path,
             self.config.output_path,
             replacements,
-            include_hidden=True  # Qwik may have important hidden files like .vscode
+            include_hidden=True
 
         )
 
