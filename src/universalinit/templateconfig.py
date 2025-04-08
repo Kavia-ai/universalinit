@@ -149,6 +149,7 @@ class TemplateConfigProvider:
                 dart_version=config_data['env'].get('dart_version', ''),
                 java_version=config_data['env'].get('java_version', ''),
                 gradle_version=config_data['env'].get('gradle_version', ''),
+                android_sdk_version=config_data['env'].get('android_sdk_version', '')
             ),
             init_files=config_data.get('init_files', []),
             init_minimal=config_data['init_minimal'],

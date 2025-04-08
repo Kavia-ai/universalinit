@@ -4,8 +4,6 @@ build_cmd:
 
 env:
   environment_initialized: true
-  node_version: ""
-  npm_version: ""
   java_version: "17"
   android_sdk_version: "34"
 
