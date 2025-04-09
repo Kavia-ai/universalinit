@@ -1,5 +1,5 @@
 build_cmd:
-  command: "flutter pub get"
+  command: "flutter build apk --release --target-platform android-x64"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 env:

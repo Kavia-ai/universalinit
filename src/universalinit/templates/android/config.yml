@@ -4,8 +4,6 @@ build_cmd:
 
 env:
   environment_initialized: true
-  node_version: ""
-  npm_version: ""
   java_version: "17"
   android_sdk_version: "34"
 
@@ -36,4 +34,8 @@ linter:
 post_processing:
   script: |
     #!/bin/bash
+    cd {KAVIA_PROJECT_DIRECTORY}
+    chmod +x ./init_script.sh
+    ./init_script.sh {KAVIA_TEMPLATE_PROJECT_NAME}
+    rm init_script.sh
     echo "Android project post-processing complete"
