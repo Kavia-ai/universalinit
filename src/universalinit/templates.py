@@ -4,6 +4,7 @@ TEMPLATE_MAP = {
    ProjectType.ANDROID: "android-kavia",
    ProjectType.ANGULAR: "angular-kavia",
    ProjectType.ASTRO: "astro-kavia",
+   ProjectType.FASTAPI: "fastapi-kavia",
    ProjectType.FLUTTER: "flutter-kavia",
    ProjectType.NATIVESCRIPT: "nativescript-kavia",
    ProjectType.NEXTJS: "nextjs-kavia",

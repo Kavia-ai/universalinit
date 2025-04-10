@@ -62,6 +62,7 @@ uniinit --name my-app --type react --output ./my-app --author "Your Name" --para
 - `typescript`: TypeScript application
 - `vite`: Vite application
 - `vue`: Vue application
+- `fastapi`: FastAPI backend
 
 ### Parameter Examples
 
@@ -143,6 +144,11 @@ uniinit --name my-qwik-app --type qwik --output ./my-qwik-app --author "Your Nam
 #### Vite Project
 ```bash
 uniinit --name my-vite-app --type vite --output ./my-vite-app --author "Your Name" --parameters typescript=true,framework=react
+```
+
+#### FastAPI Project
+```bash
+uniinit --name my-fastapi-app --type fastapi --output ./my-fastapi-app --author "Your Name"
 ```
 
 ## JSON Configuration
