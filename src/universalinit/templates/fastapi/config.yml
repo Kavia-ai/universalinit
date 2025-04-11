@@ -1,5 +1,7 @@
 build_cmd:
-  command: "pip install -r requirements.txt" 
+  command: "python3 -m venv venv && \
+            source venv/bin/activate && \
+            pip install -r requirements.txt" 
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 env:
@@ -35,4 +37,6 @@ post_processing:
   script: |
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
+    python3 -m venv venv
+    source venv/bin/activate
     pip install -r requirements.txt
