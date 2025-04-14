@@ -149,7 +149,7 @@ class ProjectInitializer:
     """Main project initialization orchestrator."""
 
     def __init__(self, external_template_path: Optional[Path] = None):
-        self.template_provider = TemplateProvider(external_template_path)            
+        self.template_factory = TemplateProvider(external_template_path)
         self.template_factory.register_template(ProjectType.ANDROID, AndroidTemplate)
         self.template_factory.register_template(ProjectType.ANGULAR, AngularTemplate)
         self.template_factory.register_template(ProjectType.ASTRO, AstroTemplate)
