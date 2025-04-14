@@ -60,9 +60,15 @@ class ProjectTemplate(ABC):
             if not self.validate_parameters():
                 raise ValueError("Invalid project parameters")
 
+            print(f"Initializing project {self.config.name} of type {self.config.project_type.value}")
+            print(f"Using template from {self.template_path}")
+            print("Running pre-processing...")
             self.run_pre_processing()
+            print("Generating project structure...")
             self.generate_structure()
+            print("Setting up testing...")
             self.setup_testing()
+            print("Running post-processing...")
             self.run_post_processing()
             return True
         except Exception as e:
@@ -106,6 +112,7 @@ class ProjectTemplate(ABC):
                 stderr=subprocess.PIPE,
                 text=True
             )
+            print(f"{process_type} output:\n{result.stdout}")
 
             if result.stderr:
                 print(f"{process_type} errors:\n{result.stderr}")
