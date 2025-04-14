@@ -150,7 +150,7 @@ Available project types:
 
     args = parser.parse_args()
 
-    initializer = ProjectInitializer()
+    initializer = ProjectInitializer(Path("/home/kavia/templates"))
 
     try:
         config = create_project_config(args)

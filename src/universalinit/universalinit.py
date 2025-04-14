@@ -2,12 +2,9 @@ import os
 import subprocess
 import tempfile
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
-from enum import Enum, auto
-from typing import Dict, List, Optional, Any
+from typing import Dict, Optional
 from pathlib import Path
 import json
-
 from .templateconfig import TemplateConfigProvider, TemplateInitInfo, ProjectType, ProjectConfig
 
 
@@ -124,9 +121,12 @@ class ProjectTemplate(ABC):
 class ProjectTemplateFactory:
     """Factory for creating project templates."""
 
-    def __init__(self):
+    def __init__(self, external_template_path: Optional[Path] = None):
         self._template_classes: Dict[ProjectType, type[ProjectTemplate]] = {}
-        self.template_provider = TemplateProvider()
+        if external_template_path:
+            self.template_provider = TemplateProvider(external_template_path)
+        else:
+            self.template_provider = TemplateProvider()
 
     def register_template(self, project_type: ProjectType,
                           template_class: type[ProjectTemplate]) -> None:
@@ -144,8 +144,11 @@ class ProjectTemplateFactory:
 class ProjectInitializer:
     """Main project initialization orchestrator."""
 
-    def __init__(self):
-        self.template_factory = ProjectTemplateFactory()
+    def __init__(self, external_template_path: Optional[Path] = None):
+        if external_template_path:
+            self.template_provider = TemplateProvider(external_template_path)
+        else: 
+            self.template_factory = ProjectTemplateFactory()
         self.template_factory.register_template(ProjectType.ANDROID, AndroidTemplate)
         self.template_factory.register_template(ProjectType.ANGULAR, AngularTemplate)
         self.template_factory.register_template(ProjectType.ASTRO, AstroTemplate)
@@ -629,7 +632,7 @@ class FileSystemHelper:
 
 
 def main():
-    initializer = ProjectInitializer()
+    initializer = ProjectInitializer(Path("/home/kavia/templates"))
 
     # Register templates
     factory = initializer.template_factory
