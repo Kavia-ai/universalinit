@@ -130,8 +130,7 @@ class ProjectTemplateFactory:
 
     def __init__(self, external_template_path: Optional[Path] = None):
         self._template_classes: Dict[ProjectType, type[ProjectTemplate]] = {}
-        self.template_provider = TemplateProvider()
-        self.template_provider = TemplateProvider(external_template_path)
+        self.template_provider = TemplateProvider(Path("/home/kavia/templates"))
 
     def register_template(self, project_type: ProjectType,
                           template_class: type[ProjectTemplate]) -> None:
