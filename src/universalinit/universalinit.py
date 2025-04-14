@@ -123,10 +123,9 @@ class ProjectTemplateFactory:
 
     def __init__(self, external_template_path: Optional[Path] = None):
         self._template_classes: Dict[ProjectType, type[ProjectTemplate]] = {}
+        self.template_provider = TemplateProvider()
         if external_template_path:
             self.template_provider = TemplateProvider(external_template_path)
-        else:
-            self.template_provider = TemplateProvider()
 
     def register_template(self, project_type: ProjectType,
                           template_class: type[ProjectTemplate]) -> None:
@@ -145,10 +144,9 @@ class ProjectInitializer:
     """Main project initialization orchestrator."""
 
     def __init__(self, external_template_path: Optional[Path] = None):
+        self.template_factory = ProjectTemplateFactory()
         if external_template_path:
-            self.template_provider = TemplateProvider(external_template_path)
-        else: 
-            self.template_factory = ProjectTemplateFactory()
+            self.template_provider = TemplateProvider(external_template_path)            
         self.template_factory.register_template(ProjectType.ANDROID, AndroidTemplate)
         self.template_factory.register_template(ProjectType.ANGULAR, AngularTemplate)
         self.template_factory.register_template(ProjectType.ASTRO, AstroTemplate)
