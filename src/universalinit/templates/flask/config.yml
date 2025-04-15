@@ -27,6 +27,7 @@ linter:
   script_content: |
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
+    source venv/bin/activate
     flake8 .
     LINT_EXIT_CODE=$?
     if [ $LINT_EXIT_CODE -ne 0 ]; then
