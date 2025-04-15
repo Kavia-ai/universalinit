@@ -10,6 +10,7 @@ class ProjectType(Enum):
     ANDROID = "android"
     ANGULAR = "angular"
     ASTRO = "astro"
+    DJANGO = "django"
     FASTAPI = "fastapi"
     FLUTTER = "flutter"
     IOS = "ios"

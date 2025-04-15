@@ -63,6 +63,7 @@ uniinit --name my-app --type react --output ./my-app --author "Your Name" --para
 - `vite`: Vite application
 - `vue`: Vue application
 - `fastapi`: FastAPI backend
+- `django`: Django backend
 
 ### Parameter Examples
 
@@ -149,6 +150,11 @@ uniinit --name my-vite-app --type vite --output ./my-vite-app --author "Your Nam
 #### FastAPI Project
 ```bash
 uniinit --name my-fastapi-app --type fastapi --output ./my-fastapi-app --author "Your Name"
+```
+
+#### Django Project
+```bash
+uniinit --name my-django-app --type django --output ./my-django-app --author "Your Name"
 ```
 
 ## JSON Configuration
