@@ -101,8 +101,9 @@ Example usage:
   uniinit --name my-flutter-app --type flutter --author "Kavia" --output ./my-flutter-app
   uniinit --name my-android-app --type android --author "Kavia" --output ./my-android-app --parameters min_sdk=24,target_sdk=34,gradle_version=8.12
   uniinit --name my-astro-site --type astro --author "Kavia" --output ./my-astro-site --parameters typescript=true
-  uniinit --name my-fastapi-site --type fastapi --author "Kavia" --output ./my-fastapi-site
   uniinit --name my-django-site --type django --author "Kavia" --output ./my-django-site
+  uniinit --name my-fastapi-site --type fastapi --author "Kavia" --output ./my-fastapi-site
+  uniinit --name my-flask-site --type flask --author "Kavia" --output ./my-flask-site
   uniinit --name my-vite-app --type vite --author "Kavia" --output ./my-vite-app --parameters typescript=true
   uniinit --name my-nextjs-app --type nextjs --author "Kavia" --output ./my-nextjs-app
   uniinit --name my-nuxt-app --type nuxt --author "Kavia" --output ./my-nuxt-app
@@ -122,6 +123,7 @@ Available project types:
   - astro
   - django
   - fastapi
+  - flask
   - flutter
   - ios
   - nativescript

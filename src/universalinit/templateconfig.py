@@ -12,6 +12,7 @@ class ProjectType(Enum):
     ASTRO = "astro"
     DJANGO = "django"
     FASTAPI = "fastapi"
+    FLASK = "flask"
     FLUTTER = "flutter"
     IOS = "ios"
     NATIVESCRIPT = "nativescript"
