@@ -62,6 +62,7 @@ uniinit --name my-app --type react --output ./my-app --author "Your Name" --para
 - `typescript`: TypeScript application
 - `vite`: Vite application
 - `vue`: Vue application
+- `django`: Django backend
 - `fastapi`: FastAPI backend
 - `flask` : Flask backend
 
@@ -145,6 +146,11 @@ uniinit --name my-qwik-app --type qwik --output ./my-qwik-app --author "Your Nam
 #### Vite Project
 ```bash
 uniinit --name my-vite-app --type vite --output ./my-vite-app --author "Your Name" --parameters typescript=true,framework=react
+```
+
+#### Django Project
+```bash
+uniinit --name my-django-app --type django --output ./my-django-app --author "Your Name"
 ```
 
 #### FastAPI Project
