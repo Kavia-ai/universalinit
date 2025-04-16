@@ -5,6 +5,7 @@ TEMPLATE_MAP = {
    ProjectType.ANGULAR: "angular-kavia",
    ProjectType.ASTRO: "astro-kavia",
    ProjectType.DJANGO: "django-kavia",
+   ProjectType.EXPRESS: "express-kavia",
    ProjectType.FASTAPI: "fastapi-kavia",
    ProjectType.FLASK: "flask-kavia",
    ProjectType.FLUTTER: "flutter-kavia",

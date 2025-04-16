@@ -11,6 +11,7 @@ class ProjectType(Enum):
     ANGULAR = "angular"
     ASTRO = "astro"
     DJANGO = "django"
+    EXPRESS = "express"
     FASTAPI = "fastapi"
     FLASK = "flask"
     FLUTTER = "flutter"
