@@ -6,3 +6,4 @@ src/universalinit/__pycache__/
 *venv*
 .DS_Store
 *.pyc
+.env
