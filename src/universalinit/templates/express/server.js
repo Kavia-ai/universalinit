@@ -1,6 +1,6 @@
 // src/server.js
-const app = require("./app");
-const config = require("./config");
+const app = require('./app');
+const config = require('./config');
 
 const { port, nodeEnv } = config;
 
@@ -10,10 +10,10 @@ const server = app.listen(port, () => {
 });
 
 // Graceful shutdown
-process.on("SIGTERM", () => {
-  console.log("SIGTERM signal received: closing HTTP server");
+process.on('SIGTERM', () => {
+  console.log('SIGTERM signal received: closing HTTP server');
   server.close(() => {
-    console.log("HTTP server closed");
+    console.log('HTTP server closed');
     process.exit(0);
   });
 });

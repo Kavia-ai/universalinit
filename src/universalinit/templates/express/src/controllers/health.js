@@ -1,4 +1,4 @@
-const healthService = require("../services/health");
+const healthService = require('../services/health');
 
 class HealthController {
   check(req, res) {
