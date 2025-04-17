@@ -156,7 +156,7 @@ uniinit --name my-django-app --type django --output ./my-django-app --author "Yo
 
 #### Express Project
 ```bash
-uniinit --name my-express-app --type express --output ./my-express-app --author "Your Name"
+uniinit --name my-express-app --type express --output ./my-express-app --author "Your Name" --parameters typescript=true
 ```
 
 #### FastAPI Project
