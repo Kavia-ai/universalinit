@@ -47,6 +47,11 @@ class ProjectTemplate(ABC):
         """Get template initialization information."""
         return self.config_provider.get_init_info()
 
+    def get_run_command(self) -> str:
+        """Get run command."""
+        init_info = self.config_provider.get_init_info()
+        return init_info.run_tool.command
+
     @abstractmethod
     def generate_structure(self) -> None:
         """Generate the project structure."""

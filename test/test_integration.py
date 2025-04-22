@@ -104,6 +104,16 @@ def test_project_initialization(template_dir, project_config):
     package_json = (output_dir / "package.json").read_text()
     assert "test-react-app" in package_json
 
+def test_get_run_command(template_dir, project_config):
+    """Test getting the run command from a template."""
+    initializer = ProjectInitializer()
+    initializer.template_factory.template_provider = TemplateProvider(template_dir)
+    initializer.template_factory.register_template(ProjectType.REACT, ReactTemplate)
+    template = initializer.template_factory.create_template(project_config)
+    
+    run_command = template.get_run_command()
+    
+    assert run_command == "npm start"
 
 def test_missing_required_parameters(template_dir):
     """Test initialization with missing required parameters."""
