@@ -1,0 +1,39 @@
+build_cmd:
+  command: "bundle install"
+  working_directory: "{KAVIA_PROJECT_DIRECTORY}"
+
+env:
+  environment_initialized: true
+  ruby_version: "3.4.3"
+  bundle_version: "2.6.7"
+  rails_version: "8.0.2"
+
+init_files: []
+
+init_minimal: "Minimal RubyonRails application initialized"
+
+run_tool:
+  command: "bin/rails server -b 0.0.0.0 -p 3000"
+  working_directory: "{KAVIA_PROJECT_DIRECTORY}"
+
+test_tool:
+  command: "bundle exec rspec"
+  working_directory: "{KAVIA_PROJECT_DIRECTORY}"
+
+init_style: ""
+
+linter:
+  script_content: |
+    #!/bin/bash
+    cd {KAVIA_PROJECT_DIRECTORY}
+    bundle exec rubocop
+    LINT_EXIT_CODE=$?
+    if [ $LINT_EXIT_CODE -ne 0 ]; then
+      exit 1
+    fi
+
+post_processing:
+  script: |
+    #!/bin/bash
+    cd {KAVIA_PROJECT_DIRECTORY}
+    bundle install
