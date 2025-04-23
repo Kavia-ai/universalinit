@@ -66,6 +66,7 @@ uniinit --name my-app --type react --output ./my-app --author "Your Name" --para
 - `express`: Express backend
 - `fastapi`: FastAPI backend
 - `flask` : Flask backend
+- `rubyonrails`: Ruby on rails backend
 
 ### Parameter Examples
 
@@ -167,6 +168,11 @@ uniinit --name my-fastapi-app --type fastapi --output ./my-fastapi-app --author 
 #### Flask Project
 ```bash
 uniinit --name my-flask-app --type flask --output ./my-flask-app --author "Your Name"
+```
+
+#### Ruby on Rails Project
+```bash
+uniinit --name my-rubyonrails-app --type rubyonrails --output ./my-rubyonrails-app --author "Your Name"
 ```
 
 

@@ -158,6 +158,7 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.FASTAPI, FastAPITemplate)
         self.template_factory.register_template(ProjectType.EXPRESS, ExpressTemplate)
         self.template_factory.register_template(ProjectType.FLASK, FlaskTemplate)
+        self.template_factory.register_template(ProjectType.RUBYONRAILS, RubyonRailsTemplate)
         self.template_factory.register_template(ProjectType.FLUTTER, FlutterTemplate)
         self.template_factory.register_template(ProjectType.NATIVESCRIPT, NativeScriptTemplate)
         self.template_factory.register_template(ProjectType.NEXTJS, NextJSTemplate)
@@ -344,6 +345,31 @@ class FastAPITemplate(ProjectTemplate):
 
 class FlaskTemplate(ProjectTemplate):
     """Template implementation for Flask projects."""
+
+    def validate_parameters(self) -> bool:
+        # Define which parameters are allowed (not required)
+        allowed_params = {}
+        # If no parameters provided, that's fine
+        if not self.config.parameters:
+            return True
+        # All provided parameters should be in the allowed list
+        return all(param in allowed_params for param in self.config.parameters.keys())
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True  # Include hidden files like .gitignore
+        )
+
+    def setup_testing(self) -> None:
+        pass
+
+class RubyonRailsTemplate(ProjectTemplate):
+    """Template implementation for RubyonRails projects."""
 
     def validate_parameters(self) -> bool:
         # Define which parameters are allowed (not required)

@@ -14,6 +14,7 @@ class ProjectType(Enum):
     EXPRESS = "express"
     FASTAPI = "fastapi"
     FLASK = "flask"
+    RUBYONRAILS = "rubyonrails"
     FLUTTER = "flutter"
     IOS = "ios"
     NATIVESCRIPT = "nativescript"
