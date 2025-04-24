@@ -36,4 +36,5 @@ post_processing:
   script: |
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
+    sudo chmod -R +x bin
     bundle install
