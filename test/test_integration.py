@@ -6,7 +6,7 @@ import yaml
 import json
 
 from universalinit.templateconfig import ProjectConfig, ProjectType
-from universalinit.universalinit import ProjectInitializer, TemplateProvider, ReactTemplate
+from universalinit.universalinit import FastAPITemplate, ProjectInitializer, TemplateProvider, ReactTemplate
 
 
 @pytest.fixture
@@ -46,6 +46,7 @@ def template_dir(temp_dir):
             'working_directory': str(react_path)
         },
         'init_style': '',
+        'entry_point_url': 'http://localhost:3000',
         'linter': {
             'script_content': '#!/bin/bash\neslint "$@"'
         },
@@ -114,6 +115,18 @@ def test_get_run_command(template_dir, project_config):
     run_command = template.get_run_command()
     
     assert run_command == "npm start"
+
+
+def test_get_entry_point_url(template_dir, project_config):
+    """Test getting the run command from a template."""
+    initializer = ProjectInitializer()
+    initializer.template_factory.template_provider = TemplateProvider(template_dir)
+    initializer.template_factory.register_template(ProjectType.REACT, ReactTemplate)
+    template = initializer.template_factory.create_template(project_config)
+    
+    entry_point_url = template.get_entry_point_url()
+    
+    assert entry_point_url == "http://localhost:3000"
 
 def test_missing_required_parameters(template_dir):
     """Test initialization with missing required parameters."""

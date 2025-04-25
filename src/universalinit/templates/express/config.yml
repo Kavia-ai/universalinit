@@ -21,7 +21,7 @@ test_tool:
 
 init_style: ""
 
-entrypointurl: "http://localhost:3000/docs"
+entry_point_url: "http://localhost:3000/docs"
 
 linter:
   script_content: |
