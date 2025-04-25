@@ -16,7 +16,7 @@ init_files: []
 init_minimal: "Minimal Django application initialized"
 
 run_tool:
-  command: "source venv/bin/activate && python manage.py migrate && python manage.py runserver"
+  command: "source venv/bin/activate && python manage.py migrate && python manage.py runserver 0.0.0.0:3000"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
@@ -24,6 +24,8 @@ test_tool:
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 init_style: ""
+
+entrypointurl: "http://localhost:3000/docs"
 
 linter:
   script_content: |
