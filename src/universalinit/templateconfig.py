@@ -139,7 +139,6 @@ class TemplateConfigProvider:
             data = self.project_config.replace_parameters(data)
 
             config_data = yaml.safe_load(data)
-            print(config_data)
 
         return TemplateInitInfo(
             build_cmd=BuildCommand(
