@@ -36,5 +36,6 @@ linter:
 post_processing:
   script: |
     #!/bin/bash
+    export NG_CLI_ANALYTICS=false
     cd {KAVIA_PROJECT_DIRECTORY}
     npm install
