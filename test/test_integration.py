@@ -6,7 +6,7 @@ import yaml
 import json
 
 from universalinit.templateconfig import ProjectConfig, ProjectType
-from universalinit.universalinit import FastAPITemplate, ProjectInitializer, TemplateProvider, ReactTemplate
+from universalinit.universalinit import ProjectInitializer, TemplateProvider, ReactTemplate
 
 
 @pytest.fixture
