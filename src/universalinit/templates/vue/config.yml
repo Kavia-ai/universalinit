@@ -11,6 +11,8 @@ init_files: []
 
 init_minimal: "Minimal Vue application initialized"
 
+entry_point_url: "http://localhost:3000"
+
 run_tool:
   command: "npm run dev"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
