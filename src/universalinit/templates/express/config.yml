@@ -12,7 +12,7 @@ init_files: []
 init_minimal: "Minimal Express application initialized"
 
 run_tool:
-  command: "npm run dev"
+  command: "PORT=3000 HOST=0.0.0.0 npm run dev"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
@@ -20,6 +20,8 @@ test_tool:
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 init_style: ""
+
+entry_point_url: "http://localhost:3000/docs"
 
 linter:
   script_content: |

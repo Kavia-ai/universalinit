@@ -120,7 +120,7 @@ class TemplateInitInfo:
     linter_script: str
     pre_processing: ProcessingScript
     post_processing: ProcessingScript
-
+    entry_point_url: Optional[str] = None
 
 class TemplateConfigProvider:
     """Provides template initialization configuration."""
@@ -161,6 +161,7 @@ class TemplateConfigProvider:
                 command=config_data['run_tool']['command'],
                 working_directory=config_data['run_tool']['working_directory']
             ),
+            entry_point_url=config_data.get('entry_point_url', None),
             test_tool=TestTool(
                 command=config_data['test_tool']['command'],
                 working_directory=config_data['test_tool']['working_directory']

@@ -14,7 +14,7 @@ init_files: []
 init_minimal: "Minimal Flask application initialized"
 
 run_tool:
-  command: "source venv/bin/activate && flask run --port=8000"
+  command: "source venv/bin/activate && flask run --host 0.0.0.0 --port=3000"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
@@ -22,6 +22,8 @@ test_tool:
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 init_style: ""
+
+entry_point_url: "http://localhost:3000/docs"
 
 linter:
   script_content: |
