@@ -2,11 +2,11 @@
 const app = require('./app');
 const config = require('./config');
 
-const { port, nodeEnv } = config;
+const { port, host} = config;
 
 // Start the server
-const server = app.listen(port, () => {
-  console.log(`Server running in ${nodeEnv} mode on port ${port}`);
+const server = app.listen(port, host, () => {
+  console.log(`Server running on host ${host}, on port ${port}`);
 });
 
 // Graceful shutdown
