@@ -1,9 +1,10 @@
 [project]
 name = "universalinit"
-version = "0.1.16"
+version = "0.1.18"
 description = ""
 authors = [
-    {name = "Zoltan Kuscsik",email = "zoltan@s57.io"}
+    {name = "Zoltan Kuscsik",email = "zoltan@s57.io"},
+    {name = "Raphael Marchetti Calciolari",email = "rapha.marchetti@gmail.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.11"
