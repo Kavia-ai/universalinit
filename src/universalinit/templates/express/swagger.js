@@ -7,12 +7,8 @@ const options = {
       title: 'My Express API',
       version: '1.0.0',
       description: 'A simple Express API documented with Swagger',
-    },
-    servers: [
-      {
-        url: 'http://localhost:8000',
-      },
-    ],
+    }
+
   },
   apis: ['./src/routes/*.js'], // Path to the API docs
 };

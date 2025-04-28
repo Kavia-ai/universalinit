@@ -1,6 +1,18 @@
-require('dotenv').config();
+let config = {
+  port: process.env.PORT || 5900, // Default port
+  host: process.env.HOST || 'localhost', // Default host
+};
+
+function setPort(newPort) {
+  config.port = newPort;
+}
+
+function getConfig() {
+  return config;
+}
 
 module.exports = {
-  port: 3000,
-  host: "0.0.0.0"
+  ...config,
+  setPort,
+  getConfig,
 };
