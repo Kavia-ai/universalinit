@@ -104,6 +104,37 @@ class ProjectTemplate(ABC):
         if init_info.post_processing and init_info.post_processing.script:
             self._run_processing_script(init_info.post_processing.script, ProcessingStep.POST_PROCESSING)
 
+    def wait_for_post_process_completed(self, timeout: int = 30) -> bool:
+        """Wait for post-processing completion with a timeout.
+        
+        Args:
+            timeout: Maximum time to wait in seconds
+            
+        Returns:
+            True if post-processing completed successfully, False otherwise
+        """
+        status_file = self.config.output_path / "post_process_status.lock"
+        
+        # Check if post-processing was even initiated
+        init_info = self.get_init_info()
+        if not (init_info.post_processing and init_info.post_processing.script):
+            return True
+            
+        start_time = time.time()
+        while time.time() - start_time < timeout:
+            if status_file.exists():
+                status = status_file.read_text().strip()
+                if status == "SUCCESS":
+                    return True
+                elif status == "FAILED":
+                    return False
+                # If still running, continue waiting
+            # Status file may not exist yet, so we continue waiting
+            time.sleep(0.5)
+            
+        # Timeout reached
+        return False
+
     def _run_processing_script(self, script_content: str, process_type: str) -> None:
         """Run a processing script with the given content in the background.
         
@@ -158,14 +189,25 @@ rm -f "$0"
                 print(f"Starting {process_type} in background...")
                 
                 # Use nohup to make the process immune to hangups when the shell closes
-                res = subprocess.Popen(
-                    ['nohup', wrapper_path],
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                    stdin=subprocess.DEVNULL,
-                    start_new_session=True,  # Detach from parent process
-                    preexec_fn=os.setpgrp    # Ensure process is in its own process group
-                )
+                try:
+                    res = subprocess.Popen(
+                        ['nohup', wrapper_path],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                        stdin=subprocess.DEVNULL,
+                        start_new_session=True,  # Detach from parent process
+                        preexec_fn=os.setpgrp    # Ensure process is in its own process group
+                    )
+                except (OSError, ValueError, subprocess.SubprocessError) as e:
+                    # Fall back to a simpler version without process group isolation
+                    print(f"Warning: Could not use process isolation, falling back to simple execution: {str(e)}")
+                    res = subprocess.Popen(
+                        ['nohup', wrapper_path],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                        stdin=subprocess.DEVNULL,
+                        start_new_session=True
+                    )
                 
             else:
                 # For pre-processing, run synchronously
@@ -241,11 +283,25 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.TYPESCRIPT, TypeScriptTemplate)
         self.template_factory.register_template(ProjectType.VITE, ViteTemplate)
         self.template_factory.register_template(ProjectType.VUE, VueTemplate)
-
+        self.template = None
     def initialize_project(self, config: ProjectConfig) -> bool:
         """Initialize a project using the appropriate template."""
-        template = self.template_factory.create_template(config)
-        return template.initialize()
+        self.template = self.template_factory.create_template(config)
+        
+        return self.template.initialize()
+
+    def wait_for_post_process_completed(self, timeout: int = 30) -> bool:
+        """Wait for post-processing completion with a timeout.
+        
+        Args:
+            timeout: Maximum time to wait in seconds
+            
+        Returns:
+            True if post-processing completed successfully, False otherwise
+        """
+        if self.template is None:
+            raise ValueError("Project not initialized")
+        return self.template.wait_for_post_process_completed(timeout)
 
     @staticmethod
     def load_config(config_path: Path) -> ProjectConfig:

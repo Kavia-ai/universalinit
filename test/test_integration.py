@@ -4,6 +4,7 @@ import shutil
 import tempfile
 import yaml
 import json
+import time
 
 from universalinit.templateconfig import ProjectConfig, ProjectType
 from universalinit.universalinit import ProjectInitializer, TemplateProvider, ReactTemplate
@@ -90,6 +91,7 @@ def test_project_initialization(template_dir, project_config):
     initializer.template_factory.register_template(ProjectType.REACT, ReactTemplate)
 
     success = initializer.initialize_project(project_config)
+    assert initializer.wait_for_post_process_completed()
     assert success
 
     # Verify output directory structure
@@ -169,6 +171,8 @@ def test_post_processing_execution(template_dir, project_config, temp_dir):
 
     success = initializer.initialize_project(project_config)
     assert success
+    assert initializer.wait_for_post_process_completed()
+
     assert marker_path.exists()
 
 
@@ -214,7 +218,7 @@ def test_template_variable_replacement(template_dir, project_config):
 
     success = initializer.initialize_project(project_config)
     assert success
-
+    assert initializer.wait_for_post_process_completed()
     output_file = project_config.output_path / "test.txt"
     assert output_file.exists()
 
