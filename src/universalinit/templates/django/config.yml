@@ -16,11 +16,11 @@ init_files: []
 init_minimal: "Minimal Django application initialized"
 
 run_tool:
-  command: "source venv/bin/activate && python manage.py migrate && python manage.py runserver 0.0.0.0:3000"
+  command: "./start.sh"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
-  command: "source venv/bin/activate && python manage.py test"
+  command: "python manage.py test"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 init_style: ""
@@ -45,3 +45,4 @@ post_processing:
     python3 -m venv venv
     source venv/bin/activate
     pip install -r requirements.txt
+    chmod +x start.sh

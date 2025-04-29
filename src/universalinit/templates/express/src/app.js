@@ -6,7 +6,17 @@ const swaggerSpec = require('../swagger');
 // Initialize express app
 const app = express();
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/docs', swaggerUi.serve, (req, res, next) => {
+  const dynamicSpec = {
+    ...swaggerSpec,
+    servers: [
+      {
+        url: `${req.protocol}://${req.get('host')}`,
+      },
+    ],
+  };
+  swaggerUi.setup(dynamicSpec)(req, res, next);
+});
 
 // Parse JSON request body
 app.use(express.json());
