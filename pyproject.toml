@@ -1,21 +1,15 @@
-[build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry]
+[project]
 name = "universalinit"
-version = "0.1.17"
+version = "0.1.18"
 description = ""
-authors = ["Zoltan Kuscsik <zoltan@s57.io>"]
-readme = "README.md"
-packages = [
-    { from = "src", include = "universalinit" }
+authors = [
+    {name = "Zoltan Kuscsik",email = "zoltan@s57.io"},
+    {name = "Raphael Marchetti Calciolari",email = "rapha.marchetti@gmail.com"}
 ]
-scripts = { uniinit = "universalinit.cli:main" }
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "PyYAML",
+    "pytest (>=8.3.4,<9.0.0)"
+]
 
-[tool.poetry.dependencies]
-python = ">=3.11"
-PyYAML = "*"
-
-[tool.poetry.group.dev.dependencies]
-pytest = ">=8.3.4,<9.0.0"
