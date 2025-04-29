@@ -1,5 +1,16 @@
 #!/bin/bash
 
-. ./venv/bin/activate
+. venv/bin/activate
+
+PORT=5900
+
+while sudo lsof -iTCP:$PORT -sTCP:LISTEN -n -P >/dev/null
+do
+  echo "Port $PORT is in use. Trying $((PORT+1))..."
+  PORT=$((PORT+1))
+done
+
+echo "Found free port: $PORT"
+
 python manage.py migrate 
-python manage.py runserver 0.0.0.0:3000
+python manage.py runserver 0.0.0.0:$PORT

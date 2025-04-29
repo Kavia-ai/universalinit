@@ -1,4 +1,15 @@
 #!/bin/bash
 
-. ./venv/bin/activate
-uvicorn src.api.main:app --host 0.0.0.0 --port 3000
+. venv/bin/activate
+
+PORT=5900
+
+while sudo lsof -iTCP:$PORT -sTCP:LISTEN -n -P >/dev/null
+do
+  echo "Port $PORT is in use. Trying $((PORT+1))..."
+  PORT=$((PORT+1))
+done
+
+echo "Found free port: $PORT"
+
+uvicorn src.api.main:app --host 0.0.0.0 --port $PORT
