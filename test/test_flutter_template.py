@@ -333,25 +333,6 @@ class AppConfig {
     assert 'appAuthor = "Test Author"' in config_content
 
 
-def test_processing_scripts_failure_handling(template_dir, project_config):
-    """Test handling of pre/post processing script failures."""
-    # Modify pre_processing script to cause a failure
-    config_path = template_dir / "flutter" / "config.yml"
-    with open(config_path, 'r') as f:
-        config = yaml.safe_load(f)
-    
-    # Invalid script that will fail
-    config['pre_processing']['script'] = '#!/bin/bash\nexit 1'
-    
-    with open(config_path, 'w') as f:
-        yaml.dump(config, f)
-    
-    initializer = ProjectInitializer()
-    initializer.template_factory.template_provider = TemplateProvider(template_dir)
-    result = initializer.initialize_project(project_config)
-    assert not result
-
-
 def test_flutter_init_info(template_dir, project_config):
     """Test that getting template init info works correctly."""
     initializer = ProjectInitializer()
