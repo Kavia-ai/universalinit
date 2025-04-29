@@ -1,6 +1,8 @@
 import os
 import subprocess
 import tempfile
+import time
+import signal
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from enum import Enum, auto
@@ -10,6 +12,10 @@ import json
 
 from .templateconfig import TemplateConfigProvider, TemplateInitInfo, ProjectType, ProjectConfig
 
+class ProcessingStep(Enum):
+    """Enum for processing steps."""
+    PRE_PROCESSING = "Pre-processing"
+    POST_PROCESSING = "Post-processing"
 
 class TemplateProvider:
     """Manages template locations and access."""
@@ -88,16 +94,49 @@ class ProjectTemplate(ABC):
         """Run pre-processing script if available."""
         init_info = self.get_init_info()
         if init_info.pre_processing and init_info.pre_processing.script:
-            self._run_processing_script(init_info.pre_processing.script, "Pre-processing")
+            self._run_processing_script(init_info.pre_processing.script, ProcessingStep.PRE_PROCESSING)
+        else:
+            pass
 
     def run_post_processing(self) -> None:
         """Run post-processing script if available."""
         init_info = self.get_init_info()
         if init_info.post_processing and init_info.post_processing.script:
-            self._run_processing_script(init_info.post_processing.script, "Post-processing")
+            self._run_processing_script(init_info.post_processing.script, ProcessingStep.POST_PROCESSING)
+
+    def wait_for_post_process_completed(self, timeout: int = 30) -> bool:
+        """Wait for post-processing completion with a timeout.
+        
+        Args:
+            timeout: Maximum time to wait in seconds
+            
+        Returns:
+            True if post-processing completed successfully, False otherwise
+        """
+        status_file = self.config.output_path / "post_process_status.lock"
+        
+        # Check if post-processing was even initiated
+        init_info = self.get_init_info()
+        if not (init_info.post_processing and init_info.post_processing.script):
+            return True
+            
+        start_time = time.time()
+        while time.time() - start_time < timeout:
+            if status_file.exists():
+                status = status_file.read_text().strip()
+                if status == "SUCCESS":
+                    return True
+                elif status == "FAILED":
+                    return False
+                # If still running, continue waiting
+            # Status file may not exist yet, so we continue waiting
+            time.sleep(0.5)
+            
+        # Timeout reached
+        return False
 
     def _run_processing_script(self, script_content: str, process_type: str) -> None:
-        """Run a processing script with the given content.
+        """Run a processing script with the given content in the background.
         
         Args:
             script_content: The content of the script to run
@@ -111,25 +150,93 @@ class ProjectTemplate(ABC):
 
         try:
             os.chmod(script_path, 0o755)
+            
+            # If this is post-processing, run it in a background process
+            if process_type.value == ProcessingStep.POST_PROCESSING.value:
+                status_file = self.config.output_path / "post_process_status.lock"
+                log_file = self.config.output_path / "post_process.log"
+                
+                # Create a wrapper script that manages status file and runs the actual script
+                with tempfile.NamedTemporaryFile(mode='w', suffix='.sh', delete=False) as wrapper_file:
+                    wrapper_content = f"""#!/bin/bash
+# Write RUNNING status to file
+echo "RUNNING" > "{status_file}"
 
-            result = subprocess.run(
-                [script_path],
-                check=True,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True
-            )
+# Run the actual script
+"{script_path}" > "{log_file}" 2>&1
+EXIT_CODE=$?
 
-            if result.stderr:
-                print(f"{process_type} errors:\n{result.stderr}")
+# Check if successful
+if [ $EXIT_CODE -eq 0 ]; then
+    echo "SUCCESS" > "{status_file}"
+else
+    echo "FAILED" > "{status_file}"
+    echo "Process failed with exit code $EXIT_CODE" >> "{log_file}"
+fi
+
+# Clean up the original script file
+rm -f "{script_path}"
+
+# Clean up self
+rm -f "$0"
+"""
+                    wrapper_file.write(wrapper_content)
+                    wrapper_file.flush()
+                    wrapper_path = wrapper_file.name
+                
+                os.chmod(wrapper_path, 0o755)
+                
+                print(f"Starting {process_type} in background...")
+                
+                # Use nohup to make the process immune to hangups when the shell closes
+                try:
+                    res = subprocess.Popen(
+                        ['nohup', wrapper_path],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                        stdin=subprocess.DEVNULL,
+                        start_new_session=True,  # Detach from parent process
+                        preexec_fn=os.setpgrp    # Ensure process is in its own process group
+                    )
+                except (OSError, ValueError, subprocess.SubprocessError) as e:
+                    # Fall back to a simpler version without process group isolation
+                    print(f"Warning: Could not use process isolation, falling back to simple execution: {str(e)}")
+                    res = subprocess.Popen(
+                        ['nohup', wrapper_path],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                        stdin=subprocess.DEVNULL,
+                        start_new_session=True
+                    )
+                
+            else:
+                # For pre-processing, run synchronously
+                result = subprocess.run(
+                    [script_path],
+                    check=True,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    text=True
+                )
+
+                if result.stderr:
+                    print(f"{process_type} errors:\n{result.stderr}")
+                
+                # Clean up the temporary script file
+                Path(script_path).unlink()
 
         except subprocess.CalledProcessError as e:
             print(f"{process_type} failed with exit code {e.returncode}")
             print(f"Error output:\n{e.stderr}")
-            raise
-        finally:
-            # Clean up the temporary script file
-            Path(script_path).unlink()
+            
+            # For pre-processing, we want to halt on error
+            if process_type == "Pre-processing":
+                # Clean up the temporary script file
+                Path(script_path).unlink()
+                raise
+            else:
+                # For post-processing failures in background mode, the wrapper script will handle it
+                pass
 
 class ProjectTemplateFactory:
     """Factory for creating project templates."""
@@ -176,11 +283,25 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.TYPESCRIPT, TypeScriptTemplate)
         self.template_factory.register_template(ProjectType.VITE, ViteTemplate)
         self.template_factory.register_template(ProjectType.VUE, VueTemplate)
-
+        self.template = None
     def initialize_project(self, config: ProjectConfig) -> bool:
         """Initialize a project using the appropriate template."""
-        template = self.template_factory.create_template(config)
-        return template.initialize()
+        self.template = self.template_factory.create_template(config)
+        
+        return self.template.initialize()
+
+    def wait_for_post_process_completed(self, timeout: int = 30) -> bool:
+        """Wait for post-processing completion with a timeout.
+        
+        Args:
+            timeout: Maximum time to wait in seconds
+            
+        Returns:
+            True if post-processing completed successfully, False otherwise
+        """
+        if self.template is None:
+            raise ValueError("Project not initialized")
+        return self.template.wait_for_post_process_completed(timeout)
 
     @staticmethod
     def load_config(config_path: Path) -> ProjectConfig:
@@ -207,7 +328,6 @@ class AndroidTemplate(ProjectTemplate):
 
     def generate_structure(self) -> None:
         replacements = self.config.get_replaceable_parameters()
-        
         FileSystemHelper.copy_template(
             self.template_path,
             self.config.output_path,

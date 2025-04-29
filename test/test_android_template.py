@@ -1,3 +1,4 @@
+import time
 import pytest
 from pathlib import Path
 import shutil
@@ -52,7 +53,7 @@ def template_dir(temp_dir):
         'linter': {
             'script_content': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\n./gradlew lint\nLINT_EXIT_CODE=$?\nif [ $LINT_EXIT_CODE -ne 0 ]; then\n   exit 1\nfi'
         },
-        'post_processing': {
+        'pre_processing': {
             'script': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\nchmod +x ./init_script.sh\n./init_script.sh $KAVIA_TEMPLATE_PROJECT_NAME\nrm init_script.sh\necho "Android project post-processing complete"'
         }
     }
@@ -125,7 +126,7 @@ def test_android_initialization(template_dir, project_config):
     assert output_dir.exists()
     assert (output_dir / "app" / "build.gradle").exists()
     assert (output_dir / "settings.gradle").exists()
-
+        
     # Verify content replacement
     build_gradle_content = (output_dir / "app" / "build.gradle").read_text()
     assert "testandroidapp" in build_gradle_content
@@ -204,15 +205,15 @@ public class AppConfig {
     assert 'APP_AUTHOR = "Test Author"' in config_content
 
 
-def test_post_processing_execution(template_dir, project_config, temp_dir):
+def test_pre_processing_execution(template_dir, project_config, temp_dir):
     """Test that post-processing script is executed."""
     # Create a test post-processing script that creates a marker file
     config_path = template_dir / "android" / "config.yml"
     with open(config_path, 'r') as f:
         config = yaml.safe_load(f)
 
-    marker_path = temp_dir / "post_processing_executed"
-    config['post_processing']['script'] = f"""#!/bin/bash
+    marker_path = temp_dir / "pre_processing_executed"
+    config['pre_processing']['script'] = f"""#!/bin/bash
     touch {marker_path}
     """
 
@@ -276,13 +277,13 @@ def test_android_with_missing_template_config(temp_dir, project_config):
 
 def test_processing_scripts_failure_handling(template_dir, project_config):
     """Test handling of pre/post processing script failures."""
-    # Modify post_processing script to cause a failure
+    # Modify pre_processing script to cause a failure
     config_path = template_dir / "android" / "config.yml"
     with open(config_path, 'r') as f:
         config = yaml.safe_load(f)
     
     # Invalid script that will fail
-    config['post_processing']['script'] = '#!/bin/bash\nexit 1'
+    config['pre_processing']['script'] = '#!/bin/bash\nexit 1'
     
     with open(config_path, 'w') as f:
         yaml.dump(config, f)
