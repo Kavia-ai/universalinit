@@ -8,7 +8,6 @@ const options = {
       version: '1.0.0',
       description: 'A simple Express API documented with Swagger',
     }
-
   },
   apis: ['./src/routes/*.js'], // Path to the API docs
 };

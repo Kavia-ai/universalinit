@@ -1,6 +1,6 @@
 let config = {
-  port: process.env.PORT || 5900, // Default port
-  host: process.env.HOST || 'localhost', // Default host
+  port: 5900, // Default port
+  host: 'localhost', // Default host
 };
 
 function setPort(newPort) {
