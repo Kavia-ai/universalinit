@@ -1,5 +1,5 @@
 let config = {
-  port: 5900, // Default port
+  port: 3000, // Default port
   host: 'localhost', // Default host
 };
 

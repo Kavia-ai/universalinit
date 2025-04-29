@@ -2,7 +2,7 @@
 
 . venv/bin/activate
 
-PORT=5900
+PORT=3000
 
 while sudo lsof -iTCP:$PORT -sTCP:LISTEN -n -P >/dev/null
 do
