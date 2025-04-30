@@ -2,7 +2,7 @@
 
 . venv/bin/activate
 
-PORT=3000
+PORT=${1:-3000}
 
 while sudo lsof -iTCP:$PORT -sTCP:LISTEN -n -P >/dev/null
 do
@@ -12,4 +12,4 @@ done
 
 echo "Found free port: $PORT"
 
-flask run --host 0.0.0.0 --port=$PORT
+flask run --host 0.0.0.0 --port $PORT

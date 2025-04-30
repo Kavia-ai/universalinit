@@ -1,3 +1,5 @@
+#!/bin/bash
+
 PORT=3000
 
 while sudo lsof -iTCP:$PORT -sTCP:LISTEN -n -P >/dev/null
@@ -8,4 +10,4 @@ done
 
 echo "Found free port: $PORT"
 
-CI=true PORT=${PORT} npm run dev
+PORT=$PORT npm start

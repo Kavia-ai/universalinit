@@ -12,7 +12,7 @@ init_files: []
 init_minimal: "Minimal Angular application initialized"
 
 run_tool:
-  command: "npm start"
+  command: "./start.sh"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
@@ -39,3 +39,4 @@ post_processing:
     export NG_CLI_ANALYTICS=false
     cd {KAVIA_PROJECT_DIRECTORY}
     npm install
+    chmod +x start.sh
