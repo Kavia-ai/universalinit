@@ -31,11 +31,11 @@ linter:
        exit 1
     fi
 
-post_processing:
+pre_processing:
   script: |
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
     chmod +x ./init_script.sh
     ./init_script.sh {KAVIA_TEMPLATE_PROJECT_NAME}
     rm init_script.sh
-    echo "Android project post-processing complete"
+    echo "Android project pre-processing complete"

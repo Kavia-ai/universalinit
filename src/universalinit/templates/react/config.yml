@@ -36,3 +36,4 @@ post_processing:
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
     npm install
+    chmod +x start.sh

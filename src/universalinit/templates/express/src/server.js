@@ -1,21 +1,33 @@
-// src/server.js
 const app = require('./app');
 const config = require('./config');
 
-const { port, nodeEnv } = config;
+let { port, host } = config;
 
-// Start the server
-const server = app.listen(port, () => {
-  console.log(`Server running in ${nodeEnv} mode on port ${port}`);
-});
-
-// Graceful shutdown
-process.on('SIGTERM', () => {
-  console.log('SIGTERM signal received: closing HTTP server');
-  server.close(() => {
-    console.log('HTTP server closed');
-    process.exit(0);
+function startServer(portToTry) {
+  const server = app.listen(portToTry, () => {
+    console.log(`✅ Server running in http://${host}:${portToTry}`);
   });
-});
+
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      startServer(portToTry + 1);
+    } else {
+      console.error('❌ Server error:', err);
+      process.exit(1);
+    }
+  });
+  // Graceful shutdown
+  process.on('SIGTERM', () => {
+    console.log('SIGTERM signal received: closing HTTP server');
+    server.close(() => {
+      console.log('HTTP server closed');
+      process.exit(0);
+    });
+  });
+
+  return server;
+}
+
+const server = startServer(port);
 
 module.exports = server;
