@@ -1,7 +1,5 @@
 #!/bin/bash
 
-. venv/bin/activate
-
 PORT=3000
 
 while lsof -iTCP:$PORT -sTCP:LISTEN -n -P >/dev/null
@@ -12,5 +10,4 @@ done
 
 echo "Found free port: $PORT"
 
-python manage.py migrate 
-python manage.py runserver 0.0.0.0:$PORT
+PORT=$PORT BROWSER=none npm start

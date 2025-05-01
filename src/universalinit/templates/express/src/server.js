@@ -5,7 +5,7 @@ let { port, host } = config;
 
 function startServer(portToTry) {
   const server = app.listen(portToTry, () => {
-    console.log(`✅ Server running in ${host}, on port ${portToTry}`);
+    console.log(`✅ Server running in http://${host}:${portToTry}`);
   });
 
   server.on('error', (err) => {

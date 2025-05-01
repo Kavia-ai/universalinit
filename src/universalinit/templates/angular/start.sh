@@ -1,7 +1,5 @@
 #!/bin/bash
 
-. venv/bin/activate
-
 PORT=3000
 
 while lsof -iTCP:$PORT -sTCP:LISTEN -n -P >/dev/null
@@ -10,7 +8,6 @@ do
   PORT=$((PORT+1))
 done
 
-echo "Found free port: $PORT"
+echo "Found free port: http://localhost:$PORT"
 
-python manage.py migrate 
-python manage.py runserver 0.0.0.0:$PORT
+npm start -- --port $PORT
