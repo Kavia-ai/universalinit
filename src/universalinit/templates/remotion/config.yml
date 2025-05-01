@@ -12,7 +12,7 @@ init_files: []
 init_minimal: "Minimal Remotion video project initialized"
 
 run_tool:
-  command: "npm run dev -- --port <port>"
+  command: "BROWSER=none npm run dev -- --port <port>"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
