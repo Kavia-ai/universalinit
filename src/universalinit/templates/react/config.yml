@@ -12,7 +12,7 @@ init_files: []
 init_minimal: "Minimal application initialized"
 
 run_tool:
-  command: "PORT=<port> npm start"
+  command: "PORT=<port> BROWSER=none npm start"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
