@@ -39,4 +39,3 @@ post_processing:
     export NG_CLI_ANALYTICS=false
     cd {KAVIA_PROJECT_DIRECTORY}
     npm install
-    chmod +x start.sh
