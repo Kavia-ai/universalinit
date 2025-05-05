@@ -1,21 +1,12 @@
 const app = require('./app');
-const config = require('./config');
 
-let { port, host } = config;
+const PORT = process.env.PORT || 3001;
+const HOST = process.env.HOST || 'localhost';
 
-function startServer(portToTry) {
-  const server = app.listen(portToTry, () => {
-    console.log(`✅ Server running in http://${host}:${portToTry}`);
-  });
+const server = app.listen(PORT, HOST, () => {
+  console.log(`Server running at http://${HOST}:${PORT}`);
+});
 
-  server.on('error', (err) => {
-    if (err.code === 'EADDRINUSE') {
-      startServer(portToTry + 1);
-    } else {
-      console.error('❌ Server error:', err);
-      process.exit(1);
-    }
-  });
   // Graceful shutdown
   process.on('SIGTERM', () => {
     console.log('SIGTERM signal received: closing HTTP server');
@@ -24,10 +15,5 @@ function startServer(portToTry) {
       process.exit(0);
     });
   });
-
-  return server;
-}
-
-const server = startServer(port);
 
 module.exports = server;
