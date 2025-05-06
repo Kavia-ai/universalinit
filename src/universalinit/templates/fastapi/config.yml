@@ -14,7 +14,7 @@ init_files: []
 init_minimal: "Minimal FastAPI application initialized"
 
 run_tool:
-  command: "source venv/bin/activate && PYTHONPATH=. uvicorn src.api.main:app --host 0.0.0.0 --port <port>"
+  command: "source venv/bin/activate && uvicorn src.api.main:app --host 0.0.0.0 --port <port>"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
