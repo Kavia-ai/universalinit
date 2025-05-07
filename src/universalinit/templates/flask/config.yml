@@ -14,7 +14,7 @@ init_files: []
 init_minimal: "Minimal Flask application initialized"
 
 run_tool:
-  command: "./start.sh"
+  command: "source venv/bin/activate && flask run --host 0.0.0.0 --port <port> --reload"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
@@ -43,5 +43,3 @@ post_processing:
     python3 -m venv venv
     source venv/bin/activate
     pip install -r requirements.txt
-    chmod +x start.sh
-

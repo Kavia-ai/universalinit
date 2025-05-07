@@ -12,7 +12,7 @@ init_files: []
 init_minimal: "Minimal Angular application initialized"
 
 run_tool:
-  command: "./start.sh"
+  command: "npm start -- --port <port>"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
@@ -25,7 +25,7 @@ linter:
   script_content: |
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
-    npx eslint 
+    npx eslint
     ESLINT_EXIT_CODE=$?
     npm run build
     BUILD_EXIT_CODE=$?
@@ -39,4 +39,3 @@ post_processing:
     export NG_CLI_ANALYTICS=false
     cd {KAVIA_PROJECT_DIRECTORY}
     npm install
-    chmod +x start.sh
