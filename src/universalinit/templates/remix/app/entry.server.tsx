@@ -24,6 +24,17 @@ export default function handleRequest(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   loadContext: AppLoadContext
 ) {
+  responseHeaders.set('Access-Control-Allow-Origin', '*');
+  responseHeaders.set('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  responseHeaders.set('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  
+  if (request.method.toLowerCase() === 'options') {
+    return new Response(null, {
+      status: 204,
+      headers: responseHeaders,
+    });
+  }
+
   return isbot(request.headers.get("user-agent") || "")
     ? handleBotRequest(
         request,
