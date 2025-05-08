@@ -1,3 +1,4 @@
+const cors = require('cors');
 const express = require('express');
 const routes = require('./routes');
 const swaggerUi = require('swagger-ui-express');
@@ -5,6 +6,12 @@ const swaggerSpec = require('../swagger');
 
 // Initialize express app
 const app = express();
+
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use('/docs', swaggerUi.serve, (req, res, next) => {
   const dynamicSpec = {
