@@ -14,7 +14,12 @@ def temp_dir():
     """Create a temporary directory for test outputs."""
     temp_path = Path(tempfile.mkdtemp())
     yield temp_path
-    shutil.rmtree(temp_path)
+    try:
+        # Use ignore_errors=True to handle directories that might have read-only files
+        shutil.rmtree(temp_path, ignore_errors=True)
+    except OSError:
+        # If that still fails, log the error but don't fail the test
+        print(f"Warning: Could not remove temporary directory {temp_path}")
 
 
 @pytest.fixture
@@ -116,6 +121,10 @@ def test_project_initialization(template_dir, project_config):
 
 def test_parameter_validation(template_dir, temp_dir):
     """Test parameter validation for Astro template."""
+    # Use unique subdirectories for each test
+    output_valid_dir = temp_dir / "output-valid"
+    output_invalid_dir = temp_dir / "output-invalid"
+    
     # Valid parameters
     valid_config = ProjectConfig(
         name="valid-params",
@@ -123,7 +132,7 @@ def test_parameter_validation(template_dir, temp_dir):
         description="Test with valid parameters",
         author="Test Author",
         project_type=ProjectType.ASTRO,
-        output_path=temp_dir / "output-valid",
+        output_path=output_valid_dir,
         parameters={
             "typescript": True,
             "integration_tailwind": True,
@@ -138,7 +147,7 @@ def test_parameter_validation(template_dir, temp_dir):
         description="Test with invalid parameters",
         author="Test Author",
         project_type=ProjectType.ASTRO,
-        output_path=temp_dir / "output-invalid",
+        output_path=output_invalid_dir,
         parameters={
             "invalid_param": True
         }
@@ -155,6 +164,15 @@ def test_parameter_validation(template_dir, temp_dir):
     # Invalid parameters should fail
     success_invalid = initializer.initialize_project(invalid_config)
     assert not success_invalid
+    
+    # Clean up directories directly to prevent teardown issues
+    try:
+        if output_valid_dir.exists():
+            shutil.rmtree(output_valid_dir, ignore_errors=True)
+        if output_invalid_dir.exists():
+            shutil.rmtree(output_invalid_dir, ignore_errors=True)
+    except Exception as e:
+        print(f"Warning: Error cleaning up test directories: {str(e)}")
 
 
 def test_post_processing_execution(template_dir, project_config, temp_dir):
