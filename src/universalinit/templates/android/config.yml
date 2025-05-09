@@ -31,7 +31,7 @@ linter:
        exit 1
     fi
 
-pre_processing:
+post_processing:
   script: |
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
