@@ -134,6 +134,7 @@ def test_post_processing_execution(template_dir, project_config, temp_dir):
 
     success = initializer.initialize_project(project_config)
     assert success
+    assert initializer.wait_for_post_process_completed()
     assert marker_path.exists()
 
 

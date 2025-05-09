@@ -17,7 +17,12 @@ def temp_dir():
     """Create a temporary directory for test outputs."""
     temp_path = Path(tempfile.mkdtemp())
     yield temp_path
-    shutil.rmtree(temp_path)
+    try:
+        # Use ignore_errors=True to handle directories that might have read-only files
+        shutil.rmtree(temp_path, ignore_errors=True)
+    except OSError:
+        # If that still fails, log the error but don't fail the test
+        print(f"Warning: Could not remove temporary directory {temp_path}")
 
 
 @pytest.fixture
@@ -247,31 +252,39 @@ def test_flutter_initialization(template_dir, project_config):
         success = initializer.initialize_project(project_config)
         assert success
     
-    # Verify output directory structure
     output_dir = project_config.output_path
-    assert output_dir.exists()
-    assert (output_dir / "lib").exists()
-    assert (output_dir / "lib" / "main.dart").exists()
-    assert (output_dir / "pubspec.yaml").exists()
-    assert (output_dir / "test").exists()
-    assert (output_dir / "android").exists()
-    assert (output_dir / "android" / "app" / "build.gradle").exists()
-    
-    # Verify hidden files/dirs were copied
-    assert (output_dir / ".gitignore").exists()
-    assert (output_dir / ".idea").exists()
-    
-    # Verify content replacement in main.dart
-    main_content = (output_dir / "lib" / "main.dart").read_text()
-    assert "flutter_test_app" in main_content
-    # The template is using direct variable substitution, not camel-casing the app name
-    assert "$flutter_test_appApp" in main_content
-    
-    # Verify content replacement in pubspec.yaml
-    pubspec = (output_dir / "pubspec.yaml").read_text()
-    assert "flutter_test_app" in pubspec
-    assert "Test Flutter Application" in pubspec
-    assert "Test Author" in pubspec
+    try:
+        # Verify output directory structure
+        assert output_dir.exists()
+        assert (output_dir / "lib").exists()
+        assert (output_dir / "lib" / "main.dart").exists()
+        assert (output_dir / "pubspec.yaml").exists()
+        assert (output_dir / "test").exists()
+        assert (output_dir / "android").exists()
+        assert (output_dir / "android" / "app" / "build.gradle").exists()
+        
+        # Verify hidden files/dirs were copied
+        assert (output_dir / ".gitignore").exists()
+        assert (output_dir / ".idea").exists()
+        
+        # Verify content replacement in main.dart
+        main_content = (output_dir / "lib" / "main.dart").read_text()
+        assert "flutter_test_app" in main_content
+        # The template is using direct variable substitution, not camel-casing the app name
+        assert "$flutter_test_appApp" in main_content
+        
+        # Verify content replacement in pubspec.yaml
+        pubspec = (output_dir / "pubspec.yaml").read_text()
+        assert "flutter_test_app" in pubspec
+        assert "Test Flutter Application" in pubspec
+        assert "Test Author" in pubspec
+    finally:
+        # Ensure cleanup happens even if assertions fail
+        try:
+            if output_dir.exists():
+                shutil.rmtree(output_dir, ignore_errors=True)
+        except Exception as e:
+            print(f"Warning: Error cleaning up output directory: {str(e)}")
 
 
 def test_flutter_template_validates_parameters():
@@ -390,6 +403,11 @@ def test_template_project_variations(template_dir, temp_dir):
     initializer = ProjectInitializer()
     initializer.template_factory.template_provider = TemplateProvider(template_dir)
     
+    minimal_output_dir = minimal_config.output_path
+    detailed_output_dir = detailed_config.output_path
+    minimal_pubspec_content = ""
+    detailed_pubspec_content = ""
+    
     # Mock subprocess to avoid actual command execution
     with patch('subprocess.run') as mock_run:
         mock_result = MagicMock()
@@ -397,28 +415,43 @@ def test_template_project_variations(template_dir, temp_dir):
         mock_result.stderr = ""
         mock_run.return_value = mock_result
         
-        # Test minimal configuration
-        success1 = initializer.initialize_project(minimal_config)
-        assert success1
-        
-        # Test detailed configuration
-        success2 = initializer.initialize_project(detailed_config)
-        assert success2
-    
-    # Verify both projects were created with correct names
-    assert (minimal_config.output_path / "pubspec.yaml").exists()
-    assert (detailed_config.output_path / "pubspec.yaml").exists()
-    
-    # Verify content in minimal project
-    minimal_pubspec = (minimal_config.output_path / "pubspec.yaml").read_text()
-    assert "minimal_app" in minimal_pubspec
-    assert "Minimal Flutter App" in minimal_pubspec
-    
-    # Verify content in detailed project
-    detailed_pubspec = (detailed_config.output_path / "pubspec.yaml").read_text()
-    assert "full_app" in detailed_pubspec
-    assert "Full Flutter Application with detailed description" in detailed_pubspec
-    assert "Test Team from Acme Corporation" in detailed_pubspec
+        try:
+            # Test minimal configuration
+            success1 = initializer.initialize_project(minimal_config)
+            assert success1
+            
+            # Test detailed configuration
+            success2 = initializer.initialize_project(detailed_config)
+            assert success2
+            
+            # Verify both projects were created with correct names
+            assert minimal_output_dir.exists()
+            assert detailed_output_dir.exists()
+            
+            # Store content for verification before cleanup
+            if (minimal_output_dir / "pubspec.yaml").exists():
+                minimal_pubspec_content = (minimal_output_dir / "pubspec.yaml").read_text()
+            
+            if (detailed_output_dir / "pubspec.yaml").exists():
+                detailed_pubspec_content = (detailed_output_dir / "pubspec.yaml").read_text()
+            
+            # Verify content in minimal project
+            assert "minimal_app" in minimal_pubspec_content
+            assert "Minimal Flutter App" in minimal_pubspec_content
+            
+            # Verify content in detailed project
+            assert "full_app" in detailed_pubspec_content
+            assert "Full Flutter Application with detailed description" in detailed_pubspec_content
+            assert "Test Team from Acme Corporation" in detailed_pubspec_content
+            
+        finally:
+            # Clean up output directories explicitly
+            for output_dir in [minimal_output_dir, detailed_output_dir]:
+                try:
+                    if output_dir.exists():
+                        shutil.rmtree(output_dir, ignore_errors=True)
+                except Exception as e:
+                    print(f"Warning: Error cleaning up directory {output_dir}: {str(e)}")
 
 
 def test_special_character_handling(template_dir, temp_dir):
@@ -437,6 +470,8 @@ def test_special_character_handling(template_dir, temp_dir):
     initializer = ProjectInitializer()
     initializer.template_factory.template_provider = TemplateProvider(template_dir)
     
+    output_dir = special_config.output_path
+    
     # Mock subprocess to avoid actual command execution
     with patch('subprocess.run') as mock_run:
         mock_result = MagicMock()
@@ -444,11 +479,19 @@ def test_special_character_handling(template_dir, temp_dir):
         mock_result.stderr = ""
         mock_run.return_value = mock_result
         
-        success = initializer.initialize_project(special_config)
-        assert success
-    
-    # Verify content with special characters
-    pubspec = (special_config.output_path / "pubspec.yaml").read_text()
-    assert "special-app!" in pubspec
-    assert "App with special & characters!" in pubspec
-    assert "Author's Name" in pubspec
+        try:
+            success = initializer.initialize_project(special_config)
+            assert success
+            
+            # Verify content with special characters
+            pubspec = (output_dir / "pubspec.yaml").read_text()
+            assert "special-app!" in pubspec
+            assert "App with special & characters!" in pubspec
+            assert "Author's Name" in pubspec
+        finally:
+            # Clean up output directory
+            try:
+                if output_dir.exists():
+                    shutil.rmtree(output_dir, ignore_errors=True)
+            except Exception as e:
+                print(f"Warning: Error cleaning up directory {output_dir}: {str(e)}")
