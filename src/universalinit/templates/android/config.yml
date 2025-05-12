@@ -38,4 +38,4 @@ post_processing:
     chmod +x ./init_script.sh
     ./init_script.sh {KAVIA_TEMPLATE_PROJECT_NAME}
     rm init_script.sh
-    echo "Android project pre-processing complete"
+    echo "Android project pro-processing complete"
