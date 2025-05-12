@@ -15,7 +15,12 @@ def temp_dir():
     """Create a temporary directory for test outputs."""
     temp_path = Path(tempfile.mkdtemp())
     yield temp_path
-    shutil.rmtree(temp_path)
+    try:
+        # Use ignore_errors=True to handle directories that might have read-only files
+        shutil.rmtree(temp_path, ignore_errors=True)
+    except OSError:
+        # If that still fails, log the error but don't fail the test
+        print(f"Warning: Could not remove temporary directory {temp_path}")
 
 
 @pytest.fixture
@@ -153,55 +158,63 @@ def test_project_initialization(template_dir, project_config):
 
     success = initializer.initialize_project(project_config)
     assert success
+    
+    try:
+        # Verify output directory structure
+        output_dir = project_config.output_path
+        assert output_dir.exists()
+        
+        # Check app structure
+        assert (output_dir / "app").exists()
+        assert (output_dir / "app" / "app.js").exists()
+        assert (output_dir / "app" / "app.css").exists()
+        assert (output_dir / "app" / "app-root.xml").exists()
+        assert (output_dir / "app" / "home").exists()
+        assert (output_dir / "app" / "home" / "home-page.js").exists()
+        assert (output_dir / "app" / "home" / "home-page.xml").exists()
+        
+        # Check resource structure
+        assert (output_dir / "App_Resources").exists()
+        assert (output_dir / "App_Resources" / "Android").exists()
+        assert (output_dir / "App_Resources" / "Android" / "app.gradle").exists()
+        assert (output_dir / "App_Resources" / "iOS").exists()
+        assert (output_dir / "App_Resources" / "iOS" / "Info.plist").exists()
+        
+        # Check config files
+        assert (output_dir / "package.json").exists()
+        assert (output_dir / "nativescript.config.ts").exists()
+        assert (output_dir / "hooks").exists()
+        
+        # Check hidden files
+        assert (output_dir / ".gitignore").exists()
 
-    # Verify output directory structure
-    output_dir = project_config.output_path
-    assert output_dir.exists()
-    
-    # Check app structure
-    assert (output_dir / "app").exists()
-    assert (output_dir / "app" / "app.js").exists()
-    assert (output_dir / "app" / "app.css").exists()
-    assert (output_dir / "app" / "app-root.xml").exists()
-    assert (output_dir / "app" / "home").exists()
-    assert (output_dir / "app" / "home" / "home-page.js").exists()
-    assert (output_dir / "app" / "home" / "home-page.xml").exists()
-    
-    # Check resource structure
-    assert (output_dir / "App_Resources").exists()
-    assert (output_dir / "App_Resources" / "Android").exists()
-    assert (output_dir / "App_Resources" / "Android" / "app.gradle").exists()
-    assert (output_dir / "App_Resources" / "iOS").exists()
-    assert (output_dir / "App_Resources" / "iOS" / "Info.plist").exists()
-    
-    # Check config files
-    assert (output_dir / "package.json").exists()
-    assert (output_dir / "nativescript.config.ts").exists()
-    assert (output_dir / "hooks").exists()
-    
-    # Check hidden files
-    assert (output_dir / ".gitignore").exists()
-
-    # Verify content replacement
-    app_content = (output_dir / "app" / "app.js").read_text()
-    assert "test-ns-app" in app_content
-    
-    package_json = (output_dir / "package.json").read_text()
-    assert "test-ns-app" in package_json
-    assert "Test Author" in package_json
-    assert "Test NativeScript Application" in package_json
-    assert "1.0.0" in package_json
-    
-    # Check platform-specific replacements
-    android_manifest = (output_dir / "App_Resources" / "Android" / "src" / "main" / "AndroidManifest.xml").read_text()
-    assert "test-ns-app" in android_manifest
-    
-    ios_plist = (output_dir / "App_Resources" / "iOS" / "Info.plist").read_text()
-    assert "test-ns-app" in ios_plist
-    
-    # Check config file replacements
-    ns_config = (output_dir / "nativescript.config.ts").read_text()
-    assert "test-ns-app" in ns_config
+        # Verify content replacement
+        app_content = (output_dir / "app" / "app.js").read_text()
+        assert "test-ns-app" in app_content
+        
+        package_json = (output_dir / "package.json").read_text()
+        assert "test-ns-app" in package_json
+        assert "Test Author" in package_json
+        assert "Test NativeScript Application" in package_json
+        assert "1.0.0" in package_json
+        
+        # Check platform-specific replacements
+        android_manifest = (output_dir / "App_Resources" / "Android" / "src" / "main" / "AndroidManifest.xml").read_text()
+        assert "test-ns-app" in android_manifest
+        
+        ios_plist = (output_dir / "App_Resources" / "iOS" / "Info.plist").read_text()
+        assert "test-ns-app" in ios_plist
+        
+        # Check config file replacements
+        ns_config = (output_dir / "nativescript.config.ts").read_text()
+        assert "test-ns-app" in ns_config
+    finally:
+        # Ensure cleanup happens after all checks are complete
+        try:
+            if project_config.output_path.exists():
+                shutil.rmtree(project_config.output_path, ignore_errors=True)
+        except Exception as e:
+            print(f"Warning: Error cleaning up output directory: {str(e)}")
 
 
 def test_post_processing_execution(template_dir, project_config, temp_dir):
@@ -227,6 +240,7 @@ def test_post_processing_execution(template_dir, project_config, temp_dir):
 
     success = initializer.initialize_project(project_config)
     assert success
+    assert initializer.wait_for_post_process_completed()
     assert marker_path.exists()
     
     # Check that the post-processing script received the correct variables
@@ -274,15 +288,24 @@ def test_template_variable_replacement(template_dir, project_config):
     initializer = ProjectInitializer()
     initializer.template_factory.template_provider = TemplateProvider(template_dir)
     initializer.template_factory.register_template(ProjectType.NATIVESCRIPT, NativeScriptTemplate)
-
-    success = initializer.initialize_project(project_config)
-    assert success
-
-    output_file = project_config.output_path / "test.txt"
-    assert output_file.exists()
-
-    content = output_file.read_text()
-    assert "test-ns-app" in content
-    assert "Test Author" in content
-    assert "1.0.0" in content
+    
+    try:
+        success = initializer.initialize_project(project_config)
+        assert success
+        
+        output_file = project_config.output_path / "test.txt"
+        assert output_file.exists()
+        
+        content = output_file.read_text()
+        assert "test-ns-app" in content
+        assert "Test Author" in content
+        assert "1.0.0" in content
+        assert "Test NativeScript Application" in content
+    finally:
+        # Make sure we clean up even if assertions fail
+        try:
+            if project_config.output_path.exists():
+                shutil.rmtree(project_config.output_path, ignore_errors=True)
+        except Exception as e:
+            print(f"Warning: Error cleaning up output directory: {str(e)}")
     assert "Test NativeScript Application" in content
