@@ -4,7 +4,17 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
     plugins: [sveltekit()],
-
+    server: {
+        host: '0.0.0.0',
+        port: 3000,
+        strictPort: true,
+        cors: true,
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
+        }
+    },
     test: {
         workspace: [{
             extends: "./vite.config.ts",
@@ -29,8 +39,4 @@ export default defineConfig({
             }
         }]
     },
-    
-    server: {
-        port: 3000
-    }
 });
