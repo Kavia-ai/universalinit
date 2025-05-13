@@ -16,6 +16,7 @@ class ProjectType(Enum):
     FLASK = "flask"
     FLUTTER = "flutter"
     IOS = "ios"
+    KOTLIN = "kotlin"
     NATIVESCRIPT = "nativescript"
     NEXTJS = "nextjs"
     NODE = "node"

@@ -267,10 +267,11 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.ANGULAR, AngularTemplate)
         self.template_factory.register_template(ProjectType.ASTRO, AstroTemplate)
         self.template_factory.register_template(ProjectType.DJANGO, DjangoTemplate)
-        self.template_factory.register_template(ProjectType.FASTAPI, FastAPITemplate)
         self.template_factory.register_template(ProjectType.EXPRESS, ExpressTemplate)
+        self.template_factory.register_template(ProjectType.FASTAPI, FastAPITemplate)
         self.template_factory.register_template(ProjectType.FLASK, FlaskTemplate)
         self.template_factory.register_template(ProjectType.FLUTTER, FlutterTemplate)
+        self.template_factory.register_template(ProjectType.KOTLIN, KotlinTemplate)
         self.template_factory.register_template(ProjectType.NATIVESCRIPT, NativeScriptTemplate)
         self.template_factory.register_template(ProjectType.NEXTJS, NextJSTemplate)
         self.template_factory.register_template(ProjectType.NUXT, NuxtTemplate)
@@ -512,6 +513,27 @@ class FlutterTemplate(ProjectTemplate):
 
     def setup_testing(self) -> None:
         # Flutter testing is already configured in the standard template
+        pass
+
+
+class KotlinTemplate(ProjectTemplate):
+    """Template implementation for Kotlin projects."""
+
+    def validate_parameters(self) -> bool:
+        # No required parameters for basic template, but we'll support optional ones
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True  # Kotlin projects may have hidden files
+        )
+
+    def setup_testing(self) -> None:
+        # Testing is already configured in the template
         pass
 
 
