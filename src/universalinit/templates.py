@@ -9,6 +9,7 @@ TEMPLATE_MAP = {
    ProjectType.FASTAPI: "fastapi-kavia",
    ProjectType.FLASK: "flask-kavia",
    ProjectType.FLUTTER: "flutter-kavia",
+   ProjectType.KOTLIN: "kotlin-kavia",
    ProjectType.NATIVESCRIPT: "nativescript-kavia",
    ProjectType.NEXTJS: "nextjs-kavia",
    ProjectType.NUXT: "nuxt-kavia",
