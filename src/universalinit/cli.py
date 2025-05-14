@@ -117,6 +117,8 @@ Example usage:
   uniinit --name my-angular-app --type angular --author "Kavia" --output ./my-angular-app
   uniinit --name my-qwik-app --type qwik --author "Kavia" --output ./my-qwik-app
   uniinit --name my-kotlin-app --type kotlin --author "Kavia" --output ./my-kotlin-app
+  uniinit --name my-lightningjs-app --type lightningjs --author "Kavia" --output ./my-lightningjs-app
+
 
 
 Available project types:
@@ -130,6 +132,7 @@ Available project types:
   - flutter
   - ios
   - kotlin
+  - lightningjs
   - nativescript
   - nextjs
   - node
