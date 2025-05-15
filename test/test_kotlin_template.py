@@ -16,7 +16,7 @@ def temp_dir():
     """Create a temporary directory for test outputs."""
     temp_path = Path(tempfile.mkdtemp())
     yield temp_path
-    shutil.rmtree(temp_path)
+    shutil.rmtree(temp_path, ignore_errors=True)
 
 
 @pytest.fixture
@@ -203,7 +203,7 @@ def test_post_processing_execution(template_dir, project_config, temp_dir):
     success = initializer.initialize_project(project_config)
     assert success
     assert initializer.wait_for_post_process_completed()
-    
+
     assert project_config.output_path.exists()
     assert (project_config.output_path / "src").exists()
 
