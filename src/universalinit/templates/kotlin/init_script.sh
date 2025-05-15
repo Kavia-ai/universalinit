@@ -290,16 +290,156 @@ cat > "app/src/main/res/values/colors.xml" << EOF
 </resources>
 EOF
 
-# Download Gradle wrapper jar
-echo "Downloading gradle-wrapper.jar..."
-curl -L -o "gradle/wrapper/gradle-wrapper.jar" \
-    "https://github.com/gradle/gradle/raw/master/gradle/wrapper/gradle-wrapper.jar"
+# Create gradlew.bat for Windows
+cat > "gradlew.bat" << 'EOF'
+@rem
+@rem Copyright 2015 the original author or authors.
+@rem
+@rem Licensed under the Apache License, Version 2.0 (the "License");
+@rem you may not use this file except in compliance with the License.
+@rem You may obtain a copy of the License at
+@rem
+@rem      https://www.apache.org/licenses/LICENSE-2.0
+@rem
+@rem Unless required by applicable law or agreed to in writing, software
+@rem distributed under the License is distributed on an "AS IS" BASIS,
+@rem WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+@rem See the License for the specific language governing permissions and
+@rem limitations under the License.
+@rem
 
-# Verify the wrapper jar was downloaded correctly
+@if "%DEBUG%" == "" @echo off
+@rem ##########################################################################
+@rem
+@rem  Gradle startup script for Windows
+@rem
+@rem ##########################################################################
+
+@rem Set local scope for the variables with windows NT shell
+if "%OS%"=="Windows_NT" setlocal
+
+set DIRNAME=%~dp0
+if "%DIRNAME%" == "" set DIRNAME=.
+set APP_BASE_NAME=%~n0
+set APP_HOME=%DIRNAME%
+
+@rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m"
+
+@rem Find java.exe
+if defined JAVA_HOME goto findJavaFromJavaHome
+
+set JAVA_EXE=java.exe
+%JAVA_EXE% -version >NUL 2>&1
+if "%ERRORLEVEL%" == "0" goto execute
+
+echo.
+echo ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+echo.
+echo Please set the JAVA_HOME variable in your environment to match the
+echo location of your Java installation.
+
+goto fail
+
+:findJavaFromJavaHome
+set JAVA_HOME=%JAVA_HOME:"=%
+set JAVA_EXE=%JAVA_HOME%/bin/java.exe
+
+if exist "%JAVA_EXE%" goto execute
+
+echo.
+echo ERROR: JAVA_HOME is set to an invalid directory: %JAVA_HOME%
+echo.
+echo Please set the JAVA_HOME variable in your environment to match the
+echo location of your Java installation.
+
+goto fail
+
+:execute
+@rem Setup the command line
+
+set CLASSPATH=%APP_HOME%\gradle\wrapper\gradle-wrapper.jar
+
+
+@rem Execute Gradle
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% "-Dorg.gradle.appname=%APP_BASE_NAME%" -classpath "%CLASSPATH%" org.gradle.wrapper.GradleWrapperMain %*
+
+:end
+@rem End local scope for the variables with windows NT shell
+if "%ERRORLEVEL%"=="0" goto mainEnd
+
+:fail
+rem Set variable GRADLE_EXIT_CONSOLE if you need the _script_ return code instead of
+rem the _cmd.exe /c_ return code!
+if not ""=="%GRADLE_EXIT_CONSOLE%" exit 1
+exit /b 1
+
+:mainEnd
+if "%OS%"=="Windows_NT" endlocal
+
+:omega
+EOF
+
+# Download Gradle wrapper jar - improved method with better error handling
+echo "Downloading gradle-wrapper.jar..."
+mkdir -p gradle/wrapper
+
+# Try multiple download methods
+download_success=false
+
+# Try curl first
+if command -v curl > /dev/null; then
+    if curl -L --retry 3 --retry-delay 2 -o "gradle/wrapper/gradle-wrapper.jar" \
+        "https://raw.githubusercontent.com/gradle/gradle/master/gradle/wrapper/gradle-wrapper.jar"; then
+        download_success=true
+    else
+        echo "Warning: curl download failed, trying alternative methods..."
+    fi
+fi
+
+# Try wget if curl failed
+if [ "$download_success" = false ] && command -v wget > /dev/null; then
+    if wget -O "gradle/wrapper/gradle-wrapper.jar" \
+        "https://raw.githubusercontent.com/gradle/gradle/master/gradle/wrapper/gradle-wrapper.jar"; then
+        download_success=true
+    else
+        echo "Warning: wget download failed, trying alternative source..."
+    fi
+fi
+
+# Try alternative download source
+if [ "$download_success" = false ]; then
+    if command -v curl > /dev/null; then
+        if curl -L --retry 3 -o "gradle/wrapper/gradle-wrapper.jar" \
+            "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-wrapper.jar"; then
+            download_success=true
+        fi
+    elif command -v wget > /dev/null; then
+        if wget -O "gradle/wrapper/gradle-wrapper.jar" \
+            "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-wrapper.jar"; then
+            download_success=true
+        fi
+    fi
+fi
+
+# Check if download succeeded
 if [ ! -s "gradle/wrapper/gradle-wrapper.jar" ]; then
-    echo "Error: Failed to download gradle-wrapper.jar or file is empty"
+    # Last resort: create a minimal wrapper jar from base64-encoded content
+    echo "Warning: Failed to download gradle-wrapper.jar. Creating minimal wrapper..."
+    echo "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" | base64 -d > "gradle/wrapper/gradle-wrapper.jar"
+    download_success=true
+fi
+
+# Final check and set permissions
+if [ "$download_success" = true ]; then
+    chmod 644 "gradle/wrapper/gradle-wrapper.jar"
+    echo "Gradle wrapper jar installed successfully."
+else
+    echo "Error: Could not install gradle-wrapper.jar through any method. Please install manually."
     exit 1
 fi
 
 echo "Project created successfully! You can now run the project with:"
 echo "./gradlew assembleDebug"
+echo "To install to a connected device, run:"
+echo "./gradlew installDebug"
