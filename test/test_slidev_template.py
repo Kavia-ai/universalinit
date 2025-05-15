@@ -14,7 +14,7 @@ def temp_dir():
     """Create a temporary directory for test outputs."""
     temp_path = Path(tempfile.mkdtemp())
     yield temp_path
-    shutil.rmtree(temp_path)
+    shutil.rmtree(temp_path, ignore_errors=True)
 
 
 @pytest.fixture
@@ -222,7 +222,7 @@ def test_slidev_registration():
         description="Test Slidev",
         author="Test Author", 
         project_type=ProjectType.SLIDEV,
-        output_path=Path("output"),
+        output_path=Path("/tmp/output"),
         parameters={}
     )
     
@@ -239,7 +239,7 @@ def test_slidev_validation():
         description="Test Slidev Application",
         author="Test Author",
         project_type=ProjectType.SLIDEV,
-        output_path=Path("output"),
+        output_path=Path("/tmp/output"),
         parameters={}  # Empty parameters should be valid for Slidev
     )
     
