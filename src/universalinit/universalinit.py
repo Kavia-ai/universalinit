@@ -272,6 +272,7 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.FLASK, FlaskTemplate)
         self.template_factory.register_template(ProjectType.FLUTTER, FlutterTemplate)
         self.template_factory.register_template(ProjectType.KOTLIN, KotlinTemplate)
+        self.template_factory.register_template(ProjectType.LIGHTNINGJS, LightningjsTemplate)
         self.template_factory.register_template(ProjectType.NATIVESCRIPT, NativeScriptTemplate)
         self.template_factory.register_template(ProjectType.NEXTJS, NextJSTemplate)
         self.template_factory.register_template(ProjectType.NUXT, NuxtTemplate)
@@ -534,6 +535,28 @@ class KotlinTemplate(ProjectTemplate):
 
     def setup_testing(self) -> None:
         # Testing is already configured in the template
+        pass
+
+
+class LightningjsTemplate(ProjectTemplate):
+    """Template implementation for NextJS projects."""
+
+    def validate_parameters(self) -> bool:
+        # Lightningjs has no required parameters for basic setup
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True  # Include .gitignore, .eslintrc, etc.
+        )
+
+    def setup_testing(self) -> None:
+        # Testing is already configured in the Lightningjs template
         pass
 
 
