@@ -1,6 +1,6 @@
 :root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
+  --base-light: #00ffff;
+  --base-dark: #00008b;
   --text-color: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.7);
   --border-color: rgba(255, 255, 255, 0.1);
@@ -9,7 +9,7 @@
 body {
   margin: 0;
   font-family: 'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-  background-color: var(--kavia-dark);
+  background-color: var(--base-dark);
   color: var(--text-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -22,7 +22,7 @@ body {
 }
 
 .navbar {
-  background-color: var(--kavia-dark);
+  background-color: var(--base-dark);
   padding: 16px;
   display: flex;
   align-items: center;
@@ -44,7 +44,7 @@ body {
 }
 
 .logo-symbol {
-  color: var(--kavia-orange);
+  color: var(--base-light);
 }
 
 .container {
@@ -66,7 +66,7 @@ body {
 }
 
 .subtitle {
-  color: var(--kavia-orange);
+  color: var(--base-light);
   font-weight: 500;
   font-size: 1.1rem;
 }
@@ -87,7 +87,7 @@ body {
 }
 
 .btn {
-  background-color: var(--kavia-orange);
+  background-color: var(--base-light);
   color: white;
   border: none;
   border-radius: 4px;
@@ -99,7 +99,7 @@ body {
 }
 
 .btn:hover {
-  background-color: #FF8B4D;
+  background-color: #7691ff;
 }
 
 .btn-large {
