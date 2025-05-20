@@ -21,8 +21,17 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
-
   server: {
-    port: 3000
-  }
+    host: "0.0.0.0",
+    allowedHosts: true,
+    port: 3000,
+    strictPort: true,
+    cors: true,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+    watch: {
+      usePolling: true,
+    },
+  },
 });
