@@ -263,13 +263,10 @@ class ProjectInitializer:
 
     def __init__(self):
         self.template_factory = ProjectTemplateFactory()
+        # Register frontend framework templates
         self.template_factory.register_template(ProjectType.ANDROID, AndroidTemplate)
         self.template_factory.register_template(ProjectType.ANGULAR, AngularTemplate)
         self.template_factory.register_template(ProjectType.ASTRO, AstroTemplate)
-        self.template_factory.register_template(ProjectType.DJANGO, DjangoTemplate)
-        self.template_factory.register_template(ProjectType.EXPRESS, ExpressTemplate)
-        self.template_factory.register_template(ProjectType.FASTAPI, FastAPITemplate)
-        self.template_factory.register_template(ProjectType.FLASK, FlaskTemplate)
         self.template_factory.register_template(ProjectType.FLUTTER, FlutterTemplate)
         self.template_factory.register_template(ProjectType.KOTLIN, KotlinTemplate)
         self.template_factory.register_template(ProjectType.LIGHTNINGJS, LightningjsTemplate)
@@ -285,6 +282,16 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.TYPESCRIPT, TypeScriptTemplate)
         self.template_factory.register_template(ProjectType.VITE, ViteTemplate)
         self.template_factory.register_template(ProjectType.VUE, VueTemplate)
+        # Register backend framework templates
+        self.template_factory.register_template(ProjectType.DJANGO, DjangoTemplate)
+        self.template_factory.register_template(ProjectType.EXPRESS, ExpressTemplate)
+        self.template_factory.register_template(ProjectType.FASTAPI, FastAPITemplate)
+        self.template_factory.register_template(ProjectType.FLASK, FlaskTemplate)
+        # Register database templates
+        self.template_factory.register_template(ProjectType.POSTGRESQL, PostgreSQLTemplate)
+        self.template_factory.register_template(ProjectType.MONGODB, MongoDBTemplate)
+        self.template_factory.register_template(ProjectType.MYSQL, MySQLTemplate)
+        self.template_factory.register_template(ProjectType.SQLITE, SQLiteTemplate)
         self.template = None
     def initialize_project(self, config: ProjectConfig) -> bool:
         """Initialize a project using the appropriate template."""
@@ -831,6 +838,119 @@ class VueTemplate(ProjectTemplate):
 
     def setup_testing(self) -> None:
         # Testing is already configured in the template
+        pass
+
+
+class PostgreSQLTemplate(ProjectTemplate):
+    """Template implementation for PostgreSQL database projects."""
+
+    def validate_parameters(self) -> bool:
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        # Minimal database parameters
+        replacements.update({
+            'KAVIA_DB_NAME': self.config.parameters.get('database_name', 
+                                                        self.config.name.replace('-', '_')),
+            'KAVIA_DB_USER': self.config.parameters.get('database_user', 'dbuser'),
+            'KAVIA_DB_PASSWORD': self.config.parameters.get('database_password', 'dbpass'),
+            'KAVIA_DB_PORT': str(self.config.parameters.get('database_port', 5432)),
+        })
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True
+        )
+
+    def setup_testing(self) -> None:
+        pass
+
+
+class MongoDBTemplate(ProjectTemplate):
+    """Template implementation for MongoDB database projects."""
+
+    def validate_parameters(self) -> bool:
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        # Minimal database parameters (MongoDB can run without auth)
+        replacements.update({
+            'KAVIA_DB_NAME': self.config.parameters.get('database_name', 
+                                                        self.config.name.replace('-', '_')),
+            'KAVIA_DB_USER': self.config.parameters.get('database_user', ''),
+            'KAVIA_DB_PASSWORD': self.config.parameters.get('database_password', ''),
+            'KAVIA_DB_PORT': str(self.config.parameters.get('database_port', 27017)),
+        })
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True
+        )
+
+    def setup_testing(self) -> None:
+        pass
+
+
+class MySQLTemplate(ProjectTemplate):
+    """Template implementation for MySQL database projects."""
+
+    def validate_parameters(self) -> bool:
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        # Minimal database parameters (using root user for simplicity)
+        replacements.update({
+            'KAVIA_DB_NAME': self.config.parameters.get('database_name', 
+                                                        self.config.name.replace('-', '_')),
+            'KAVIA_DB_USER': self.config.parameters.get('database_user', 'root'),
+            'KAVIA_DB_PASSWORD': self.config.parameters.get('database_password', 'dbpass'),
+            'KAVIA_DB_PORT': str(self.config.parameters.get('database_port', 3306)),
+        })
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True
+        )
+
+    def setup_testing(self) -> None:
+        pass
+
+
+class SQLiteTemplate(ProjectTemplate):
+    """Template implementation for SQLite database projects."""
+
+    def validate_parameters(self) -> bool:
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        # SQLite only needs file path - no network or auth required
+        replacements.update({
+            'KAVIA_DB_NAME': self.config.parameters.get('database_name', 
+                                                        f"{self.config.name.replace('-', '_')}.db"),
+        })
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True
+        )
+
+    def setup_testing(self) -> None:
         pass
 
 

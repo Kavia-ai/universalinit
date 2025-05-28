@@ -7,13 +7,10 @@ import yaml
 
 class ProjectType(Enum):
     """Supported project types."""
+    # Frontend frameworks
     ANDROID = "android"
     ANGULAR = "angular"
     ASTRO = "astro"
-    DJANGO = "django"
-    EXPRESS = "express"
-    FASTAPI = "fastapi"
-    FLASK = "flask"
     FLUTTER = "flutter"
     IOS = "ios"
     KOTLIN = "kotlin"
@@ -33,6 +30,18 @@ class ProjectType(Enum):
     VITE = "vite"
     VUE = "vue"
 
+    # Backend frameworks
+    DJANGO = "django"
+    EXPRESS = "express"
+    FASTAPI = "fastapi"
+    FLASK = "flask"
+
+    # Databases
+    POSTGRESQL = "postgresql"
+    MONGODB = "mongodb"
+    MYSQL = "mysql"
+    SQLITE = "sqlite"
+
     @classmethod
     def from_string(cls, value: str) -> 'ProjectType':
         try:
@@ -51,6 +60,26 @@ class ProjectConfig:
     output_path: Path
     parameters: Dict[str, Any]
 
+    def _get_default_db_port(self) -> int:
+        """Get default database port based on project type."""
+        default_ports = {
+            ProjectType.POSTGRESQL: 5432,
+            ProjectType.MONGODB: 27017,
+            ProjectType.MYSQL: 3306,
+            ProjectType.SQLITE: 0,  # SQLite doesn't use ports
+        }
+        return default_ports.get(self.project_type, 5432)
+
+    def _get_default_db_user(self) -> str:
+        """Get default database user based on project type."""
+        default_users = {
+            ProjectType.POSTGRESQL: 'postgres',
+            ProjectType.MONGODB: '',
+            ProjectType.MYSQL: 'root',
+            ProjectType.SQLITE: '',
+        }
+        return default_users.get(self.project_type, 'dbuser')
+
     def get_replaceable_parameters(self) -> Dict[str, str]:
         """Get dictionary of replaceable parameters."""
         replacements = {
@@ -60,7 +89,13 @@ class ProjectConfig:
             'KAVIA_PROJECT_VERSION': self.version,
             'KAVIA_USE_TYPESCRIPT': str(self.parameters.get('typescript', False)).lower(),
             'KAVIA_STYLING_SOLUTION': self.parameters.get('styling_solution', 'css'),
-            'KAVIA_PROJECT_DIRECTORY': str(self.output_path)
+            'KAVIA_PROJECT_DIRECTORY': str(self.output_path),
+            'KAVIA_DB_NAME': self.parameters.get('database_name', self.name.replace('-', '_')),
+            'KAVIA_DB_USER': self.parameters.get('database_user', self._get_default_db_user()),
+            'KAVIA_DB_PASSWORD': self.parameters.get('database_password', 'dbpass'),
+            'KAVIA_DB_PORT': str(self.parameters.get('database_port', self._get_default_db_port())),
+            'KAVIA_DB_HOST': self.parameters.get('database_host', 'localhost'),
+            'KAVIA_DB_PATH': self.parameters.get('database_path', './data'),
         }
         return replacements
 
