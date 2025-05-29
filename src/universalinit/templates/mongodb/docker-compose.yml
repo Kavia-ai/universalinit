@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo:6-jammy
+    container_name: {KAVIA_TEMPLATE_PROJECT_NAME}_mongo
+    ports:
+      - "{KAVIA_DB_PORT}:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: {KAVIA_DB_NAME}
+      MONGO_INITDB_ROOT_USERNAME: {KAVIA_DB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: {KAVIA_DB_PASSWORD}
+
+volumes:
+  mongo_data:
