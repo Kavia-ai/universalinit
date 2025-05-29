@@ -1,0 +1,36 @@
+build_cmd:
+  command: "docker compose up -d"
+  working_directory: "{KAVIA_PROJECT_DIRECTORY}"
+
+env:
+  environment_initialized: true
+  docker_version: "20.10.0"
+
+init_files: []
+
+init_minimal: "MongoDB database initialized"
+
+run_tool:
+  command: "docker compose up"
+  working_directory: "{KAVIA_PROJECT_DIRECTORY}"
+
+test_tool:
+  command: "docker compose exec -T mongo mongosh --eval 'db.version()'"
+  working_directory: "{KAVIA_PROJECT_DIRECTORY}"
+
+init_style: "database"
+
+entry_point_url: "mongodb://localhost:{KAVIA_DB_PORT}/{KAVIA_DB_NAME}"
+
+linter:
+  script_content: |
+    #!/bin/bash
+    echo "No linting required for database configuration"
+
+post_processing:
+  script: |
+    #!/bin/bash
+    cd {KAVIA_PROJECT_DIRECTORY}
+    echo "Starting MongoDB..."
+    docker compose up -d
+    echo "MongoDB is starting on port {KAVIA_DB_PORT}"

@@ -23,4 +23,8 @@ TEMPLATE_MAP = {
    ProjectType.TYPESCRIPT: "typescript-kavia",
    ProjectType.VITE: "vite-kavia",
    ProjectType.VUE: "vue-kavia",
+   ProjectType.POSTGRESQL: "postgresql-kavia",
+   ProjectType.MONGODB: "mongodb-kavia",
+   ProjectType.MYSQL: "mysql-kavia",
+   ProjectType.SQLITE: "sqlite-kavia",
 }
