@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: {KAVIA_TEMPLATE_PROJECT_NAME}_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: {KAVIA_DB_PASSWORD}
+      MYSQL_DATABASE: {KAVIA_DB_NAME}
+    ports:
+      - "{KAVIA_DB_PORT}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
