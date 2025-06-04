@@ -1,11 +1,11 @@
-import Blits from "@lightningjs/blits";
+import Blits from '@lightningjs/blits'
 
-import Loader from "../components/Loader.js";
-import Button from "../components/Button.js";
+import Loader from '../components/Loader.js'
+import Button from '../components/Button.js'
 
-const colors = ["#f5f3ff", "#ede9fe", "#ddd6fe", "#c4b5fd", "#a78bfa"];
+const colors = ['#f5f3ff', '#ede9fe', '#ddd6fe', '#c4b5fd', '#a78bfa']
 
-export default Blits.Component("Home", {
+export default Blits.Component('Home', {
   components: {
     Loader,
     Button,
@@ -81,31 +81,31 @@ export default Blits.Component("Home", {
        * Color passed into the loader component
        * @type {string}
        */
-      color: "",
-    };
+      color: '',
+    }
   },
   hooks: {
     ready() {
-      this.rotateColors(200);
+      this.rotateColors(200)
 
-      this.loaderAlpha = 1;
-      this.x = 1920 / 2;
-
-      this.$setTimeout(() => {
-        this.rotation = 720;
-        this.scale = 1.5;
-      }, 3000);
+      this.loaderAlpha = 1
+      this.x = 1920 / 2
 
       this.$setTimeout(() => {
-        this.scale = 1;
-      }, 3000 + 300);
+        this.rotation = 720
+        this.scale = 1.5
+      }, 3000)
 
       this.$setTimeout(() => {
-        this.y = -60;
-        this.loaderAlpha = 0;
-        this.scale = 1;
-        this.textAlpha = 1;
-      }, 6000);
+        this.scale = 1
+      }, 3000 + 300)
+
+      this.$setTimeout(() => {
+        this.y = -60
+        this.loaderAlpha = 0
+        this.scale = 1
+        this.textAlpha = 1
+      }, 6000)
     },
     focus() {
       this.$select('btn').$focus() // Select our button with the ref 'btn'
@@ -117,12 +117,12 @@ export default Blits.Component("Home", {
      * @param {number} interval - interval in ms
      */
     rotateColors(interval) {
-      let i = 0;
+      let i = 0
       this.$setInterval(() => {
-        i++;
-        if (i >= colors.length) i = 0;
-        this.color = colors[i];
-      }, interval);
+        i++
+        if (i >= colors.length) i = 0
+        this.color = colors[i]
+      }, interval)
     },
   },
-});
+})
