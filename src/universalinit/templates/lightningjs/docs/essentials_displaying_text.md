@@ -40,9 +40,7 @@ The Text-tag accepts the following attributes:
   right requires the `maxwidth` attribute to be set as well.
 - `maxwidth` - the max length of a line of text in pixels, words
   surpassing this length will be broken and wrapped onto the next line.
-  This attribute is required when aligning center or right. Previously
-  this attribute was `wordwrap`, which has now been deprecated in favour
-  of `maxwidth`.
+  This attribute is required when aligning center or right.
 - `maxlines` - maximum number of lines that will be displayed
 - `maxheight` - maximum height of a text block, lines that don\'t fit
   within this height will not be displayed
