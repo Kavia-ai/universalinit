@@ -1,4 +1,3 @@
-// @ts-nocheck
 const prettier = require('eslint-plugin-prettier')
 const globals = require('globals')
 const js = require('@eslint/js')

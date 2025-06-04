@@ -1,12 +1,14 @@
-import Blits from '@lightningjs/blits'
+import Blits from "@lightningjs/blits";
 
-import Loader from '../components/Loader'
+import Loader from "../components/Loader.js";
+import Button from "../components/Button.js";
 
-const colors = ['#f5f3ff', '#ede9fe', '#ddd6fe', '#c4b5fd', '#a78bfa']
+const colors = ["#f5f3ff", "#ede9fe", "#ddd6fe", "#c4b5fd", "#a78bfa"];
 
-export default Blits.Component('Home', {
+export default Blits.Component("Home", {
   components: {
     Loader,
+    Button,
   },
   template: `
     <Element w="1920" h="1080" color="#1e293b">
@@ -38,74 +40,89 @@ export default Blits.Component('Home', {
           />
         </Element>
       </Element>
-    </Element>`,
+        <Element w="13.5%" h="40" x="43%" y="10%" color="{top: '#763efb', bottom: '#433484'}">
+          <Button ref="btn" />
+        </Element>
+    </Element>
+  `,
   state() {
     return {
       /**
        * Y-position of the entire page contents
+       * @type {number}
        */
-      y: 0 as number,
+      y: 0,
       /**
        * X-position of the logo, used to create slide in transition
+       * @type {number}
        */
-      x: -1000 as number,
+      x: -1000,
       /**
        * Rotation of the logo, used to create a spinning transition
+       * @type {number}
        */
-      rotation: 0 as number,
+      rotation: 0,
       /**
        * Scale of the logo, used to create a zoom-in / zoom-out transition
+       * @type {number}
        */
-      scale: 1 as number,
+      scale: 1,
       /**
        * Alpha of the loader component, used to create a fade-in / fade-out transition
+       * @type {number}
        */
-      loaderAlpha: 0 as number,
+      loaderAlpha: 0,
       /**
        * Alpha of the text, used to create a fade-in transition
+       * @type {number}
        */
-      textAlpha: 0 as number,
+      textAlpha: 0,
       /**
        * Color passed into the loader component
+       * @type {string}
        */
-      color: '' as string,
-    }
+      color: "",
+    };
   },
   hooks: {
     ready() {
-      this.rotateColors(200)
+      this.rotateColors(200);
 
-      this.loaderAlpha = 1
-      this.x = 1920 / 2
-
-      this.$setTimeout(() => {
-        this.rotation = 720
-        this.scale = 1.5
-      }, 3000)
+      this.loaderAlpha = 1;
+      this.x = 1920 / 2;
 
       this.$setTimeout(() => {
-        this.scale = 1
-      }, 3000 + 300)
+        this.rotation = 720;
+        this.scale = 1.5;
+      }, 3000);
 
       this.$setTimeout(() => {
-        this.y = -60
-        this.loaderAlpha = 0
-        this.scale = 1
-        this.textAlpha = 1
-      }, 6000)
+        this.scale = 1;
+      }, 3000 + 300);
+
+      this.$setTimeout(() => {
+        this.y = -60;
+        this.loaderAlpha = 0;
+        this.scale = 1;
+        this.textAlpha = 1;
+      }, 6000);
+    },
+    focus() {
+      this.$select('btn').$focus() // Select our button with the ref 'btn'
     },
   },
   methods: {
     /**
      * Method to rotate the colors of the loader
+     * @param {number} interval - interval in ms
      */
-    rotateColors(interval: number): void {
-      let i = 0
+    rotateColors(interval) {
+      let i = 0;
       this.$setInterval(() => {
-        i++
-        if (i >= colors.length) i = 0
-        this.color = colors[i]
-      }, interval)
+        i++;
+        if (i >= colors.length) i = 0;
+        this.color = colors[i];
+      }, interval);
     },
   },
-})
+});

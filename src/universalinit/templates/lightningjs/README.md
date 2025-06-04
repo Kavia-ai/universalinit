@@ -1,9 +1,9 @@
-# My Blits App
+# lightningjs
 
-### my-blits-app
+### lightningjs
 
 
-Welcome to the _My Blits App_ Lightning 3 Blits App!
+Welcome to the _lightningjs_ Lightning 3 Blits App!
 
 ### Getting started
 
