@@ -49,14 +49,19 @@ GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO 'root'@'localhost';
 FLUSH PRIVILEGES;
 EOF
 
+# Save connection command to a file
+echo "mysql -u ${DB_USER} -p${DB_PASSWORD} -h localhost -P ${DB_PORT} ${DB_NAME}" > db_connection.txt
+echo "Connection command saved to db_connection.txt"
+
 echo "MySQL setup complete!"
 echo "Database: ${DB_NAME}"
 echo "Root user: root (password: ${DB_PASSWORD})"
 echo "App user: appuser (password: ${DB_PASSWORD})"
 echo "Port: ${DB_PORT}"
 echo ""
-echo "Connect as root: mysql -u root -p${DB_PASSWORD} -h localhost -P ${DB_PORT}"
-echo "Connect as appuser: mysql -u appuser -p${DB_PASSWORD} -h localhost -P ${DB_PORT}"
+
+echo "To connect to the database, use the following command:"
+echo "$(cat db_connection.txt)"
 
 # Keep running
 wait
