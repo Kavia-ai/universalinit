@@ -108,7 +108,7 @@ export default Blits.Component('Home', {
       }, 6000)
     },
     focus() {
-      this.$select('btn').$focus() // Select our button with the ref 'btn'
+      this.$select('btn').$focus() // Select the button with the ref 'btn'
     },
   },
   methods: {
