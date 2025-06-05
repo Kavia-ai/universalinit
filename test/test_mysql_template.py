@@ -1,9 +1,3 @@
-"""
-Test file for MySQL template functionality.
-
-Minimal tests focusing on template generation and variable replacement.
-No Docker execution required.
-"""
 import pytest
 from pathlib import Path
 import shutil
