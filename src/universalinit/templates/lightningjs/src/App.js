@@ -1,11 +1,12 @@
 import Blits from '@lightningjs/blits'
 
-import Home from './pages/Home'
+import Home from './pages/Home.js'
 
 export default Blits.Application({
   template: `
     <Element>
       <RouterView />
-    </Element>`,
+    </Element>
+  `,
   routes: [{ path: '/', component: Home }],
 })
