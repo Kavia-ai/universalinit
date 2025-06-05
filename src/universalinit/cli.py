@@ -121,7 +121,7 @@ Example usage:
   uniinit --name my-postgres --type postgresql --author "Kavia" --output ./my-postgres --parameters database_name=myapp,database_user=appuser,database_password=secure123,database_port=5433
   uniinit --name my-mongo --type mongodb --author "Kavia" --output ./my-mongo --parameters database_name=myapp,database_user=appuser,database_password=dbpass,database_port=27018
   uniinit --name my-mysql --type mysql --author "Kavia" --output ./my-mysql --parameters database_name=myapp,database_user=root,database_password=secure123,database_port=3306
-  uniinit --name my-sqlite --type sqlite --author "Kavia" --output ./my-sqlite --parameters database_name=myapp.db
+  uniinit --name my-sqlite --type sqlite --author "Kavia" --output ./my-sqlite --parameters database_name=myapp,database_user=root,database_password=secure123
 
 
 
