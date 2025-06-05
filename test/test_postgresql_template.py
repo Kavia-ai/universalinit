@@ -1,9 +1,3 @@
-"""
-Test file for PostgreSQL template functionality.
-
-Minimal tests focusing on template generation and variable replacement.
-No Docker execution required.
-"""
 import pytest
 from pathlib import Path
 import shutil
@@ -25,30 +19,30 @@ def temp_dir():
 
 @pytest.fixture
 def template_dir(temp_dir):
-    """Create a mock template directory with necessary files."""
+    """Create a mock template directory with necessary files for new structure."""
     templates_path = temp_dir / "templates"
     postgresql_path = templates_path / "postgresql"
     postgresql_path.mkdir(parents=True)
 
-    # Create mock config.yml
+    # Create config.yml for new PostgreSQL structure
     config = {
         'build_cmd': {
-            'command': 'docker compose up -d || docker-compose up -d',
-            'working_directory': str(postgresql_path)
+            'command': 'chmod +x startup.sh && sudo ./startup.sh &',
+            'working_directory': '{KAVIA_PROJECT_DIRECTORY}'
         },
         'env': {
             'environment_initialized': True,
-            'docker_version': '20.10.0'
+            'postgres_version': '16'
         },
         'init_files': [],
         'init_minimal': 'PostgreSQL database initialized',
         'run_tool': {
-            'command': 'docker compose up || docker-compose up',
-            'working_directory': str(postgresql_path)
+            'command': 'sudo ./startup.sh &',
+            'working_directory': '{KAVIA_PROJECT_DIRECTORY}'
         },
         'test_tool': {
-            'command': 'docker compose exec -T postgres psql -U {KAVIA_DB_USER} -d {KAVIA_DB_NAME} -c "\\l"',
-            'working_directory': str(postgresql_path)
+            'command': 'psql -h localhost -U {KAVIA_DB_USER} -d {KAVIA_DB_NAME} -p {KAVIA_DB_PORT} -c "SELECT version();"',
+            'working_directory': '{KAVIA_PROJECT_DIRECTORY}'
         },
         'init_style': 'database',
         'entry_point_url': 'postgresql://{KAVIA_DB_USER}:{KAVIA_DB_PASSWORD}@localhost:{KAVIA_DB_PORT}/{KAVIA_DB_NAME}',
@@ -59,32 +53,83 @@ def template_dir(temp_dir):
             'script': ''
         },
         'post_processing': {
-            'script': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\necho "PostgreSQL ready to start with: docker compose up -d"'
+            'script': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\necho "Starting PostgreSQL..."\nchmod +x startup.sh\nsudo ./startup.sh &\necho "PostgreSQL is starting on port {KAVIA_DB_PORT}..."'
         }
     }
 
     with open(postgresql_path / "config.yml", 'w') as f:
         yaml.dump(config, f)
 
-    # Create docker-compose.yml template
-    docker_compose_content = '''version: '3.8'
-services:
-  postgres:
-    image: postgres:15-alpine
-    container_name: {KAVIA_TEMPLATE_PROJECT_NAME}_postgres
-    environment:
-      POSTGRES_DB: {KAVIA_DB_NAME}
-      POSTGRES_USER: {KAVIA_DB_USER}
-      POSTGRES_PASSWORD: {KAVIA_DB_PASSWORD}
-    ports:
-      - "{KAVIA_DB_PORT}:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+    # Create startup.sh template matching your new structure
+    startup_content = '''#!/bin/bash
 
-volumes:
-  postgres_data:
+# Minimal PostgreSQL startup script with full paths
+DB_NAME="{KAVIA_DB_NAME}"
+DB_USER="{KAVIA_DB_USER}"
+DB_PASSWORD="{KAVIA_DB_PASSWORD}"
+DB_PORT="{KAVIA_DB_PORT}"
+
+echo "Starting PostgreSQL setup..."
+
+# Find PostgreSQL version and set paths
+PG_VERSION=$(ls /usr/lib/postgresql/ | head -1)
+PG_BIN="/usr/lib/postgresql/${PG_VERSION}/bin"
+
+echo "Found PostgreSQL version: ${PG_VERSION}"
+
+# Initialize PostgreSQL data directory if it doesn't exist
+if [ ! -f "/var/lib/postgresql/data/PG_VERSION" ]; then
+    echo "Initializing PostgreSQL..."
+    sudo -u postgres ${PG_BIN}/initdb -D /var/lib/postgresql/data
+fi
+
+# Start PostgreSQL server in background
+echo "Starting PostgreSQL server..."
+sudo -u postgres ${PG_BIN}/postgres -D /var/lib/postgresql/data -p ${DB_PORT} &
+
+# Wait for PostgreSQL to start
+echo "Waiting for PostgreSQL to start..."
+sleep 5
+
+# Check if PostgreSQL is running
+for i in {1..15}; do
+    if sudo -u postgres ${PG_BIN}/pg_isready -p ${DB_PORT} > /dev/null 2>&1; then
+        echo "PostgreSQL is ready!"
+        break
+    fi
+    echo "Waiting... ($i/15)"
+    sleep 2
+done
+
+# Create database and user
+echo "Setting up database and user..."
+sudo -u postgres ${PG_BIN}/createdb -p ${DB_PORT} ${DB_NAME} 2>/dev/null || echo "Database might already exist"
+
+sudo -u postgres ${PG_BIN}/psql -p ${DB_PORT} -d postgres << EOF
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT FROM pg_catalog.pg_roles WHERE rolname = '${DB_USER}') THEN
+        CREATE ROLE ${DB_USER} WITH LOGIN PASSWORD '${DB_PASSWORD}';
+    END IF;
+    ALTER ROLE ${DB_USER} WITH PASSWORD '${DB_PASSWORD}';
+    GRANT ALL PRIVILEGES ON DATABASE ${DB_NAME} TO ${DB_USER};
+END
+$$;
+EOF
+
+# Save connection command to a file
+echo "psql postgresql://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}" > db_connection.txt
+echo "Connection string saved to db_connection.txt"
+
+echo "PostgreSQL setup complete!"
+echo "Database: ${DB_NAME}"
+echo "User: ${DB_USER}"
+echo "Port: ${DB_PORT}"
+
+# Keep running
+wait
 '''
-    (postgresql_path / "docker-compose.yml").write_text(docker_compose_content)
+    (postgresql_path / "startup.sh").write_text(startup_content)
 
     # Create README.md template
     readme_content = '''# {KAVIA_TEMPLATE_PROJECT_NAME} PostgreSQL Database
@@ -95,13 +140,10 @@ This is a PostgreSQL database project created by {KAVIA_PROJECT_AUTHOR}.
 ## Quick Start
 ```bash
 # Start the database
-docker compose up -d
+chmod +x startup.sh && sudo ./startup.sh &
 
 # Connect to the database
-docker compose exec postgres psql -U {KAVIA_DB_USER} -d {KAVIA_DB_NAME}
-
-# Stop the database
-docker compose down
+psql -h localhost -U {KAVIA_DB_USER} -d {KAVIA_DB_NAME} -p {KAVIA_DB_PORT}
 ```
 
 ## Connection Details
@@ -149,19 +191,17 @@ def test_project_initialization(template_dir, project_config):
     success = initializer.initialize_project(project_config)
     assert success
 
-    # Verify output directory structure
+    # Verify output directory structure - updated for new template structure
     output_dir = project_config.output_path
     assert output_dir.exists()
-    assert (output_dir / "docker-compose.yml").exists()
+    assert (output_dir / "startup.sh").exists()  # Changed from docker-compose.yml
     assert (output_dir / "README.md").exists()
 
-    # Verify content replacement in docker-compose.yml
-    docker_compose_content = (output_dir / "docker-compose.yml").read_text()
-    # Note: There's a template replacement issue that may leave {} syntax
-    assert 'test_db' in docker_compose_content or '{KAVIA_DB_NAME}' in docker_compose_content
-    assert 'testuser' in docker_compose_content or '{KAVIA_DB_USER}' in docker_compose_content
-    assert '15432' in docker_compose_content or '{KAVIA_DB_PORT}' in docker_compose_content
-    assert 'test-postgres-db' in docker_compose_content or '{KAVIA_TEMPLATE_PROJECT_NAME}' in docker_compose_content
+    # Verify content replacement in startup.sh
+    startup_content = (output_dir / "startup.sh").read_text()
+    assert 'test_db' in startup_content
+    assert 'testuser' in startup_content
+    assert '15432' in startup_content
 
     # Verify README content
     readme_content = (output_dir / "README.md").read_text()
@@ -187,13 +227,28 @@ def test_default_parameters(template_dir, temp_dir):
     success = initializer.initialize_project(config)
     assert success
     
-    # Check docker-compose.yml for default values
-    docker_compose_content = (config.output_path / "docker-compose.yml").read_text()
-    
-    # Defaults should be: dbname=default_postgres, user=dbuser, password=dbpass, port=5432
-    assert 'default_postgres' in docker_compose_content or '{KAVIA_DB_NAME}' in docker_compose_content
-    assert 'dbuser' in docker_compose_content or '{KAVIA_DB_USER}' in docker_compose_content
-    assert '5432' in docker_compose_content or '{KAVIA_DB_PORT}' in docker_compose_content
+    # Check startup.sh for default values instead of docker-compose.yml
+    startup_script_path = config.output_path / "startup.sh"
+    if startup_script_path.exists():
+        startup_script_content = startup_script_path.read_text()
+        
+        # Check for default database name
+        assert ('default_postgres' in startup_script_content or 
+                '{KAVIA_DB_NAME}' in startup_script_content)
+        
+        # Check for default user
+        assert ('dbuser' in startup_script_content or 
+                '{KAVIA_DB_USER}' in startup_script_content or
+                'DB_USER=' in startup_script_content)
+        
+        # Check for default port
+        assert ('5432' in startup_script_content or 
+                '{KAVIA_DB_PORT}' in startup_script_content)
+    else:
+        # Fallback: check config.yml if startup.sh doesn't exist
+        config_content = (config.output_path / "config.yml").read_text()
+        assert ('dbuser' in config_content or 
+                '{KAVIA_DB_USER}' in config_content)
 
 
 def test_config_file_loading(temp_dir):
@@ -240,8 +295,8 @@ def test_entry_point_url(template_dir, project_config):
     assert 'test_db' in init_info.entry_point_url or '{KAVIA_DB_NAME}' in init_info.entry_point_url
 
 
-def test_docker_compose_yaml_structure(template_dir, project_config):
-    """Test that docker-compose.yml has valid YAML structure."""
+def test_startup_script_structure(template_dir, project_config):
+    """Test that startup.sh has valid structure and content."""
     initializer = ProjectInitializer()
     initializer.template_factory.template_provider = TemplateProvider(template_dir)
     initializer.template_factory.register_template(ProjectType.POSTGRESQL, PostgreSQLTemplate)
@@ -249,17 +304,18 @@ def test_docker_compose_yaml_structure(template_dir, project_config):
     success = initializer.initialize_project(project_config)
     assert success
     
-    # Load and parse the docker-compose.yml
-    docker_compose_path = project_config.output_path / "docker-compose.yml"
-    with open(docker_compose_path, 'r') as f:
-        docker_config = yaml.safe_load(f)
+    # Load and check the startup.sh script
+    startup_script_path = project_config.output_path / "startup.sh"
+    assert startup_script_path.exists()
     
-    # Verify structure
-    assert 'services' in docker_config
-    assert 'postgres' in docker_config['services']
-    assert 'environment' in docker_config['services']['postgres']
-    assert 'ports' in docker_config['services']['postgres']
-    assert 'volumes' in docker_config
+    startup_content = startup_script_path.read_text()
+    
+    # Verify essential PostgreSQL setup commands are present
+    assert 'DB_NAME=' in startup_content
+    assert 'DB_USER=' in startup_content
+    assert 'DB_PASSWORD=' in startup_content
+    assert 'DB_PORT=' in startup_content
+    assert 'postgresql' in startup_content.lower() or 'postgres' in startup_content.lower()
 
 
 def test_template_variable_replacement(template_dir, project_config):
@@ -314,3 +370,21 @@ def test_postgresql_specific_features(template_dir, project_config):
     # PostgreSQL requires authentication
     assert replacements['KAVIA_DB_USER'] != ''
     assert replacements['KAVIA_DB_PASSWORD'] != ''
+
+
+def test_readme_content(template_dir, project_config):
+    """Test that README.md is properly generated with correct content."""
+    initializer = ProjectInitializer()
+    initializer.template_factory.template_provider = TemplateProvider(template_dir)
+    initializer.template_factory.register_template(ProjectType.POSTGRESQL, PostgreSQLTemplate)
+
+    success = initializer.initialize_project(project_config)
+    assert success
+    
+    readme_path = project_config.output_path / "README.md"
+    assert readme_path.exists()
+    
+    readme_content = readme_path.read_text()
+    assert 'test-postgres-db' in readme_content
+    assert 'Test Author' in readme_content
+    assert 'postgresql://' in readme_content

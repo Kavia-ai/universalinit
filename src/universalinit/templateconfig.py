@@ -73,10 +73,10 @@ class ProjectConfig:
     def _get_default_db_user(self) -> str:
         """Get default database user based on project type."""
         default_users = {
-            ProjectType.POSTGRESQL: 'postgres',
-            ProjectType.MONGODB: '',
-            ProjectType.MYSQL: 'root',
-            ProjectType.SQLITE: '',
+            ProjectType.POSTGRESQL: 'kaviapostgres',
+            ProjectType.MONGODB: 'kaviamongodb',
+            ProjectType.MYSQL: 'kaviamysql',
+            ProjectType.SQLITE: 'kaviasqlite',
         }
         return default_users.get(self.project_type, 'dbuser')
 
@@ -92,10 +92,8 @@ class ProjectConfig:
             'KAVIA_PROJECT_DIRECTORY': str(self.output_path),
             'KAVIA_DB_NAME': self.parameters.get('database_name', self.name.replace('-', '_')),
             'KAVIA_DB_USER': self.parameters.get('database_user', self._get_default_db_user()),
-            'KAVIA_DB_PASSWORD': self.parameters.get('database_password', 'dbpass'),
+            'KAVIA_DB_PASSWORD': self.parameters.get('database_password', 'kaviadefaultpassword'),
             'KAVIA_DB_PORT': str(self.parameters.get('database_port', self._get_default_db_port())),
-            'KAVIA_DB_HOST': self.parameters.get('database_host', 'localhost'),
-            'KAVIA_DB_PATH': self.parameters.get('database_path', './data'),
         }
         return replacements
 

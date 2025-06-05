@@ -850,15 +850,6 @@ class PostgreSQLTemplate(ProjectTemplate):
     def generate_structure(self) -> None:
         replacements = self.config.get_replaceable_parameters()
         
-        # Minimal database parameters
-        replacements.update({
-            'KAVIA_DB_NAME': self.config.parameters.get('database_name', 
-                                                        self.config.name.replace('-', '_')),
-            'KAVIA_DB_USER': self.config.parameters.get('database_user', 'dbuser'),
-            'KAVIA_DB_PASSWORD': self.config.parameters.get('database_password', 'dbpass'),
-            'KAVIA_DB_PORT': str(self.config.parameters.get('database_port', 5432)),
-        })
-        
         FileSystemHelper.copy_template(
             self.template_path,
             self.config.output_path,
@@ -878,15 +869,6 @@ class MongoDBTemplate(ProjectTemplate):
 
     def generate_structure(self) -> None:
         replacements = self.config.get_replaceable_parameters()
-        
-        # Minimal database parameters (MongoDB can run without auth)
-        replacements.update({
-            'KAVIA_DB_NAME': self.config.parameters.get('database_name', 
-                                                        self.config.name.replace('-', '_')),
-            'KAVIA_DB_USER': self.config.parameters.get('database_user', ''),
-            'KAVIA_DB_PASSWORD': self.config.parameters.get('database_password', ''),
-            'KAVIA_DB_PORT': str(self.config.parameters.get('database_port', 27017)),
-        })
         
         FileSystemHelper.copy_template(
             self.template_path,
@@ -908,15 +890,6 @@ class MySQLTemplate(ProjectTemplate):
     def generate_structure(self) -> None:
         replacements = self.config.get_replaceable_parameters()
         
-        # Minimal database parameters (using root user for simplicity)
-        replacements.update({
-            'KAVIA_DB_NAME': self.config.parameters.get('database_name', 
-                                                        self.config.name.replace('-', '_')),
-            'KAVIA_DB_USER': self.config.parameters.get('database_user', 'root'),
-            'KAVIA_DB_PASSWORD': self.config.parameters.get('database_password', 'dbpass'),
-            'KAVIA_DB_PORT': str(self.config.parameters.get('database_port', 3306)),
-        })
-        
         FileSystemHelper.copy_template(
             self.template_path,
             self.config.output_path,
@@ -936,12 +909,6 @@ class SQLiteTemplate(ProjectTemplate):
 
     def generate_structure(self) -> None:
         replacements = self.config.get_replaceable_parameters()
-        
-        # SQLite only needs file path - no network or auth required
-        replacements.update({
-            'KAVIA_DB_NAME': self.config.parameters.get('database_name', 
-                                                        f"{self.config.name.replace('-', '_')}.db"),
-        })
         
         FileSystemHelper.copy_template(
             self.template_path,
