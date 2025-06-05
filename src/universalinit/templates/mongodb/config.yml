@@ -1,26 +1,26 @@
 build_cmd:
-  command: "docker compose up -d"
+  command: "chmod +x startup.sh && sudo ./startup.sh &"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 env:
   environment_initialized: true
-  docker_version: "20.10.0"
+  mongodb_version: "8.0"
 
 init_files: []
 
 init_minimal: "MongoDB database initialized"
 
 run_tool:
-  command: "docker compose up"
+  command: "sudo ./startup.sh &"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
-  command: "docker compose exec -T mongo mongosh --eval 'db.version()'"
+  command: "mongosh --host localhost --port {KAVIA_DB_PORT} --eval \"db.adminCommand('ping')\""
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 init_style: "database"
 
-entry_point_url: "mongodb://localhost:{KAVIA_DB_PORT}/{KAVIA_DB_NAME}"
+entry_point_url: "mongodb://{KAVIA_DB_USER}:{KAVIA_DB_PASSWORD}@localhost:{KAVIA_DB_PORT}/{KAVIA_DB_NAME}"
 
 linter:
   script_content: |
@@ -32,5 +32,6 @@ post_processing:
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
     echo "Starting MongoDB..."
-    docker compose up -d
-    echo "MongoDB is starting on port {KAVIA_DB_PORT}"
+    chmod +x startup.sh
+    sudo ./startup.sh &
+    echo "MongoDB is starting on port {KAVIA_DB_PORT}..."
