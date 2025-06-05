@@ -5,7 +5,7 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
     server: {
         host: '0.0.0.0',
-        allowedHosts: true,
+        allowedHosts: ['*'],
         port: 3000,
         headers: {
             'Access-Control-Allow-Origin': '*'
