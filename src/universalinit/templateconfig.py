@@ -119,6 +119,12 @@ class BuildCommand:
     working_directory: str
 
 @dataclass
+class InstallDependenciesCommand:
+    """Configuration to install dependencies."""
+    command: str
+    working_directory: str
+
+@dataclass
 class EnvironmentConfig:
     """Environment configuration."""
     environment_initialized: bool
@@ -146,6 +152,7 @@ class TestTool:
 class TemplateInitInfo:
     """Complete template initialization information."""
     build_cmd: BuildCommand
+    install_dependencies: InstallDependenciesCommand
     env_config: EnvironmentConfig
     init_files: List[str]
     init_minimal: str
@@ -179,6 +186,10 @@ class TemplateConfigProvider:
             build_cmd=BuildCommand(
                 command=config_data['build_cmd']['command'],
                 working_directory=config_data['build_cmd']['working_directory']
+            ),
+            install_dependencies=InstallDependenciesCommand(
+                command=config_data['install_dependencies']['command'],
+                working_directory=config_data['install_dependencies']['working_directory']
             ),
             env_config=EnvironmentConfig(
                 environment_initialized=config_data['env']['environment_initialized'],
