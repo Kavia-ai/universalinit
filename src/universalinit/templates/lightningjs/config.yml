@@ -2,6 +2,10 @@ build_cmd:
   command: "npm install && npm run build"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
+install_dependencies: 
+  command: "npm install"
+  working_directory: "{KAVIA_PROJECT_DIRECTORY}"
+
 env:
   environment_initialized: true
   node_version: "18.19.1"
