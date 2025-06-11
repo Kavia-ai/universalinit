@@ -3,7 +3,7 @@ build_cmd:
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 install_dependencies:
-  command: ""
+  command: "ls"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
   
 env:
