@@ -2,6 +2,10 @@ build_cmd:
   command: "chmod +x startup.sh && sudo ./startup.sh &"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
+install_dependencies:
+  command: ""
+  working_directory: "{KAVIA_PROJECT_DIRECTORY}"
+  
 env:
   environment_initialized: true
   mongodb_version: "8.0"
