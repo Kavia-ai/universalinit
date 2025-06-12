@@ -36,6 +36,10 @@ def template_dir(temp_dir):
             'command': 'npm install && ns build',
             'working_directory': str(nativescript_path)
         },
+        'install_dependencies': {
+            'command': 'npm install',
+            'working_directory': str(nativescript_path)
+        },
         'env': {
             'environment_initialized': True,
             'node_version': '18.19.1',

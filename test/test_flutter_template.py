@@ -37,6 +37,10 @@ def template_dir(temp_dir):
             'command': 'flutter build apk --release --target-platform android-x64',
             'working_directory': '{KAVIA_PROJECT_DIRECTORY}'
         },
+        'install_dependencies': {
+            'command': 'ls',
+            'working_directory': str(flutter_path)
+        },
         'env': {
             'environment_initialized': True,
             'flutter_version': '3.27.3',

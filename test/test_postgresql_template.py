@@ -30,6 +30,10 @@ def template_dir(temp_dir):
             'command': 'chmod +x startup.sh && sudo ./startup.sh &',
             'working_directory': '{KAVIA_PROJECT_DIRECTORY}'
         },
+        'install_dependencies': {
+            'command': 'ls',
+            'working_directory': str(postgresql_path)
+        },
         'env': {
             'environment_initialized': True,
             'postgres_version': '16'

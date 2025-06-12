@@ -34,6 +34,10 @@ def template_dir(temp_dir):
             'command': './gradlew assembleDebug',
             'working_directory': '{KAVIA_PROJECT_DIRECTORY}'
         },
+        'install_dependencies': {
+            'command': 'ls',
+            'working_directory': str(android_path)
+        },      
         'env': {
             'environment_initialized': True,
             'java_version': '17',

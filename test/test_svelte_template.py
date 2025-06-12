@@ -30,6 +30,10 @@ def template_dir(temp_dir):
             'command': 'npm install && npm run check && npm run test',
             'working_directory': str(svelte_path)
         },
+        'install_dependencies': {
+            'command': 'npm install',
+            'working_directory': str(svelte_path)
+        },
         'env': {
             'environment_initialized': True,
             'node_version': '18.19.1',
