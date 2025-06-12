@@ -1,6 +1,6 @@
 [project]
 name = "universalinit"
-version = "0.1.45"
+version = "0.1.46"
 description = ""
 authors = [
     {name = "Zoltan Kuscsik",email = "zoltan@s57.io"},
