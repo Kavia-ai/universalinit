@@ -12,7 +12,7 @@ install_dependencies:
 
 env:
   environment_initialized: true
-  python_version: "3.11"
+  python_version: "3.12.3"
   pip_version: "24.0"
 
 init_files: []
