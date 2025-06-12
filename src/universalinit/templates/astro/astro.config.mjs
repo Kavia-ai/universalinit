@@ -5,7 +5,7 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
     server: {
         host: '0.0.0.0',
-        allowedHosts: ['*'],
+        allowedHosts: ['.kavia.ai'],
         port: 3000,
         headers: {
             'Access-Control-Allow-Origin': '*'
