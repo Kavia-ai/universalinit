@@ -31,6 +31,10 @@ def template_dir(temp_dir):
             'command': 'npm install && npx tsc --noEmit && npm test -- --ci',
             'working_directory': str(react_path)
         },
+        'install_dependencies': {
+            'command': 'npm install',
+            'working_directory': str(react_path)
+        },
         'env': {
             'environment_initialized': True,
             'node_version': '18.19.1',

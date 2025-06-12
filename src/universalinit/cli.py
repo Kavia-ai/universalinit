@@ -53,6 +53,10 @@ def template_init_info_to_dict(init_info: TemplateInitInfo, project_path: Path) 
             "command": init_info.build_cmd.command,
             "working_directory": init_info.build_cmd.working_directory
         },
+        "install_dependencies": {
+            "command": init_info.install_dependencies.command,
+            "working_directory": init_info.install_dependencies.working_directory
+        },
         "env_config": {
             "environment_initialized": init_info.env_config.environment_initialized,
             "node_version": init_info.env_config.node_version,

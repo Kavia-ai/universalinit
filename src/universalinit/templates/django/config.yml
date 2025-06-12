@@ -6,6 +6,10 @@ build_cmd:
             python manage.py migrate"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
+install_dependencies: 
+  command: "source venv/bin/activate && pip install -r requirements.txt"
+  working_directory: "{KAVIA_PROJECT_DIRECTORY}"
+
 env:
   environment_initialized: true
   python_version: "3.12.3"

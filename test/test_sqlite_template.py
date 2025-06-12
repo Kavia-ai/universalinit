@@ -31,6 +31,10 @@ def template_dir(temp_dir):
             'command': 'python init_db.py',
             'working_directory': '{KAVIA_PROJECT_DIRECTORY}'
         },
+        'install_dependencies': {
+            'command': 'ls',
+            'working_directory': str(sqlite_path)
+        },
         'env': {
             'environment_initialized': True,
             'python_version': '3.8+'

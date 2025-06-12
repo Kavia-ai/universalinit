@@ -36,6 +36,10 @@ def template_dir(temp_dir):
             'command': 'docker compose up -d || docker-compose up -d',
             'working_directory': str(mongodb_path)
         },
+        'install_dependencies': {
+            'command': 'ls',
+            'working_directory': str(mongodb_path)
+        },
         'env': {
             'environment_initialized': True,
             'docker_version': '20.10.0'
