@@ -6,6 +6,7 @@ install_dependencies:
   command: "npm install"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
+env:
   environment_initialized: true
   node_version: "18.19.1"
   npm_version: "9.2.0"
