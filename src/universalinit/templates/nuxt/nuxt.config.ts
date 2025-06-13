@@ -13,7 +13,9 @@ export default defineNuxtConfig({
   },
   vite: {
     server: {
+      host: '0.0.0.0',
       allowedHosts: true,
+      port: 3000,
     },
   },
 });

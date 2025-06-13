@@ -12,6 +12,9 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       mainFields: ['browser', 'module', 'jsnext:main', 'jsnext'],
     },
     server: {
+      host: '0.0.0.0',
+      allowedHosts: ['.kavia.ai'],
+      port: 3000,
       headers: {
         'Cross-Origin-Opener-Policy': 'same-origin',
         'Cross-Origin-Embedder-Policy': 'require-corp',
