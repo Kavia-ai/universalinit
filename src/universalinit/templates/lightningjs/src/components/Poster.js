@@ -17,44 +17,37 @@
 
 import Blits from '@lightningjs/blits'
 
-export default Blits.Component('Button', {
+export default Blits.Component('Poster', {
   template: `
     <Element
-      w="300"
-      h="80"
-      color="$color || 'red'"
-      :effects="[{type: 'radius', props: {radius: 20}}]"
-      :alpha.transition="$alpha"
-      :scale.transition="$scale"
-      :rotation="$rotate"
-    >
-    </Element>
+      w="185"
+      h="278"
+      x="$x"
+      :src="$item.poster"
+      :scale.transition="{value: $scale, duration: 200, easing: 'cubic-bezier(0.20, 1.00, 0.80, 1.00)'}"
+      :_effects="[{type: 'radius', props: {radius: 8}}]"
+    />
   `,
-  props: ['color'],
+  props: ['src', 'index', 'item', 'width'],
   state() {
     return {
-      alpha: 0.4,
       scale: 1,
-      rotate: 0,
+      color: '#333',
     }
+  },
+  computed: {
+    x() {
+      return this.index * this.width
+    },
   },
   hooks: {
     focus() {
-      this.$log.info(`Button with color ${this.color} received focus`)
-      this.alpha = 1
-      this.scale = this.scale === 1 ? 1.2 : 1
+      this.color = '#fff'
+      this.scale = 1.1
     },
     unfocus() {
-      this.$log.info(`Button with color ${this.color} lost focus`)
-      this.alpha = 0.4
+      this.color = '#333'
       this.scale = 1
-      this.rotate = 0
-    },
-  },
-  input: {
-    enter() {
-      this.rotate = this.rotate === 0 ? -4 : 0
-      this.scale = this.scale === 1.2 ? 1.3 : 1.2
     },
   },
 })

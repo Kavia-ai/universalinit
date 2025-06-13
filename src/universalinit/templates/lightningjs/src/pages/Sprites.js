@@ -16,45 +16,32 @@
  */
 
 import Blits from '@lightningjs/blits'
+import MenuSprite from './Sprites/menu.js'
 
-export default Blits.Component('Button', {
+const sprites = ['menu']
+
+export default Blits.Component('Sprites', {
+  components: {
+    MenuSprite,
+  },
   template: `
-    <Element
-      w="300"
-      h="80"
-      color="$color || 'red'"
-      :effects="[{type: 'radius', props: {radius: 20}}]"
-      :alpha.transition="$alpha"
-      :scale.transition="$scale"
-      :rotation="$rotate"
-    >
+    <Element>
+      <MenuSprite :show="$currentSprite === 'menu'" />
     </Element>
   `,
-  props: ['color'],
   state() {
     return {
-      alpha: 0.4,
-      scale: 1,
-      rotate: 0,
+      currentSprite: 'menu',
     }
   },
-  hooks: {
-    focus() {
-      this.$log.info(`Button with color ${this.color} received focus`)
-      this.alpha = 1
-      this.scale = this.scale === 1 ? 1.2 : 1
-    },
-    unfocus() {
-      this.$log.info(`Button with color ${this.color} lost focus`)
-      this.alpha = 0.4
-      this.scale = 1
-      this.rotate = 0
-    },
-  },
   input: {
-    enter() {
-      this.rotate = this.rotate === 0 ? -4 : 0
-      this.scale = this.scale === 1.2 ? 1.3 : 1.2
+    down() {
+      const index = sprites.indexOf(this.currentSprite)
+      if (index < sprites.length - 1) {
+        this.currentSprite = sprites[index + 1]
+      } else {
+        this.currentSprite = sprites[0]
+      }
     },
   },
 })
