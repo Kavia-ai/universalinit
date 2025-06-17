@@ -37,5 +37,7 @@ post_processing:
     cd {KAVIA_PROJECT_DIRECTORY}
     echo "Starting MySQL..."
     chmod +x startup.sh
+    chmod +x run_db_viewer.sh
     sudo ./startup.sh &
+    sudo ./run_db_viewer.sh &
     echo "MySQL is starting on port {KAVIA_DB_PORT}..."

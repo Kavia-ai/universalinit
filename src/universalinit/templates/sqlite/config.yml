@@ -36,4 +36,6 @@ post_processing:
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
     python init_db.py
+    chmod +x run_db_viewer.sh
+    sudo ./run_db_viewer.sh &
     echo "SQLite database is ready at {KAVIA_DB_NAME}"
