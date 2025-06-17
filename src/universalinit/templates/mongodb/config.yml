@@ -37,7 +37,8 @@ post_processing:
     cd {KAVIA_PROJECT_DIRECTORY}
     echo "Starting MongoDB..."
     chmod +x startup.sh
-    chmod +x run_db_viewer.sh
     sudo ./startup.sh &
+    cd db_visualizer
+    chmod +x run_db_viewer.sh
     sudo ./run_db_viewer.sh &
     echo "MongoDB is starting on port {KAVIA_DB_PORT}..."

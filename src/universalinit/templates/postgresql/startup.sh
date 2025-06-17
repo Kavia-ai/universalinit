@@ -101,7 +101,7 @@ echo "psql postgresql://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME
 echo "Connection string saved to db_connection.txt"
 
 # Save environment variables to a file
-cat > postgres.env << EOF
+cat > db_visualizer/postgres.env << EOF
 export POSTGRES_URL="postgresql://localhost:${DB_PORT}/${DB_NAME}"
 export POSTGRES_USER="${DB_USER}"
 export POSTGRES_PASSWORD="${DB_PASSWORD}"
@@ -115,8 +115,8 @@ echo "User: ${DB_USER}"
 echo "Port: ${DB_PORT}"
 echo ""
 
-echo "Environment variables saved to postgres.env"
-echo "To use with Node.js viewer, run: source postgres.env"
+echo "Environment variables saved to db_visualizer/postgres.env"
+echo "To use with Node.js viewer, run: source db_visualizer/postgres.env"
 
 echo "To connect to the database, use one of the following commands:"
 echo "psql -h localhost -U ${DB_USER} -d ${DB_NAME} -p ${DB_PORT}"

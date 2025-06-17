@@ -75,19 +75,19 @@ with open("db_connection.txt", "w") as f:
 
 # Create environment variables file for Node.js viewer
 db_path = os.path.abspath(DB_NAME)
-with open("sqlite.env", "w") as f:
+with open("db_visualizer/sqlite.env", "w") as f:
     f.write(f"export SQLITE_DB=\"{db_path}\"\n")
 
 print("Connection information saved to db_connection.txt")
-print(f"Environment variables saved to sqlite.env")
+print(f"Environment variables saved to db_visualizer/sqlite.env")
 
 print("\nSQLite setup complete!")
 print(f"Database: {DB_NAME}")
 print(f"Location: {current_dir}/{DB_NAME}")
 print("")
 
-print("Environment variables saved to sqlite.env")
-print("To use with Node.js viewer, run: source sqlite.env")
+print("Environment variables saved to db_visualizer/sqlite.env")
+print("To use with Node.js viewer, run: source db_visualizer/sqlite.env")
 
 print("To connect to the database, use one of the following methods:")
 print(f"1. Python: sqlite3.connect('{DB_NAME}')")

@@ -76,7 +76,7 @@ echo "mongosh mongodb://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME
 echo "Connection string saved to db_connection.txt"
 
 # Save environment variables to a file
-cat > mongodb.env << EOF
+cat > db_visualizer/mongodb.env << EOF
 export MONGODB_URL="mongodb://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/?authSource=admin"
 export MONGODB_DB="${DB_NAME}"
 EOF
@@ -88,8 +88,8 @@ echo "App user: appuser (password: ${DB_PASSWORD})"
 echo "Port: ${DB_PORT}"
 echo ""
 
-echo "Environment variables saved to mongodb.env"
-echo "To use with Node.js viewer, run: source mongodb.env"
+echo "Environment variables saved to db_visualizer/mongodb.env"
+echo "To use with Node.js viewer, run: source db_visualizer/mongodb.env"
 
 echo "To connect to the database, use one of the following commands:"
 echo "mongosh -u ${DB_USER} -p ${DB_PASSWORD} --port ${DB_PORT} --authenticationDatabase admin ${DB_NAME}"

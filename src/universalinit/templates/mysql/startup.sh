@@ -54,7 +54,7 @@ echo "mysql -u ${DB_USER} -p${DB_PASSWORD} -h localhost -P ${DB_PORT} ${DB_NAME}
 echo "Connection command saved to db_connection.txt"
 
 # Save environment variables to a file
-cat > mysql.env << EOF
+cat > db_visualizer/mysql.env << EOF
 export MYSQL_URL="mysql://localhost:${DB_PORT}/${DB_NAME}"
 export MYSQL_USER="${DB_USER}"
 export MYSQL_PASSWORD="${DB_PASSWORD}"
@@ -69,8 +69,8 @@ echo "App user: appuser (password: ${DB_PASSWORD})"
 echo "Port: ${DB_PORT}"
 echo ""
 
-echo "Environment variables saved to mysql.env"
-echo "To use with Node.js viewer, run: source mysql.env"
+echo "Environment variables saved to db_visualizer/mysql.env"
+echo "To use with Node.js viewer, run: source db_visualizer/mysql.env"
 
 echo "To connect to the database, use the following command:"
 echo "$(cat db_connection.txt)"
