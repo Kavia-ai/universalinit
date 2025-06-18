@@ -845,8 +845,7 @@ class PostgreSQLTemplate(ProjectTemplate):
     """Template implementation for PostgreSQL database projects."""
 
     def validate_parameters(self) -> bool:
-        required_params = {'database_name', 'database_user', 'database_password'}
-        return all(param in self.config.parameters for param in required_params)
+        return True
 
     def generate_structure(self) -> None:
         replacements = self.config.get_replaceable_parameters()
@@ -868,8 +867,7 @@ class MongoDBTemplate(ProjectTemplate):
     """Template implementation for MongoDB database projects."""
 
     def validate_parameters(self) -> bool:
-        required_params = {'database_name', 'database_user', 'database_password'}
-        return all(param in self.config.parameters for param in required_params)
+        return True
 
     def generate_structure(self) -> None:
         replacements = self.config.get_replaceable_parameters()
@@ -891,8 +889,7 @@ class MySQLTemplate(ProjectTemplate):
     """Template implementation for MySQL database projects."""
 
     def validate_parameters(self) -> bool:
-        required_params = {'database_name', 'database_user', 'database_password'}
-        return all(param in self.config.parameters for param in required_params)
+        return True
 
     def generate_structure(self) -> None:
         replacements = self.config.get_replaceable_parameters()
@@ -914,8 +911,7 @@ class SQLiteTemplate(ProjectTemplate):
     """Template implementation for SQLite database projects."""
 
     def validate_parameters(self) -> bool:
-        required_params = {'database_name', 'database_user', 'database_password'}
-        return all(param in self.config.parameters for param in required_params)
+        return True
 
     def generate_structure(self) -> None:
         replacements = self.config.get_replaceable_parameters()
