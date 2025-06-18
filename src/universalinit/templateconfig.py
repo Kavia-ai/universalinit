@@ -60,16 +60,6 @@ class ProjectConfig:
     output_path: Path
     parameters: Dict[str, Any]
 
-    def _get_default_db_port(self) -> int:
-        """Get default database port based on project type."""
-        default_ports = {
-            ProjectType.POSTGRESQL: 5432,
-            ProjectType.MONGODB: 27017,
-            ProjectType.MYSQL: 3306,
-            ProjectType.SQLITE: 0,  # SQLite doesn't use ports
-        }
-        return default_ports.get(self.project_type, 5432)
-
     def _get_default_db_user(self) -> str:
         """Get default database user based on project type."""
         default_users = {
@@ -93,7 +83,7 @@ class ProjectConfig:
             'KAVIA_DB_NAME': self.parameters.get('database_name', self.name.replace('-', '_')),
             'KAVIA_DB_USER': self.parameters.get('database_user', self._get_default_db_user()),
             'KAVIA_DB_PASSWORD': self.parameters.get('database_password', 'kaviadefaultpassword'),
-            'KAVIA_DB_PORT': str(self.parameters.get('database_port', self._get_default_db_port())),
+            'KAVIA_DB_PORT': str(self.parameters.get('database_port', 5000)),
         }
         return replacements
 
