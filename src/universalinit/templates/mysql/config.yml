@@ -40,5 +40,5 @@ post_processing:
     sudo ./startup.sh &
     cd db_visualizer
     chmod +x run_db_viewer.sh
-    sudo ./run_db_viewer.sh &
+    ./run_db_viewer.sh &
     echo "MySQL is starting on port {KAVIA_DB_PORT}..."
