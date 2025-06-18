@@ -849,12 +849,14 @@ class PostgreSQLTemplate(ProjectTemplate):
 
     def generate_structure(self) -> None:
         replacements = self.config.get_replaceable_parameters()
+        base_path = Path(__file__).parent / "common"
         
         FileSystemHelper.copy_template(
             self.template_path,
             self.config.output_path,
             replacements,
-            include_hidden=True
+            include_hidden=True,
+            extra_files=[ str(Path.joinpath(base_path, 'db_visualizer')) ],
         )
 
     def setup_testing(self) -> None:
@@ -869,12 +871,14 @@ class MongoDBTemplate(ProjectTemplate):
 
     def generate_structure(self) -> None:
         replacements = self.config.get_replaceable_parameters()
-        
+        base_path = Path(__file__).parent / "common"
+
         FileSystemHelper.copy_template(
             self.template_path,
             self.config.output_path,
             replacements,
-            include_hidden=True
+            include_hidden=True,
+            extra_files=[ str(Path.joinpath(base_path, 'db_visualizer')) ],
         )
 
     def setup_testing(self) -> None:
@@ -889,12 +893,14 @@ class MySQLTemplate(ProjectTemplate):
 
     def generate_structure(self) -> None:
         replacements = self.config.get_replaceable_parameters()
+        base_path = Path(__file__).parent / "common"
         
         FileSystemHelper.copy_template(
             self.template_path,
             self.config.output_path,
             replacements,
-            include_hidden=True
+            include_hidden=True,
+            extra_files=[ str(Path.joinpath(base_path, 'db_visualizer')) ],
         )
 
     def setup_testing(self) -> None:
@@ -909,12 +915,14 @@ class SQLiteTemplate(ProjectTemplate):
 
     def generate_structure(self) -> None:
         replacements = self.config.get_replaceable_parameters()
+        base_path = Path(__file__).parent / "common"
         
         FileSystemHelper.copy_template(
             self.template_path,
             self.config.output_path,
             replacements,
-            include_hidden=True
+            include_hidden=True,
+            extra_files=[ str(Path.joinpath(base_path, 'db_visualizer')) ],
         )
 
     def setup_testing(self) -> None:
@@ -925,7 +933,79 @@ class FileSystemHelper:
     """Helper class for file system operations."""
 
     @staticmethod
-    def copy_template(src: Path, dst: Path, replacements: Dict[str, str], include_hidden: bool = False) -> None:
+    def _apply_replacements(text: str, replacements: Dict[str, str]) -> str:
+        """Apply variable replacements to text."""
+        for key, value in replacements.items():
+            text = text.replace(f"${key}", str(value))
+            text = text.replace(f"{{{key}}}", str(value))
+        return text
+
+    @staticmethod
+    def _apply_path_replacements(path: Path, replacements: Dict[str, str]) -> Path:
+        """Apply variable replacements to file path."""
+        path_str = str(path)
+        for key, value in replacements.items():
+            path_str = path_str.replace(f"${key}", str(value))
+        return Path(path_str)
+
+    @staticmethod
+    def _copy_file(src: Path, dst: Path, replacements: Dict[str, str]) -> None:
+        """Copy a single file with variable replacement."""
+        # Apply replacements to destination path
+        dst = FileSystemHelper._apply_path_replacements(dst, replacements)
+        
+        # Ensure parent directories exist
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        
+        try:
+            # Try to read as text and apply replacements
+            content = src.read_text()
+            content = FileSystemHelper._apply_replacements(content, replacements)
+            dst.write_text(content)
+        except UnicodeDecodeError:
+            # Just copy the file as is if it can't be decoded as text
+            dst.write_bytes(src.read_bytes())
+
+    @staticmethod
+    def _should_skip_file(item: Path, excluded_files: set, include_hidden: bool) -> bool:
+        """Check if a file should be skipped."""
+        # Skip excluded files
+        if item.name in excluded_files:
+            return True
+        
+        # Skip python special files
+        if item.name.startswith('__') and item.name.endswith('__'):
+            return True
+        
+        # Skip hidden files if not included
+        if not include_hidden and item.name.startswith('.') and item.is_file():
+            return True
+        
+        return False
+
+    @staticmethod
+    def _copy_directory_contents(src_dir: Path, dst_dir: Path, replacements: Dict[str, str], excluded_files: set = None, include_hidden: bool = True) -> None:
+        """Copy directory contents with variable replacement."""
+
+        if excluded_files is None:
+            excluded_files = set()
+        
+        for item in src_dir.rglob("*"):
+            # Skip files based on rules
+            if FileSystemHelper._should_skip_file(item, excluded_files, include_hidden):
+                continue
+            
+            relative_path = item.relative_to(src_dir)
+            destination = dst_dir / relative_path
+            
+            if item.is_dir():
+                destination.mkdir(exist_ok=True, parents=True)
+            else:
+                FileSystemHelper._copy_file(item, destination, replacements)
+
+    @staticmethod
+    def copy_template(src: Path, dst: Path, replacements: Dict[str, str], 
+                     include_hidden: bool = False, extra_files: List[str] = None) -> None:
         """Copy template files with variable replacement."""
         if not src.exists():
             raise FileNotFoundError(f"Template path {src} does not exist")
@@ -935,40 +1015,29 @@ class FileSystemHelper:
 
         # Define files to exclude
         excluded_files = {'config.yml'}  # Add config.yml to exclusions
-
-        for item in src.rglob("*"):
-            # Skip excluded files, hidden files, and python special files
-            if (item.name in excluded_files or
-                    item.name.startswith('__') and item.name.endswith('__')):
-                continue
+        
+        # Copy main template contents
+        FileSystemHelper._copy_directory_contents(src, dst, replacements, excluded_files, include_hidden)
+        
+        # Process extra files and directories
+        if extra_files:
+            for extra_path_str in extra_files:
+                extra_path = Path(extra_path_str)
+                if not extra_path.exists():
+                    continue
                 
-            if not include_hidden and item.name.startswith('.') and item.is_file():
-                continue  # Skip hidden files but allow hidden directories
-
-            relative_path = item.relative_to(src)
-            destination = dst / relative_path
-
-            if item.is_dir():
-                destination.mkdir(exist_ok=True, parents=True)  # Added parents=True
-            else:
-                # Handle variable replacement in file names
-                dest_path_str = str(destination)
-                for key, value in replacements.items():
-                    dest_path_str = dest_path_str.replace(f"${key}", str(value))
-                destination = Path(dest_path_str)
-
-                # Ensure parent directories exist
-                destination.parent.mkdir(parents=True, exist_ok=True)
-
-                try:
-                    content = item.read_text()
-                    for key, value in replacements.items():
-                        content = content.replace(f"${key}", str(value))
-                        content = content.replace(f"{{{key}}}", str(value))
-                    destination.write_text(content)
-                except UnicodeDecodeError:
-                    # Just copy the file as is if it can't be decoded as text
-                    destination.write_bytes(item.read_bytes())
+                if extra_path.is_file():
+                    # Copy single file to destination root
+                    dest_file = dst / extra_path.name
+                    FileSystemHelper._copy_file(extra_path, dest_file, replacements)
+                
+                elif extra_path.is_dir():
+                    # Copy directory preserving its name
+                    dest_dir = dst / extra_path.name
+                    dest_dir.mkdir(parents=True, exist_ok=True)
+                    FileSystemHelper._copy_directory_contents(
+                        extra_path, dest_dir, replacements
+                    )
 
 
 def main():
