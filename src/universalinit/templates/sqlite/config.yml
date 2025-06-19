@@ -15,7 +15,7 @@ init_files: []
 init_minimal: "SQLite database initialized"
 
 run_tool:
-  command: "python db_shell.py"
+  command: "cd {KAVIA_PROJECT_DIRECTORY}/db_visualizer && PORT=<port> ./run_db_viewer.sh &"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
@@ -38,5 +38,4 @@ post_processing:
     python init_db.py
     cd db_visualizer
     chmod +x run_db_viewer.sh
-    ./run_db_viewer.sh &
     echo "SQLite database is ready at {KAVIA_DB_NAME}"

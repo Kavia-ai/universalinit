@@ -15,7 +15,7 @@ init_files: []
 init_minimal: "PostgreSQL database initialized"
 
 run_tool:
-  command: "sudo ./startup.sh &"
+  command: "cd {KAVIA_PROJECT_DIRECTORY}/db_visualizer && PORT=<port> ./run_db_viewer.sh &"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
@@ -40,5 +40,4 @@ post_processing:
     sudo ./startup.sh &
     cd db_visualizer
     chmod +x run_db_viewer.sh
-    ./run_db_viewer.sh &
     echo "PostgreSQL is starting on port {KAVIA_DB_PORT}..."
