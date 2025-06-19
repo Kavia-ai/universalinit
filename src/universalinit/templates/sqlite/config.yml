@@ -15,7 +15,7 @@ init_files: []
 init_minimal: "SQLite database initialized"
 
 run_tool:
-  command: "cd {KAVIA_PROJECT_DIRECTORY}/db_visualizer && PORT=<port> ./run_db_viewer.sh &"
+  command: "cd db_visualizer && PORT=<port> npm start"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
@@ -37,5 +37,5 @@ post_processing:
     cd {KAVIA_PROJECT_DIRECTORY}
     python init_db.py
     cd db_visualizer
-    chmod +x run_db_viewer.sh
+    npm install
     echo "SQLite database is ready at {KAVIA_DB_NAME}"
