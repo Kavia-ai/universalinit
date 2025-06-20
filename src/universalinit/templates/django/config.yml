@@ -20,7 +20,7 @@ init_files: []
 init_minimal: "Minimal Django application initialized"
 
 run_tool:
-  command: "source venv/bin/activate && python manage.py migrate && python manage.py runserver 0.0.0.0:<port>"
+  command: "source venv/bin/activate && python manage.py migrate && python manage.py runserver <host>:<port>"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:

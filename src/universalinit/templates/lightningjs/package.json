@@ -9,7 +9,7 @@
     "lint": "eslint '**/*.js'",
     "lint:fix": "eslint '**/*.js' --fix",
     "build": "vite build",
-    "dev": "vite dev --host 0.0.0.0"
+    "dev": "vite dev"
   },
   "devDependencies": {
     "vite": "5.4.8",
