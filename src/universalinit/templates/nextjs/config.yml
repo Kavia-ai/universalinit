@@ -16,7 +16,7 @@ init_files: []
 init_minimal: "Minimal NextJS application initialized"
 
 run_tool:
-  command: "npm run dev -- -p <port>"
+  command: "npm run dev -- -p <port> -h <host>"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
