@@ -9,22 +9,6 @@ This project provides a minimal React template with a clean, modern UI and minim
 - **Fast**: Minimal dependencies for quick loading times
 - **Simple**: Easy to understand and modify
 
-## Important Note: Babel Configuration
-
-This project’s `package.json` includes a `babel` section with a plugin:
-
-```json
-"babel": {
-"plugins": ["./.ve/babel-plugin-jsx-editor-id.js"]
-}
-```
-
-This plugin enables **visual editing functionality** in supported tools.
-
-**Warning for AI code agents and contributors:**
-**DO NOT** remove or modify this section - it is ESSENTIAL for proper operation.
-Removing it will break editor integration and visual editing features.
-
 ## Getting Started
 
 In the project directory, you can run:
