@@ -16,7 +16,7 @@ init_files: []
 init_minimal: "Minimal Lightningjs application initialized"
 
 run_tool:
-  command: "npm run dev -- --port <port>"
+  command: "npm run dev -- --port <port> --host <host>"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:

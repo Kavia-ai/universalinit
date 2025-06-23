@@ -16,7 +16,7 @@ init_files: []
 init_minimal: "Minimal Slidev presentation initialized"
 
 run_tool:
-  command: "npm run dev -- --force --port <port>"
+  command: "npm run dev -- --force --port <port> --bind <host>"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
