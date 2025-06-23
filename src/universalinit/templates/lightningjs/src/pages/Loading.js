@@ -17,44 +17,38 @@
 
 import Blits from '@lightningjs/blits'
 
-export default Blits.Component('Button', {
+import Square from '../components/Square.js'
+
+export default Blits.Component('Loading', {
+  components: {
+    Square,
+  },
   template: `
-    <Element
-      w="300"
-      h="80"
-      color="$color || 'red'"
-      :effects="[{type: 'radius', props: {radius: 20}}]"
-      :alpha.transition="$alpha"
-      :scale.transition="$scale"
-      :rotation="$rotate"
-    >
+    <Element>
+      <Element x="880" y="500">
+        <Circle size="40" color="#94a3b8" :alpha.transition="{value: $alpha, delay: 200}" />
+        <Circle size="40" color="#94a3b8" x="60" :alpha.transition="{value: $alpha, delay: 300}" />
+        <Circle size="40" color="#94a3b8" x="120" :alpha.transition="{value: $alpha, delay: 400}" />
+      </Element>
     </Element>
   `,
-  props: ['color'],
   state() {
     return {
-      alpha: 0.4,
-      scale: 1,
-      rotate: 0,
+      alpha: 0,
     }
   },
   hooks: {
-    focus() {
-      this.$log.info(`Button with color ${this.color} received focus`)
-      this.alpha = 1
-      this.scale = this.scale === 1 ? 1.2 : 1
-    },
-    unfocus() {
-      this.$log.info(`Button with color ${this.color} lost focus`)
-      this.alpha = 0.4
-      this.scale = 1
-      this.rotate = 0
-    },
-  },
-  input: {
-    enter() {
-      this.rotate = this.rotate === 0 ? -4 : 0
-      this.scale = this.scale === 1.2 ? 1.3 : 1.2
+    ready() {
+      let count = 0
+      this.$setInterval(() => {
+        this.alpha = count % 2 ? 0 : 1
+        count++
+
+        // backstopjs
+        if (this.alpha === 0 && count > 2) {
+          console.log('backstopjs:ready')
+        }
+      }, 800)
     },
   },
 })

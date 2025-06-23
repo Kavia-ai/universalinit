@@ -1,33 +1,45 @@
 {
-  "name": "lightningjs",
-  "version": "0.1.0",
-  "description": "lightningjs",
+  "name": "@lightningjs/blits-example-app",
+  "version": "1.14.0",
+  "description": "Lightning 3 Blits Example App",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "npm run dev",
+    "start:test": "NODE_ENV=testing npm run dev",
     "lint": "eslint '**/*.js'",
     "lint:fix": "eslint '**/*.js' --fix",
     "build": "vite build",
-    "dev": "vite dev --host 0.0.0.0"
-  },
-  "devDependencies": {
-    "vite": "5.4.8",
-    "@eslint/eslintrc": "3.1.0",
-    "@eslint/js": "9.11.1",
-    "eslint": "9.11.1",
-    "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-prettier": "5.2.1",
-    "globals": "15.9.0",
-    "lint-staged": "15.2.10",
-    "prettier": "3.3.3"
-  },
-  "dependencies": {
-    "@lightningjs/blits": "1.29.2"
+    "dev": "vite dev --host",
+    "test": "NODE_ENV=testing backstop --config=backstop.cjs test",
+    "test:reference": "NODE_ENV=testing backstop --config=backstop.cjs reference"
   },
   "lint-staged": {
     "*.js": [
       "eslint --fix"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "author": "Michiel van der Geest <hello@michielvandergeest.com>",
+  "license": "Apache-2",
+  "devDependencies": {
+    "backstopjs": "^6.3.22",
+    "eslint": "^8.8.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.3",
+    "playwright": "^1.41.0",
+    "prettier": "^2.5.1",
+    "shaka-player": "^4.7.1",
+    "vite": "^4.0.4"
+  },
+  "dependencies": {
+    "@firebolt-js/sdk": "^1.4.1",
+    "@lightningjs/blits": "^1.27.0"
   }
 }
