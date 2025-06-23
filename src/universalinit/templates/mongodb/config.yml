@@ -2,6 +2,10 @@ build_cmd:
   command: "chmod +x startup.sh && sudo ./startup.sh &"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
+install_dependencies:
+  command: "ls"
+  working_directory: "{KAVIA_PROJECT_DIRECTORY}"
+  
 env:
   environment_initialized: true
   mongodb_version: "8.0"
@@ -11,7 +15,7 @@ init_files: []
 init_minimal: "MongoDB database initialized"
 
 run_tool:
-  command: "sudo ./startup.sh &"
+  command: "cd db_visualizer && PORT=<port> npm start"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
@@ -34,4 +38,6 @@ post_processing:
     echo "Starting MongoDB..."
     chmod +x startup.sh
     sudo ./startup.sh &
+    cd db_visualizer
+    npm install
     echo "MongoDB is starting on port {KAVIA_DB_PORT}..."

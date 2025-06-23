@@ -30,6 +30,10 @@ def template_dir(temp_dir):
             'command': 'pip install -r requirements.txt',
             'working_directory': str(express_path)
         },
+        'install_dependencies': {
+            'command': 'npm install',
+            'working_directory': str(express_path)
+        },      
         'env': {
             'environment_initialized': True,
             'python_version': '3.12.3',

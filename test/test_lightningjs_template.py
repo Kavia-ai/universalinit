@@ -30,6 +30,10 @@ def template_dir(temp_dir):
             'command': 'npm install && npm run build',
             'working_directory': str(lightningjs_path)
         },
+        'install_dependencies': {
+            'command': 'source venv/bin/activate && pip install -r requirements.txt',
+            'working_directory': str(lightningjs_path)
+        }, 
         'env': {
             'environment_initialized': True,
             'node_version': '18.19.1',

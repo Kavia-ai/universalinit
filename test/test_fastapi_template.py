@@ -30,6 +30,10 @@ def template_dir(temp_dir):
             'command': 'pip install -r requirements.txt',
             'working_directory': str(fastapi_path)
         },
+        'install_dependencies': {
+            'command': 'source venv/bin/activate && pip install -r requirements.txt',
+            'working_directory': str(fastapi_path)
+        }, 
         'env': {
             'environment_initialized': True,
             'python_version': '3.12.3',

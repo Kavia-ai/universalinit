@@ -30,6 +30,10 @@ def template_dir(temp_dir):
             'command': 'chmod +x startup.sh && sudo ./startup.sh &',
             'working_directory': '{KAVIA_PROJECT_DIRECTORY}'
         },
+        'install_dependencies': {
+            'command': 'ls',
+            'working_directory': str(postgresql_path)
+        },
         'env': {
             'environment_initialized': True,
             'postgres_version': '16'
@@ -242,7 +246,7 @@ def test_default_parameters(template_dir, temp_dir):
                 'DB_USER=' in startup_script_content)
         
         # Check for default port
-        assert ('5432' in startup_script_content or 
+        assert ('5000' in startup_script_content or 
                 '{KAVIA_DB_PORT}' in startup_script_content)
     else:
         # Fallback: check config.yml if startup.sh doesn't exist

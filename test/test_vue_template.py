@@ -30,6 +30,10 @@ def template_dir(temp_dir):
             'command': 'npm install && npm run type-check && npm run test:unit -- --run',
             'working_directory': str(vue_path)
         },
+        'install_dependencies': {
+            'command': 'npm install',
+            'working_directory': str(vue_path)
+        },
         'env': {
             'environment_initialized': True,
             'node_version': '18.19.1',

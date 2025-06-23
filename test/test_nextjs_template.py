@@ -30,6 +30,10 @@ def template_dir(temp_dir):
             'command': 'npm install && npm run lint && npm run test',
             'working_directory': str(nextjs_path)
         },
+        'install_dependencies': {
+            'command': 'npm install',
+            'working_directory': str(nextjs_path)
+        },
         'env': {
             'environment_initialized': True,
             'node_version': '18.19.1',

@@ -7,7 +7,7 @@ import json
 import time
 
 from universalinit.templateconfig import ProjectConfig, ProjectType
-from universalinit.universalinit import ProjectInitializer, TemplateProvider, ReactTemplate
+from universalinit.universalinit import ProjectInitializer, TemplateProvider, ReactTemplate, FileSystemHelper
 
 
 @pytest.fixture
@@ -29,6 +29,10 @@ def template_dir(temp_dir):
     config = {
         'build_cmd': {
             'command': 'npm install && npx tsc --noEmit && npm test -- --ci',
+            'working_directory': str(react_path)
+        },
+        'install_dependencies': {
+            'command': 'npm install',
             'working_directory': str(react_path)
         },
         'env': {
@@ -227,3 +231,105 @@ def test_template_variable_replacement(template_dir, project_config):
     assert project_config.author in content
     assert project_config.version in content
     assert project_config.description in content
+
+def test_extra_files_single_file(template_dir, project_config, temp_dir):
+    """Test copying a single extra file."""
+    # Create an extra file outside the template
+    extra_file = temp_dir / "extra_config.json"
+    extra_file.write_text('{"project": "${KAVIA_TEMPLATE_PROJECT_NAME}", "version": "${KAVIA_PROJECT_VERSION}"}')
+    
+    # Test FileSystemHelper directly
+    replacements = project_config.get_replaceable_parameters()
+    FileSystemHelper.copy_template(
+        template_dir / "react",
+        project_config.output_path,
+        replacements,
+        extra_files=[str(extra_file)]
+    )
+    
+    # Verify the extra file was copied
+    copied_file = project_config.output_path / "extra_config.json"
+    assert copied_file.exists()
+    
+    # Verify replacements were applied
+    content = copied_file.read_text()
+    assert "test-react-app" in content
+    assert "1.0.0" in content
+    assert "${KAVIA_TEMPLATE_PROJECT_NAME}" not in content
+
+
+def test_extra_files_directory(template_dir, project_config, temp_dir):
+    """Test copying an extra directory with nested files."""
+    # Create an extra directory structure
+    extra_dir = temp_dir / "extra_templates"
+    extra_dir.mkdir()
+    (extra_dir / "components").mkdir()
+    (extra_dir / "components" / "Header.tsx").write_text(
+        "export const Header = () => <h1>${KAVIA_TEMPLATE_PROJECT_NAME}</h1>;"
+    )
+    (extra_dir / "styles.css").write_text(
+        "/* Styles for ${KAVIA_TEMPLATE_PROJECT_NAME} */"
+    )
+    
+    # Test FileSystemHelper directly
+    replacements = project_config.get_replaceable_parameters()
+    FileSystemHelper.copy_template(
+        template_dir / "react",
+        project_config.output_path,
+        replacements,
+        extra_files=[str(extra_dir)]
+    )
+    
+    # Verify the directory structure was copied
+    copied_dir = project_config.output_path / "extra_templates"
+    assert copied_dir.exists()
+    assert (copied_dir / "components" / "Header.tsx").exists()
+    assert (copied_dir / "styles.css").exists()
+    
+    # Verify replacements in nested files
+    header_content = (copied_dir / "components" / "Header.tsx").read_text()
+    assert "test-react-app" in header_content
+    
+    styles_content = (copied_dir / "styles.css").read_text()
+    assert "test-react-app" in styles_content
+
+
+def test_extra_files_nonexistent_path(template_dir, project_config, temp_dir):
+    """Test that nonexistent extra files are gracefully handled."""
+    nonexistent_file = temp_dir / "does_not_exist.txt"
+    
+    # Should not raise an error for nonexistent files
+    replacements = project_config.get_replaceable_parameters()
+    FileSystemHelper.copy_template(
+        template_dir / "react",
+        project_config.output_path,
+        replacements,
+        extra_files=[str(nonexistent_file)]
+    )
+    
+    # Verify the template files were still copied
+    assert project_config.output_path.exists()
+    assert (project_config.output_path / "src" / "index.tsx").exists()
+    assert (project_config.output_path / "package.json").exists()
+
+
+def test_extra_files_with_binary_content(template_dir, project_config, temp_dir):
+    """Test copying extra binary files."""
+    # Create a binary file
+    extra_binary = temp_dir / "logo.png"
+    # Create a simple PNG header (not a valid image, but binary data)
+    extra_binary.write_bytes(b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR')
+    
+    # Test FileSystemHelper directly
+    replacements = project_config.get_replaceable_parameters()
+    FileSystemHelper.copy_template(
+        template_dir / "react",
+        project_config.output_path,
+        replacements,
+        extra_files=[str(extra_binary)]
+    )
+    
+    # Verify the binary file was copied correctly
+    copied_binary = project_config.output_path / "logo.png"
+    assert copied_binary.exists()
+    assert copied_binary.read_bytes() == extra_binary.read_bytes()
