@@ -1,10 +1,69 @@
 #!/bin/bash
 
-# Fixed MySQL startup script for MySQL 8.0 authentication
 DB_NAME="{KAVIA_DB_NAME}"
 DB_USER="{KAVIA_DB_USER}"
 DB_PASSWORD="{KAVIA_DB_PASSWORD}"
 DB_PORT="{KAVIA_DB_PORT}"
+
+echo "Starting MySQL setup..."
+
+# Check if MySQL is already running on the specified port
+if sudo mysqladmin ping --socket=/var/run/mysqld/mysqld.sock --silent 2>/dev/null; then
+    echo "MySQL is already running!"
+    
+    # Try to verify the database exists
+    if sudo mysql --socket=/var/run/mysqld/mysqld.sock -e "USE ${DB_NAME};" 2>/dev/null; then
+        echo "Database ${DB_NAME} is accessible."
+    fi
+    
+    echo ""
+    echo "Database: ${DB_NAME}"
+    echo "Root user: root (password: ${DB_PASSWORD})"
+    echo "App user: appuser (password: ${DB_PASSWORD})"
+    echo "Port: ${DB_PORT}"
+    echo ""
+    
+    # Check if connection info file exists
+    if [ -f "db_connection.txt" ]; then
+        echo "To connect to the database, use:"
+        echo "$(cat db_connection.txt)"
+    else
+        echo "To connect to the database, use:"
+        echo "mysql -u root -p${DB_PASSWORD} -h localhost -P ${DB_PORT} ${DB_NAME}"
+    fi
+    
+    echo ""
+    echo "Script stopped - MySQL server already running."
+    exit 0
+fi
+
+# Check if there's a MySQL process running on the specified port
+if pgrep -f "mysqld.*--port=${DB_PORT}" > /dev/null 2>&1; then
+    echo "Found existing MySQL process on port ${DB_PORT}"
+    echo "Attempting to verify connection..."
+    
+    # Try to connect via TCP
+    if mysql -u root -p${DB_PASSWORD} -h 127.0.0.1 -P ${DB_PORT} -e "SELECT 1;" 2>/dev/null; then
+        echo "MySQL is accessible on port ${DB_PORT}."
+        echo "Script stopped - server already running."
+        exit 0
+    fi
+fi
+
+# Check if MySQL is running on default socket but different port
+if [ -S /var/run/mysqld/mysqld.sock ]; then
+    echo "Found MySQL socket, checking if it's using port ${DB_PORT}..."
+    CURRENT_PORT=$(sudo mysql --socket=/var/run/mysqld/mysqld.sock -e "SHOW VARIABLES LIKE 'port';" 2>/dev/null | grep port | awk '{print $2}')
+    if [ "$CURRENT_PORT" = "${DB_PORT}" ]; then
+        echo "MySQL is already running on port ${DB_PORT}!"
+        echo "Script stopped - server already running."
+        exit 0
+    else
+        echo "MySQL is running on different port ($CURRENT_PORT), stopping it first..."
+        sudo mysqladmin shutdown --socket=/var/run/mysqld/mysqld.sock
+        sleep 5
+    fi
+fi
 
 # Initialize MySQL data directory if it doesn't exist
 if [ ! -d "/var/lib/mysql/mysql" ]; then
@@ -75,5 +134,6 @@ echo "To use with Node.js viewer, run: source db_visualizer/mysql.env"
 echo "To connect to the database, use the following command:"
 echo "$(cat db_connection.txt)"
 
-# Keep running
-wait
+echo ""
+echo "MySQL is running in the background."
+echo "You can now start your application."

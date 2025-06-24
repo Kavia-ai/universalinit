@@ -3,8 +3,6 @@
 
 import sqlite3
 import sys
-import os
-import readline  # Enables command history in the shell
 
 DB_NAME = "{KAVIA_DB_NAME}"
 

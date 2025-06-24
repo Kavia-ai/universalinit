@@ -9,18 +9,60 @@ DB_PORT="{KAVIA_DB_PORT}"
 echo "Starting MongoDB setup..."
 
 # Check if MongoDB is already running
+if mongosh --port ${DB_PORT} --eval "db.adminCommand('ping')" > /dev/null 2>&1; then
+    echo "MongoDB is already running on port ${DB_PORT}!"
+    
+    # Try to verify the database exists and user can connect
+    if mongosh mongodb://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}?authSource=admin --eval "db.getName()" > /dev/null 2>&1; then
+        echo "Database ${DB_NAME} is accessible with user ${DB_USER}."
+    else
+        echo "MongoDB is running but authentication might not be configured."
+    fi
+    
+    echo ""
+    echo "Database: ${DB_NAME}"
+    echo "Admin user: ${DB_USER} (password: ${DB_PASSWORD})"
+    echo "App user: appuser (password: ${DB_PASSWORD})"
+    echo "Port: ${DB_PORT}"
+    echo ""
+    
+    # Check if connection info file exists
+    if [ -f "db_connection.txt" ]; then
+        echo "To connect to the database, use:"
+        echo "$(cat db_connection.txt)"
+    else
+        echo "To connect to the database, use:"
+        echo "mongosh mongodb://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}?authSource=admin"
+    fi
+    
+    echo ""
+    echo "Script stopped - MongoDB server already running."
+    exit 0
+fi
+
+# Check if MongoDB is running on a different port
 if pgrep -x mongod > /dev/null; then
-    echo "MongoDB is already running, stopping it..."
-    sudo pkill -x mongod
-    sleep 2
+    # Get the port of the running MongoDB instance
+    MONGO_PID=$(pgrep -x mongod)
+    CURRENT_PORT=$(sudo lsof -Pan -p $MONGO_PID -i | grep -o ":[0-9]*" | grep -o "[0-9]*" | head -1)
+    
+    if [ "$CURRENT_PORT" = "${DB_PORT}" ]; then
+        echo "MongoDB is already running on port ${DB_PORT}!"
+        echo "Script stopped - server already running."
+        exit 0
+    else
+        echo "MongoDB is running on different port ($CURRENT_PORT), stopping it..."
+        sudo pkill -x mongod
+        sleep 2
+    fi
 fi
 
 # Clean up any existing socket files
 sudo rm -f /tmp/mongodb-*.sock 2>/dev/null
 
-# Start MongoDB server without authentication
+# Start MongoDB server without authentication initially using nohup
 echo "Starting MongoDB server..."
-sudo mongod --dbpath /var/lib/mongodb --port ${DB_PORT} --bind_ip 127.0.0.1 --unixSocketPrefix /var/run/mongodb &
+nohup sudo mongod --dbpath /var/lib/mongodb --port ${DB_PORT} --bind_ip 127.0.0.1 --unixSocketPrefix /var/run/mongodb > /var/lib/mongodb/mongod.log 2>&1 &
 
 # Wait for MongoDB to start
 echo "Waiting for MongoDB to start..."
@@ -95,5 +137,7 @@ echo "To connect to the database, use one of the following commands:"
 echo "mongosh -u ${DB_USER} -p ${DB_PASSWORD} --port ${DB_PORT} --authenticationDatabase admin ${DB_NAME}"
 echo "$(cat db_connection.txt)"
 
-# Keep running
-wait
+# MongoDB continues running in background
+echo ""
+echo "MongoDB is running in the background."
+echo "You can now start your application."

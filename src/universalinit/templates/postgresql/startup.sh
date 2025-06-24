@@ -14,6 +14,39 @@ PG_BIN="/usr/lib/postgresql/${PG_VERSION}/bin"
 
 echo "Found PostgreSQL version: ${PG_VERSION}"
 
+# Check if PostgreSQL is already running on the specified port
+if sudo -u postgres ${PG_BIN}/pg_isready -p ${DB_PORT} > /dev/null 2>&1; then
+    echo "PostgreSQL is already running on port ${DB_PORT}!"
+    echo "Database: ${DB_NAME}"
+    echo "User: ${DB_USER}"
+    echo "Port: ${DB_PORT}"
+    echo ""
+    echo "To connect to the database, use:"
+    echo "psql -h localhost -U ${DB_USER} -d ${DB_NAME} -p ${DB_PORT}"
+    
+    # Check if connection info file exists
+    if [ -f "db_connection.txt" ]; then
+        echo "Or use: $(cat db_connection.txt)"
+    fi
+    
+    echo ""
+    echo "Script stopped - server already running."
+    exit 0
+fi
+
+# Also check if there's a PostgreSQL process running (in case pg_isready fails)
+if pgrep -f "postgres.*-p ${DB_PORT}" > /dev/null 2>&1; then
+    echo "Found existing PostgreSQL process on port ${DB_PORT}"
+    echo "Attempting to verify connection..."
+    
+    # Try to connect and verify the database exists
+    if sudo -u postgres ${PG_BIN}/psql -p ${DB_PORT} -d ${DB_NAME} -c '\q' 2>/dev/null; then
+        echo "Database ${DB_NAME} is accessible."
+        echo "Script stopped - server already running."
+        exit 0
+    fi
+fi
+
 # Initialize PostgreSQL data directory if it doesn't exist
 if [ ! -f "/var/lib/postgresql/data/PG_VERSION" ]; then
     echo "Initializing PostgreSQL..."
@@ -121,6 +154,3 @@ echo "To use with Node.js viewer, run: source db_visualizer/postgres.env"
 echo "To connect to the database, use one of the following commands:"
 echo "psql -h localhost -U ${DB_USER} -d ${DB_NAME} -p ${DB_PORT}"
 echo "$(cat db_connection.txt)"
-
-# Keep running
-wait
