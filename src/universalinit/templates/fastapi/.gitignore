@@ -8,7 +8,6 @@ __pycache__/
 
 # Environment variables file
 .env
-.env.*
 
 # Flask instance folder
 instance/
