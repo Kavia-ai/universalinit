@@ -13,6 +13,10 @@ env:
   python_version: "3.12.3"
   pip_version: "24.0"
 
+openapi_generation:
+  command: "source venv/bin/activate && python {KAVIA_PROJECT_DIRECTORY}/src/api/generate_openapi.py"
+  working_directory: "{KAVIA_PROJECT_DIRECTORY}"
+
 init_files: []
 
 init_minimal: "Minimal FastAPI application initialized"
