@@ -5,6 +5,7 @@ from flask_smorest import Api
 
 
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 CORS(app, resources={r"/*": {"origins": "*"}})
 app.config["API_TITLE"] = "My Flask API"
 app.config["API_VERSION"] = "v1"
