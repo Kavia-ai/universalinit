@@ -18,7 +18,7 @@ env:
 init_files: []
 
 openapi_generation:
-  command: "source venv/bin/activate && python {KAVIA_PROJECT_DIRECTORY}/mangement/commands/generate_openapi.py"
+  command: "source venv/bin/activate && python manage.py generate_openapi"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 init_minimal: "Minimal Django application initialized"
