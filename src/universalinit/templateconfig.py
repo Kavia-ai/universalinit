@@ -201,8 +201,8 @@ class TemplateConfigProvider:
             init_files=config_data.get('init_files', []),
             init_minimal=config_data['init_minimal'],
             openapi_generation=OpenapiGenerationTool (
-                command=config_data['openapi_generation']['command'],
-                working_directory=config_data['openapi_generation']['working_directory']
+                command=config_data.get('openapi_generation', {}).get('command', ''),
+                working_directory=config_data.get('openapi_generation', {}).get('working_directory', '')
             ),
             run_tool=RunTool(
                 command=config_data['run_tool']['command'],

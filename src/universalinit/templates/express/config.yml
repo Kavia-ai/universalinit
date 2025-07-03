@@ -16,7 +16,7 @@ init_files: []
 init_minimal: "Minimal Express application initialized"
 
 openapi_generation:
-  command: "source venv/bin/activate && node generate_openapi.js"
+  command: "npm install && node generate_openapi.js"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 run_tool:
