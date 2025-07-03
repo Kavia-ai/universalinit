@@ -260,13 +260,30 @@ EOF
 
 # Create gradle.properties
 cat > "gradle.properties" << EOF
-# Enable AndroidX
+# Build speed optimizations
+org.gradle.jvmargs=-Xmx4g -XX:+UseG1GC -XX:MaxMetaspaceSize=1g -Dfile.encoding=UTF-8 -XX:+UseStringDeduplication
+org.gradle.daemon=true
+org.gradle.parallel=true
+org.gradle.caching=true
+org.gradle.configureondemand=true
+org.gradle.workers.max=6
+
+# Kotlin optimizations
+kotlin.compiler.execution.strategy=in-process
+kotlin.incremental=true
+kotlin.incremental.android=true
+kapt.use.worker.api=true
+
+# Android build optimizations
 android.useAndroidX=true
 android.enableJetifier=true
-
-# Gradle settings
-org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
-org.gradle.parallel=true
+android.enableD8=true
+android.enableR8=true
+android.enableBuildCache=true
+android.debug.testCoverageEnabled=false
+android.enableUnitTestBinaryResources=false
+android.nonTransitiveRClass=true
+android.nonFinalResIds=true
 EOF
 
 # Create strings.xml
