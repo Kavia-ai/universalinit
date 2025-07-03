@@ -9,7 +9,7 @@ from rest_framework.permissions import AllowAny
 class Command(BaseCommand):
     def handle(self, *args, **options):
         factory = RequestFactory()
-        django_request = factory.get('/api/')  # Django HttpRequest, NOT wrapped
+        django_request = factory.get('/api/?format=openapi')
 
         schema_view = get_schema_view(
             openapi.Info(
