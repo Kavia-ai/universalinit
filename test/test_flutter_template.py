@@ -370,7 +370,7 @@ def test_flutter_init_info(template_dir, project_config):
     assert init_info.env_config.dart_version == '3.6.1'
     assert init_info.run_tool.command == 'flutter run'
     assert init_info.test_tool.command == 'flutter test'
-    assert init_info.configure_enviroment == 'flutter build apk --release --target-platform android-x64'
+    assert init_info.configure_enviroment.command == 'flutter build apk --release --target-platform android-x64'
 
 
 def test_flutter_with_missing_template_config(temp_dir, project_config):

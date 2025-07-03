@@ -102,7 +102,7 @@ def test_vite_init_info(template_dir, project_config):
 
     # Check that init_info has all required components
     assert isinstance(init_info, TemplateInitInfo)
-    assert init_info.configure_enviroment == 'npm install'
+    assert init_info.configure_enviroment.command == 'npm install'
 
 
 def test_project_initialization(template_dir, project_config):
