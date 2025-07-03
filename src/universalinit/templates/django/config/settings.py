@@ -29,6 +29,7 @@ ALLOWED_HOSTS = [
     '.kavia.ai',
     'localhost',
     '127.0.0.1',
+    'testserver',
 ]
 
 
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'corsheaders',
+    'api'
 ]
 
 MIDDLEWARE = [
