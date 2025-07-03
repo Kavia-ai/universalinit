@@ -129,7 +129,7 @@ def test_fastapi_init_info(template_dir, project_config):
     # Check that init_info has all required components
     assert isinstance(init_info, TemplateInitInfo)
     assert init_info.openapi_generation.command == 'python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt && python src/api/generate_openapi.py'
-
+    assert init_info.configure_enviroment.command == 'python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt'
 
 def test_post_processing_execution(template_dir, project_config, temp_dir):
     """Test that post-processing script is executed."""
