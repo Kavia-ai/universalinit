@@ -32,6 +32,10 @@ def template_dir(temp_dir):
                 pip install -r requirements.txt',
             'working_directory': str(flask_path)
         },
+        'build_cmd': {
+            'command': 'pip install -r requirements.txt',
+            'working_directory': str(flask_path)
+        },
         'install_dependencies': {
             'command': 'source venv/bin/activate && pip install -r requirements.txt',
             'working_directory': str(flask_path)

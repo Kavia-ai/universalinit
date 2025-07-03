@@ -48,7 +48,7 @@ class ProjectTemplate(ABC):
     def validate_parameters(self) -> bool:
         """Validate the project parameters."""
         pass
-
+    
     def get_init_info(self) -> TemplateInitInfo:
         """Get template initialization information."""
         return self.config_provider.get_init_info()
