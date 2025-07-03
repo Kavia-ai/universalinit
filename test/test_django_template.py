@@ -26,6 +26,14 @@ def template_dir(temp_dir):
 
     # Create mock config.yml
     config = {
+        'configure_environment': {
+            'command': 'python3 -m venv venv && \
+                source venv/bin/activate && \
+                pip install -r requirements.txt && \
+                python manage.py makemigrations && \
+                python manage.py migrate',
+            'working_directory': str(django_path)
+        },
         'build_cmd': {
             'command': 'pip install -r requirements.txt',
             'working_directory': str(django_path)

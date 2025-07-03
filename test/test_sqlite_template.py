@@ -27,6 +27,10 @@ def template_dir(temp_dir):
 
     # Create mock config.yml
     config = {
+        'configure_environment': {
+            'command': 'python init_db.pyl',
+            'working_directory': str(sqlite_path)
+        },
         'build_cmd': {
             'command': 'python init_db.py',
             'working_directory': '{KAVIA_PROJECT_DIRECTORY}'

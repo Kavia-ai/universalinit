@@ -33,6 +33,10 @@ def template_dir(temp_dir):
     flutter_path.mkdir(parents=True)
 
     config = {
+        'configure_environment': {
+            'command': 'flutter build apk --release --target-platform android-x64',
+            'working_directory': str(flutter_path)
+        },
         'build_cmd': {
             'command': 'flutter build apk --release --target-platform android-x64',
             'working_directory': '{KAVIA_PROJECT_DIRECTORY}'

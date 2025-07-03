@@ -26,8 +26,10 @@ def template_dir(temp_dir):
 
     # Create mock config.yml
     config = {
-        'build_cmd': {
-            'command': 'pip install -r requirements.txt',
+        'configure_environment': {
+            'command': 'python3 -m venv venv && \
+                source venv/bin/activate && \
+                pip install -r requirements.txt',
             'working_directory': str(flask_path)
         },
         'install_dependencies': {

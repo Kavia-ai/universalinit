@@ -26,6 +26,10 @@ def template_dir(temp_dir):
 
     # Create mock config.yml
     config = {
+        'configure_environment': {
+            'command': 'chmod +x startup.sh && sudo ./startup.sh &',
+            'working_directory': str(mysql_path)
+        },
         'build_cmd': {
             'command': 'docker compose up -d || docker-compose up -d',
             'working_directory': str(mysql_path)

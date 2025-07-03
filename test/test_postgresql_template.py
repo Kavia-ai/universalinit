@@ -26,6 +26,10 @@ def template_dir(temp_dir):
 
     # Create config.yml for new PostgreSQL structure
     config = {
+        'configure_environment': {
+            'command': 'chmod +x startup.sh && sudo ./startup.sh &',
+            'working_directory': str(postgresql_path)
+        },
         'build_cmd': {
             'command': 'chmod +x startup.sh && sudo ./startup.sh &',
             'working_directory': '{KAVIA_PROJECT_DIRECTORY}'

@@ -26,6 +26,10 @@ def template_dir(temp_dir):
 
     # Create mock config.yml
     config = {
+        'configure_environment': {
+            'command': 'npm install',
+            'working_directory': str(slidev_path)
+        },
         'build_cmd': {
             'command': 'npm install && npm run build',
             'working_directory': str(slidev_path)

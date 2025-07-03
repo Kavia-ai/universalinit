@@ -30,6 +30,10 @@ def template_dir(temp_dir):
 
     # Create mock config.yml
     config = {
+        'configure_environment': {
+            'command': './gradlew assembleDebug',
+            'working_directory': str(android_path)
+        },
         'build_cmd': {
             'command': './gradlew assembleDebug',
             'working_directory': '{KAVIA_PROJECT_DIRECTORY}'
