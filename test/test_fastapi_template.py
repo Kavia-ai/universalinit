@@ -5,7 +5,7 @@ import tempfile
 import yaml
 import json
 
-from universalinit.templateconfig import ProjectConfig, ProjectType
+from universalinit.templateconfig import ProjectConfig, ProjectType, TemplateInitInfo
 from universalinit.universalinit import ProjectInitializer, TemplateProvider, FastAPITemplate
 
 
@@ -50,6 +50,10 @@ def template_dir(temp_dir):
         'run_tool': {
             'command': 'uvicorn src.api.main:app',
             'working_directory': str(fastapi_path)
+        },
+        "openapi_generation": {
+            "command": "python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt && python src/api/generate_openapi.py",
+            "working_directory": str(fastapi_path)
         },
         'test_tool': {
             'command': 'pytest',
@@ -111,6 +115,20 @@ def test_project_initialization(template_dir, project_config):
 
     requirements = (output_dir / "requirements.txt").read_text()
     assert "test-fastapi-app" in requirements
+
+
+def test_fastapi_init_info(template_dir, project_config):
+    """Test that getting template init info works correctly."""
+    initializer = ProjectInitializer()
+    initializer.template_factory.template_provider = TemplateProvider(template_dir)
+    initializer.template_factory.register_template(ProjectType.FASTAPI, FastAPITemplate)
+    template = initializer.template_factory.create_template(project_config)
+    
+    init_info = template.get_init_info()
+
+    # Check that init_info has all required components
+    assert isinstance(init_info, TemplateInitInfo)
+    assert init_info.openapi_generation.command == 'python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt && python src/api/generate_openapi.py'
 
 
 def test_post_processing_execution(template_dir, project_config, temp_dir):

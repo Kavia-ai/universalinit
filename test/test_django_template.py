@@ -5,7 +5,7 @@ import tempfile
 import yaml
 import json
 
-from universalinit.templateconfig import ProjectConfig, ProjectType
+from universalinit.templateconfig import ProjectConfig, ProjectType, TemplateInitInfo
 from universalinit.universalinit import ProjectInitializer, TemplateProvider, DjangoTemplate
 
 
@@ -15,7 +15,6 @@ def temp_dir():
     temp_path = Path(tempfile.mkdtemp())
     yield temp_path
     shutil.rmtree(temp_path, ignore_errors=True)
-
 
 @pytest.fixture
 def template_dir(temp_dir):
@@ -53,6 +52,10 @@ def template_dir(temp_dir):
             'command': 'uvicorn src.api.main:app',
             'working_directory': str(django_path)
         },
+        "openapi_generation": {
+            "command": "python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt && python manage.py migrate && python manage.py generate_openapi",
+            "working_directory": str(django_path)
+        },
         'test_tool': {
             'command': 'pytest',
             'working_directory': str(django_path)
@@ -77,6 +80,18 @@ def template_dir(temp_dir):
 
     return templates_path
 
+def test_django_init_info(template_dir, project_config):
+    """Test that getting template init info works correctly."""
+    initializer = ProjectInitializer()
+    initializer.template_factory.template_provider = TemplateProvider(template_dir)
+    initializer.template_factory.register_template(ProjectType.DJANGO, DjangoTemplate)
+    template = initializer.template_factory.create_template(project_config)
+    
+    init_info = template.get_init_info()
+
+    # Check that init_info has all required components
+    assert isinstance(init_info, TemplateInitInfo)
+    assert init_info.openapi_generation.command == 'python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt && python manage.py migrate && python manage.py generate_openapi'
 
 @pytest.fixture
 def project_config(temp_dir):

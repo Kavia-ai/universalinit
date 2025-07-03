@@ -38,7 +38,7 @@ linter:
 pre_processing:
   script: |
     #!/bin/bash
-    flutter create {KAVIA_TEMPLATE_PROJECT_NAME}
+    flutter create --platforms=android {KAVIA_TEMPLATE_PROJECT_NAME}
 
 post_processing:
   script: |

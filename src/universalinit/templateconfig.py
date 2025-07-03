@@ -145,6 +145,12 @@ class TestTool:
     working_directory: str
 
 @dataclass
+class OpenapiGenerationTool:
+    """Openapi Generation tool"""
+    command: str
+    working_directory: str
+
+@dataclass
 class TemplateInitInfo:
     """Complete template initialization information."""
     configure_enviroment: ConfigureEnvironment
@@ -160,6 +166,7 @@ class TemplateInitInfo:
     pre_processing: ProcessingScript
     post_processing: ProcessingScript
     entry_point_url: Optional[str] = None
+    openapi_generation: Optional[OpenapiGenerationTool] = None
 
 class TemplateConfigProvider:
     """Provides template initialization configuration."""
@@ -204,6 +211,10 @@ class TemplateConfigProvider:
             ),
             init_files=config_data.get('init_files', []),
             init_minimal=config_data['init_minimal'],
+            openapi_generation=OpenapiGenerationTool (
+                command=config_data.get('openapi_generation', {}).get('command', ''),
+                working_directory=config_data.get('openapi_generation', {}).get('working_directory', '')
+            ),
             run_tool=RunTool(
                 command=config_data['run_tool']['command'],
                 working_directory=config_data['run_tool']['working_directory']

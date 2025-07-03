@@ -21,6 +21,13 @@ env:
 
 init_files: []
 
+openapi_generation:
+  command: "python3 -m venv venv && \
+            source venv/bin/activate && \
+            pip install -r requirements.txt && \
+            python src/api/generate_openapi.py"
+  working_directory: "{KAVIA_PROJECT_DIRECTORY}"
+
 init_minimal: "Minimal Flask application initialized"
 
 run_tool:

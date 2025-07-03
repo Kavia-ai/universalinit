@@ -68,6 +68,10 @@ def template_init_info_to_dict(init_info: TemplateInitInfo, project_path: Path) 
         },
         "init_files": [make_path_absolute(f, project_path) for f in init_info.init_files],
         "init_minimal": init_info.init_minimal,
+        "openapi_generation": {
+            "command": init_info.openapi_generation.command,
+            "working_directory": init_info.openapi_generation.working_directory
+        },
         "run_tool": {
             "command": init_info.run_tool.command,
             "working_directory": init_info.run_tool.working_directory

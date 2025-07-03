@@ -19,6 +19,10 @@ init_files: []
 
 init_minimal: "Minimal Express application initialized"
 
+openapi_generation:
+  command: "npm install && node generate_openapi.js"
+  working_directory: "{KAVIA_PROJECT_DIRECTORY}"
+
 run_tool:
   command: "CI=true PORT=<port> HOST=<host> npm run dev"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"

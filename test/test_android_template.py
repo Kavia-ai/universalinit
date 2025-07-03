@@ -57,6 +57,10 @@ def template_dir(temp_dir):
             'command': './gradlew test',
             'working_directory': '{KAVIA_PROJECT_DIRECTORY}'
         },
+        'openapi_generation': {
+            'command': '',
+            'working_directory': ''
+        },
         'init_style': 'android',
         'linter': {
             'script_content': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\n./gradlew lint\nLINT_EXIT_CODE=$?\nif [ $LINT_EXIT_CODE -ne 0 ]; then\n   exit 1\nfi'
@@ -261,6 +265,7 @@ def test_android_init_info(template_dir, project_config):
     assert init_info.run_tool.command == './gradlew installDebug'
     assert init_info.test_tool.command == './gradlew test'
     assert init_info.init_style == 'android'
+    assert init_info.openapi_generation.command == ''
 
 
 def test_android_with_missing_template_config(temp_dir, project_config):
