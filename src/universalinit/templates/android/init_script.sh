@@ -279,7 +279,6 @@ android.useAndroidX=true
 android.enableJetifier=true
 android.enableD8=true
 android.enableR8=true
-android.enableBuildCache=true
 android.debug.testCoverageEnabled=false
 android.enableUnitTestBinaryResources=false
 android.nonTransitiveRClass=true
