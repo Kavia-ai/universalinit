@@ -27,3 +27,5 @@ build/
 
 # Optional npm cache directory
 .npm/
+
+openapi.json
