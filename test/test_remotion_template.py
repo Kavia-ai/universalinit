@@ -5,7 +5,7 @@ import tempfile
 import yaml
 import json
 
-from universalinit.templateconfig import ProjectConfig, ProjectType
+from universalinit.templateconfig import ProjectConfig, ProjectType, TemplateInitInfo
 from universalinit.universalinit import ProjectInitializer, TemplateProvider, RemotionTemplate
 
 
@@ -26,6 +26,10 @@ def template_dir(temp_dir):
 
     # Create mock config.yml
     config = {
+        'configure_environment': {
+            'command': 'npm install',
+            'working_directory': str(remotion_path)
+        },
         'build_cmd': {
             'command': 'npm install && npm run build',
             'working_directory': str(remotion_path)
@@ -81,6 +85,20 @@ def project_config(temp_dir):
         output_path=temp_dir / "output",
         parameters={}
     )
+
+
+def test_remotion_init_info(template_dir, project_config):
+    """Test that getting template init info works correctly."""
+    initializer = ProjectInitializer()
+    initializer.template_factory.template_provider = TemplateProvider(template_dir)
+    initializer.template_factory.register_template(ProjectType.REMOTION, RemotionTemplate)
+    template = initializer.template_factory.create_template(project_config)
+    
+    init_info = template.get_init_info()
+
+    # Check that init_info has all required components
+    assert isinstance(init_info, TemplateInitInfo)
+    assert init_info.configure_enviroment.command == 'npm install'
 
 
 def test_project_initialization(template_dir, project_config):

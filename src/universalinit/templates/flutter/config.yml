@@ -1,3 +1,7 @@
+configure_environment:
+  command: "flutter build apk --release --target-platform android-x64"
+  working_directory: "{KAVIA_PROJECT_DIRECTORY}"
+
 build_cmd:
   command: "flutter build apk --release --target-platform android-x64"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"

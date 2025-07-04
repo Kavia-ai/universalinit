@@ -28,6 +28,10 @@ def template_dir(temp_dir):
 
     # Create mock config.yml
     config = {
+        'configure_environment': {
+            'command': './gradlew assembleDebug',
+            'working_directory': str(kotlin_path)
+        },
         'build_cmd': {
             'command': './gradlew build',
             'working_directory': '{KAVIA_PROJECT_DIRECTORY}'
@@ -266,6 +270,7 @@ def test_kotlin_init_info(template_dir, project_config):
     assert init_info.run_tool.command == './gradlew run'
     assert init_info.test_tool.command == './gradlew test'
     assert init_info.init_style == 'kotlin'
+    assert init_info.configure_enviroment.command == './gradlew assembleDebug'
 
 
 def test_kotlin_with_missing_template_config(temp_dir, project_config):

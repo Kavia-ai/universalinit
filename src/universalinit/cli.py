@@ -49,6 +49,10 @@ def template_init_info_to_dict(init_info: TemplateInitInfo, project_path: Path) 
     """Convert TemplateInitInfo to a dictionary with absolute paths for JSON serialization."""
 
     return {
+        "configure_environment":{
+            "command": init_info.configure_enviroment.command,
+            "working_directory": init_info.configure_enviroment.working_directory,
+        },
         "build_cmd": {
             "command": init_info.build_cmd.command,
             "working_directory": init_info.build_cmd.working_directory

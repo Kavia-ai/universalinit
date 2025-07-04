@@ -30,6 +30,10 @@ def template_dir(temp_dir):
 
     # Create mock config.yml
     config = {
+        'configure_environment': {
+            'command': './gradlew assembleDebug',
+            'working_directory': str(android_path)
+        },
         'build_cmd': {
             'command': './gradlew assembleDebug',
             'working_directory': '{KAVIA_PROJECT_DIRECTORY}'
@@ -262,6 +266,7 @@ def test_android_init_info(template_dir, project_config):
     assert init_info.test_tool.command == './gradlew test'
     assert init_info.init_style == 'android'
     assert init_info.openapi_generation.command == ''
+    assert init_info.configure_enviroment.command == './gradlew assembleDebug'
 
 
 def test_android_with_missing_template_config(temp_dir, project_config):

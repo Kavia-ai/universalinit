@@ -1,3 +1,7 @@
+configure_environment:
+  command: "npm install"
+  working_directory: "{KAVIA_PROJECT_DIRECTORY}"
+
 build_cmd:
   command: "npm install && npm run check && npm run test"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"

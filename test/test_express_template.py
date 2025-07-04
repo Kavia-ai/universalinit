@@ -26,6 +26,10 @@ def template_dir(temp_dir):
 
     # Create mock config.yml
     config = {
+        'configure_environment': {
+            'command': 'npm install',
+            'working_directory': str(express_path)
+        },
         'build_cmd': {
             'command': 'pip install -r requirements.txt',
             'working_directory': str(express_path)
@@ -100,6 +104,7 @@ def test_express_init_info(template_dir, project_config):
     # Check that init_info has all required components
     assert isinstance(init_info, TemplateInitInfo)
     assert init_info.openapi_generation.command == 'npm install && node generate_openapi.js'
+    assert init_info.configure_enviroment.command == 'npm install'
 
 
 def test_project_initialization(template_dir, project_config):

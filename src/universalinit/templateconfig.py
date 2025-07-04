@@ -127,6 +127,12 @@ class EnvironmentConfig:
     android_sdk_version: str = ""
 
 @dataclass
+class ConfigureEnvironment:
+    """Run Environment configuration"""
+    command: str
+    working_directory: str
+    
+@dataclass
 class RunTool:
     """Run tool configuration."""
     command: str
@@ -147,6 +153,7 @@ class OpenapiGenerationTool:
 @dataclass
 class TemplateInitInfo:
     """Complete template initialization information."""
+    configure_enviroment: ConfigureEnvironment
     build_cmd: BuildCommand
     install_dependencies: InstallDependenciesCommand
     env_config: EnvironmentConfig
@@ -180,6 +187,10 @@ class TemplateConfigProvider:
             config_data = yaml.safe_load(data)
 
         return TemplateInitInfo(
+            configure_enviroment=ConfigureEnvironment(
+                command=config_data['configure_environment']['command'],
+                working_directory=config_data['configure_environment']['working_directory']
+            ),
             build_cmd=BuildCommand(
                 command=config_data['build_cmd']['command'],
                 working_directory=config_data['build_cmd']['working_directory']
