@@ -1,5 +1,5 @@
 configure_environment:
-  command: "python init_db.pyl"
+  command: "python init_db.py"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 build_cmd:
