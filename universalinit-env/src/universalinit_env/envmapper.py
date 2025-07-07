@@ -1,5 +1,6 @@
 import os
 import re
+import yaml
 from pathlib import Path
 from typing import Dict, Optional, List, Tuple
 
@@ -13,88 +14,52 @@ def get_template_path(framework: str) -> Path:
     return template_path
 
 
-def parse_template_file(template_path: Path) -> Tuple[Dict[str, str], List[str]]:
+def parse_template_file(template_path: Path) -> Tuple[Optional[str], Dict[str, str]]:
     """
-    Parse a template file and extract the mapping from framework-specific to common env vars.
+    Parse a YAML template file and extract the prefix and mapping.
     
     Returns a tuple of:
+    - Optional prefix string (None if not specified)
     - Dictionary mapping framework-specific env vars to common env vars
-    - List of wildcard patterns (e.g., ['REACT_APP_*=*'])
     """
     if not template_path.exists():
         raise FileNotFoundError(f"Template file not found: {template_path}")
     
-    mapping = {}
-    wildcard_patterns = []
-    
     with open(template_path, 'r') as f:
-        for line in f:
-            line = line.strip()
-            if line and '=' in line and not line.startswith('#'):
-                # Split on first '=' to handle values that might contain '='
-                parts = line.split('=', 1)
-                if len(parts) == 2:
-                    framework_var = parts[0].strip()
-                    common_var = parts[1].strip()
-                    
-                    # Check if this is a wildcard pattern
-                    if '*' in framework_var or '*' in common_var:
-                        wildcard_patterns.append(line)
-                    else:
-                        mapping[framework_var] = common_var
+        try:
+            config = yaml.safe_load(f)
+        except yaml.YAMLError as e:
+            raise ValueError(f"Invalid YAML in template file: {e}")
     
-    return mapping, wildcard_patterns
+    if not config:
+        return None, {}
+    
+    # Extract prefix (optional)
+    prefix = config.get('prefix')
+    
+    # Extract mapping
+    mapping = config.get('mapping', {})
+    if not isinstance(mapping, dict):
+        raise ValueError("'mapping' must be a dictionary in the template file")
+    
+    return prefix, mapping
 
 
-def apply_wildcard_mapping(common_env: Dict[str, str], wildcard_patterns: List[str]) -> Dict[str, str]:
+def apply_prefix_mapping(common_env: Dict[str, str], prefix: str) -> Dict[str, str]:
     """
-    Apply wildcard patterns to map common environment variables to framework-specific ones.
+    Apply prefix to all environment variables.
     
     Args:
         common_env: Dictionary of common environment variables
-        wildcard_patterns: List of wildcard patterns from template
+        prefix: Prefix to add to all variables
     
     Returns:
-        Dictionary of additional framework-specific environment variables from wildcard patterns
+        Dictionary of framework-specific environment variables with prefix
     """
     framework_env = {}
-    
-    for pattern in wildcard_patterns:
-        if '=' in pattern:
-            framework_pattern, common_pattern = pattern.split('=', 1)
-            framework_pattern = framework_pattern.strip()
-            common_pattern = common_pattern.strip()
-            
-            # Handle wildcard patterns generically
-            if '*' in framework_pattern and '*' in common_pattern:
-                # Convert wildcard patterns to regex patterns
-                common_regex = common_pattern.replace('*', '(.*)')
-                
-                for common_var, value in common_env.items():
-                    match = re.match(common_regex, common_var)
-                    if match and match.groups():
-                        # Replace * in framework pattern with the captured group
-                        framework_var = framework_pattern.replace('*', match.group(1))
-                        # Only add if not already processed by direct mapping
-                        if framework_var not in framework_env:
-                            framework_env[framework_var] = value
-            elif '*' in framework_pattern and common_pattern == '*':
-                # Handle prefix patterns like "PREFIX_*=*"
-                prefix = framework_pattern.replace('*', '')
-                for common_var, value in common_env.items():
-                    framework_var = f"{prefix}{common_var}"
-                    # Only add if not already processed by direct mapping
-                    if framework_var not in framework_env:
-                        framework_env[framework_var] = value
-            elif framework_pattern == '*' and '*' in common_pattern:
-                # Handle suffix patterns like "*=SUFFIX_*"
-                suffix = common_pattern.replace('*', '')
-                for common_var, value in common_env.items():
-                    if common_var.startswith(suffix):
-                        framework_var = common_var[len(suffix):]
-                        # Only add if not already processed by direct mapping
-                        if framework_var not in framework_env:
-                            framework_env[framework_var] = value
+    for common_var, value in common_env.items():
+        framework_var = f"{prefix}{common_var}"
+        framework_env[framework_var] = value
     
     return framework_env
 
@@ -111,22 +76,33 @@ def map_common_to_framework(framework: str, common_env: Dict[str, str]) -> Dict[
         Dictionary of framework-specific environment variables
     """
     template_path = get_template_path(framework)
-    mapping, wildcard_patterns = parse_template_file(template_path)
+    prefix, mapping = parse_template_file(template_path)
     
     # Create reverse mapping: common_var -> framework_var
     reverse_mapping = {v: k for k, v in mapping.items()}
     
     framework_env = {}
+    mapped_common_vars = set()
     
-    # Apply direct mappings
+    # Apply direct mappings first
     for common_var, value in common_env.items():
         if common_var in reverse_mapping:
             framework_var = reverse_mapping[common_var]
             framework_env[framework_var] = value
+            mapped_common_vars.add(common_var)
     
-    # Apply wildcard mappings
-    wildcard_env = apply_wildcard_mapping(common_env, wildcard_patterns)
-    framework_env.update(wildcard_env)
+    # Apply prefix to unmapped variables if prefix is specified
+    if prefix:
+        for common_var, value in common_env.items():
+            if common_var not in mapped_common_vars:
+                framework_var = f"{prefix}{common_var}"
+                framework_env[framework_var] = value
+                mapped_common_vars.add(common_var)
+    
+    # Add remaining unmapped variables as-is
+    for common_var, value in common_env.items():
+        if common_var not in mapped_common_vars:
+            framework_env[common_var] = value
     
     return framework_env
 
@@ -143,53 +119,30 @@ def map_framework_to_common(framework: str, framework_env: Dict[str, str]) -> Di
         Dictionary of common environment variables
     """
     template_path = get_template_path(framework)
-    mapping, wildcard_patterns = parse_template_file(template_path)
+    prefix, mapping = parse_template_file(template_path)
     
     common_env = {}
+    mapped_framework_vars = set()
     
-    # Apply direct mappings
+    # Apply direct mappings first
     for framework_var, value in framework_env.items():
         if framework_var in mapping:
             common_var = mapping[framework_var]
             common_env[common_var] = value
+            mapped_framework_vars.add(framework_var)
     
-    # Apply reverse wildcard mappings
-    for pattern in wildcard_patterns:
-        if '=' in pattern:
-            framework_pattern, common_pattern = pattern.split('=', 1)
-            framework_pattern = framework_pattern.strip()
-            common_pattern = common_pattern.strip()
-            
-            # Handle wildcard patterns generically (reverse direction)
-            if '*' in framework_pattern and '*' in common_pattern:
-                # Convert wildcard patterns to regex patterns
-                framework_regex = framework_pattern.replace('*', '(.*)')
-                
-                for framework_var, value in framework_env.items():
-                    match = re.match(framework_regex, framework_var)
-                    if match and match.groups():
-                        # Replace * in common pattern with the captured group
-                        common_var = common_pattern.replace('*', match.group(1))
-                        # Only add if not already processed by direct mapping
-                        if common_var not in common_env:
-                            common_env[common_var] = value
-            elif '*' in framework_pattern and common_pattern == '*':
-                # Handle prefix patterns like "PREFIX_*=*" (reverse)
-                prefix = framework_pattern.replace('*', '')
-                for framework_var, value in framework_env.items():
-                    if framework_var.startswith(prefix):
-                        common_var = framework_var[len(prefix):]
-                        # Only add if not already processed by direct mapping
-                        if common_var not in common_env:
-                            common_env[common_var] = value
-            elif framework_pattern == '*' and '*' in common_pattern:
-                # Handle suffix patterns like "*=SUFFIX_*" (reverse)
-                suffix = common_pattern.replace('*', '')
-                for framework_var, value in framework_env.items():
-                    common_var = f"{suffix}{framework_var}"
-                    # Only add if not already processed by direct mapping
-                    if common_var not in common_env:
-                        common_env[common_var] = value
+    # Apply reverse prefix mapping if prefix is specified
+    if prefix:
+        for framework_var, value in framework_env.items():
+            if framework_var not in mapped_framework_vars and framework_var.startswith(prefix):
+                common_var = framework_var[len(prefix):]
+                common_env[common_var] = value
+                mapped_framework_vars.add(framework_var)
+    
+    # Add remaining unmapped framework variables as-is
+    for framework_var, value in framework_env.items():
+        if framework_var not in mapped_framework_vars:
+            common_env[framework_var] = value
     
     return common_env
 

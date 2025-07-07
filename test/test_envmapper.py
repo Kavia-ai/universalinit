@@ -1,6 +1,7 @@
 import pytest
 import tempfile
 import os
+import yaml
 from pathlib import Path
 from universalinit_env.envmapper import (
     get_template_path,
@@ -8,7 +9,7 @@ from universalinit_env.envmapper import (
     map_common_to_framework,
     map_framework_to_common,
     get_supported_frameworks,
-    apply_wildcard_mapping,
+    apply_prefix_mapping,
 )
 
 
@@ -34,61 +35,119 @@ class TestParseTemplateFile:
     def test_parse_template_file_existing(self):
         """Test parsing an existing template file."""
         template_path = get_template_path("react")
-        mapping, wildcard_patterns = parse_template_file(template_path)
+        prefix, mapping = parse_template_file(template_path)
         
         assert isinstance(mapping, dict)
-        assert isinstance(wildcard_patterns, list)
+        # prefix can be None or a string
+        assert prefix is None or isinstance(prefix, str)
         
-        # Check direct mappings
-        assert "REACT_CUSTOM_PREIFX_SAMPLE_ENV_FOR_UNIINIT" in mapping
-        assert mapping["REACT_CUSTOM_PREIFX_SAMPLE_ENV_FOR_UNIINIT"] == "SAMPLE_ENV_FOR_UNIINIT"
-        
-        # Check wildcard patterns
-        assert "REACT_APP_*=*" in wildcard_patterns
+        # Check that mapping contains expected keys
+        assert "REACT_FOO" in mapping
+        assert mapping["REACT_FOO"] == "FOO"
+        # Check that prefix is set
+        assert prefix == "REACT_APP_"
     
     def test_parse_template_file_nonexistent(self):
         """Test parsing a nonexistent template file."""
         with pytest.raises(FileNotFoundError):
             parse_template_file(Path("nonexistent/path/env.template"))
     
-    def test_parse_template_file_with_comments(self):
-        """Test parsing template file with comments and empty lines."""
+    def test_parse_template_file_with_prefix(self):
+        """Test parsing template file with prefix."""
         with tempfile.NamedTemporaryFile(mode='w', suffix='.template', delete=False) as f:
-            f.write("# This is a comment\n")
-            f.write("\n")  # Empty line
-            f.write("FRAMEWORK_VAR=COMMON_VAR\n")
-            f.write("# Another comment\n")
-            f.write("PREFIX_*=*\n")
-            f.write("  # Indented comment\n")
-            f.write("  SPACED_VAR = SPACED_COMMON_VAR  \n")
+            yaml_content = {
+                'prefix': 'REACT_APP_',
+                'mapping': {
+                    'REACT_FOO': 'FOO'
+                }
+            }
+            yaml.dump(yaml_content, f)
         
         try:
             template_path = Path(f.name)
-            mapping, wildcard_patterns = parse_template_file(template_path)
+            prefix, mapping = parse_template_file(template_path)
             
-            assert "FRAMEWORK_VAR" in mapping
-            assert mapping["FRAMEWORK_VAR"] == "COMMON_VAR"
-            assert "SPACED_VAR" in mapping
-            assert mapping["SPACED_VAR"] == "SPACED_COMMON_VAR"
-            assert "PREFIX_*=*" in wildcard_patterns
-            assert len(wildcard_patterns) == 1
+            assert prefix == "REACT_APP_"
+            assert "REACT_FOO" in mapping
+            assert mapping["REACT_FOO"] == "FOO"
+        finally:
+            os.unlink(f.name)
+    
+    def test_parse_template_file_without_prefix(self):
+        """Test parsing template file without prefix."""
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.template', delete=False) as f:
+            yaml_content = {
+                'mapping': {
+                    'REACT_FOO': 'FOO'
+                }
+            }
+            yaml.dump(yaml_content, f)
+        
+        try:
+            template_path = Path(f.name)
+            prefix, mapping = parse_template_file(template_path)
+            
+            assert prefix is None
+            assert "REACT_FOO" in mapping
+            assert mapping["REACT_FOO"] == "FOO"
+        finally:
+            os.unlink(f.name)
+    
+    def test_parse_template_file_empty(self):
+        """Test parsing empty template file."""
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.template', delete=False) as f:
+            f.write("")
+        
+        try:
+            template_path = Path(f.name)
+            prefix, mapping = parse_template_file(template_path)
+            
+            assert prefix is None
+            assert mapping == {}
+        finally:
+            os.unlink(f.name)
+    
+    def test_parse_template_file_invalid_yaml(self):
+        """Test parsing invalid YAML template file."""
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.template', delete=False) as f:
+            f.write("invalid: yaml: content: [")
+        
+        try:
+            template_path = Path(f.name)
+            with pytest.raises(ValueError, match="Invalid YAML"):
+                parse_template_file(template_path)
+        finally:
+            os.unlink(f.name)
+    
+    def test_parse_template_file_invalid_mapping(self):
+        """Test parsing template file with invalid mapping type."""
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.template', delete=False) as f:
+            yaml_content = {
+                'mapping': "not a dict"
+            }
+            yaml.dump(yaml_content, f)
+        
+        try:
+            template_path = Path(f.name)
+            with pytest.raises(ValueError, match="'mapping' must be a dictionary"):
+                parse_template_file(template_path)
         finally:
             os.unlink(f.name)
 
 
-class TestWildcardMapping:
-    """Test wildcard pattern mapping functionality."""
+class TestPrefixMapping:
+    """Test prefix mapping functionality."""
     
-    def test_apply_wildcard_mapping_prefix_pattern(self):
-        """Test wildcard mapping with prefix pattern (PREFIX_*=*)."""
+    def test_apply_prefix_mapping(self):
+        """Test applying prefix to environment variables."""
         common_env = {
             "DATABASE_URL": "postgresql://localhost:5432/mydb",
             "API_KEY": "abc123",
             "DEBUG": "true"
         }
-        wildcard_patterns = ["REACT_APP_*=*"]
+        prefix = "REACT_APP_"
         
-        result = apply_wildcard_mapping(common_env, wildcard_patterns)
+        result = apply_prefix_mapping(common_env, prefix)
         
         assert "REACT_APP_DATABASE_URL" in result
         assert result["REACT_APP_DATABASE_URL"] == "postgresql://localhost:5432/mydb"
@@ -97,48 +156,12 @@ class TestWildcardMapping:
         assert "REACT_APP_DEBUG" in result
         assert result["REACT_APP_DEBUG"] == "true"
     
-    def test_apply_wildcard_mapping_complex_pattern(self):
-        """Test wildcard mapping with complex pattern (PATTERN_*=*_PATTERN)."""
-        common_env = {
-            "USER_API_KEY": "secret123",
-            "ADMIN_API_KEY": "admin456"
-        }
-        wildcard_patterns = ["API_*_KEY=*_API_KEY"]
+    def test_apply_prefix_mapping_empty(self):
+        """Test applying prefix to empty environment."""
+        common_env = {}
+        prefix = "REACT_APP_"
         
-        result = apply_wildcard_mapping(common_env, wildcard_patterns)
-        
-        assert "API_USER_KEY" in result
-        assert result["API_USER_KEY"] == "secret123"
-        assert "API_ADMIN_KEY" in result
-        assert result["API_ADMIN_KEY"] == "admin456"
-    
-    def test_apply_wildcard_mapping_multiple_patterns(self):
-        """Test wildcard mapping with multiple patterns."""
-        common_env = {
-            "DATABASE_URL": "postgresql://localhost:5432/mydb",
-            "API_KEY": "abc123"
-        }
-        wildcard_patterns = [
-            "REACT_APP_*=*",
-            "NEXT_PUBLIC_*=*"
-        ]
-        
-        result = apply_wildcard_mapping(common_env, wildcard_patterns)
-        
-        # Should apply both patterns
-        assert "REACT_APP_DATABASE_URL" in result
-        assert "REACT_APP_API_KEY" in result
-        assert "NEXT_PUBLIC_DATABASE_URL" in result
-        assert "NEXT_PUBLIC_API_KEY" in result
-    
-    def test_apply_wildcard_mapping_no_patterns(self):
-        """Test wildcard mapping with no patterns."""
-        common_env = {
-            "DATABASE_URL": "postgresql://localhost:5432/mydb"
-        }
-        wildcard_patterns = []
-        
-        result = apply_wildcard_mapping(common_env, wildcard_patterns)
+        result = apply_prefix_mapping(common_env, prefix)
         
         assert result == {}
 
@@ -152,40 +175,43 @@ class TestFrameworkMapping:
             "DATABASE_URL": "postgresql://localhost:5432/mydb",
             "API_KEY": "abc123",
             "DEBUG": "true",
-            "SAMPLE_ENV_FOR_UNIINIT": "test_value"
+            "FOO": "bar",
+            "UNMAPPED_VAR": "should-be-preserved"
         }
         
         framework_env = map_common_to_framework("react", common_env)
         
         # Check direct mappings
-        assert "REACT_CUSTOM_PREIFX_SAMPLE_ENV_FOR_UNIINIT" in framework_env
-        assert framework_env["REACT_CUSTOM_PREIFX_SAMPLE_ENV_FOR_UNIINIT"] == "test_value"
-        
-        # Check wildcard mappings
+        assert "REACT_FOO" in framework_env
+        assert framework_env["REACT_FOO"] == "bar"
+        # Check prefix mappings
         assert "REACT_APP_DATABASE_URL" in framework_env
         assert framework_env["REACT_APP_DATABASE_URL"] == "postgresql://localhost:5432/mydb"
         assert "REACT_APP_API_KEY" in framework_env
         assert framework_env["REACT_APP_API_KEY"] == "abc123"
         assert "REACT_APP_DEBUG" in framework_env
         assert framework_env["REACT_APP_DEBUG"] == "true"
+        
+        # Check that unmapped variables get prefix applied
+        assert "REACT_APP_UNMAPPED_VAR" in framework_env
+        assert framework_env["REACT_APP_UNMAPPED_VAR"] == "should-be-preserved"
     
     def test_map_framework_to_common_react(self):
         """Test mapping React framework env vars to common format."""
         framework_env = {
+            "REACT_FOO": "bar",
             "REACT_APP_DATABASE_URL": "postgresql://localhost:5432/mydb",
             "REACT_APP_API_KEY": "abc123",
             "REACT_APP_DEBUG": "true",
-            "REACT_CUSTOM_PREIFX_SAMPLE_ENV_FOR_UNIINIT": "test_value",
-            "UNKNOWN_VAR": "should-be-ignored"
+            "UNKNOWN_VAR": "should-be-preserved"
         }
         
         common_env = map_framework_to_common("react", framework_env)
         
         # Check direct mappings
-        assert "SAMPLE_ENV_FOR_UNIINIT" in common_env
-        assert common_env["SAMPLE_ENV_FOR_UNIINIT"] == "test_value"
-        
-        # Check wildcard mappings
+        assert "FOO" in common_env
+        assert common_env["FOO"] == "bar"
+        # Check prefix mappings
         assert "DATABASE_URL" in common_env
         assert common_env["DATABASE_URL"] == "postgresql://localhost:5432/mydb"
         assert "API_KEY" in common_env
@@ -193,16 +219,16 @@ class TestFrameworkMapping:
         assert "DEBUG" in common_env
         assert common_env["DEBUG"] == "true"
         
-        # Check that unknown vars are ignored
-        assert "UNKNOWN_VAR" not in common_env
+        # Check that unknown vars are preserved
+        assert "UNKNOWN_VAR" in common_env
+        assert common_env["UNKNOWN_VAR"] == "should-be-preserved"
     
     def test_mapping_roundtrip(self):
         """Test that mapping back and forth preserves data integrity."""
         original_common = {
             "DATABASE_URL": "postgresql://localhost:5432/mydb",
             "API_KEY": "abc123",
-            "DEBUG": "true",
-            "SAMPLE_ENV_FOR_UNIINIT": "test_value"
+            "FOO": "bar"
         }
         
         # Forward mapping
@@ -244,6 +270,50 @@ class TestSupportedFrameworks:
         for framework in frameworks:
             template_path = get_template_path(framework)
             assert template_path.exists()
+
+
+class TestUnmappedVariablePreservation:
+    """Test that unmapped environment variables are preserved."""
+    
+    def test_preserve_unmapped_common_variables(self):
+        """Test that common variables without mappings are preserved when mapping to framework."""
+        common_env = {
+            "FOO": "bar",  # Has direct mapping
+            "UNMAPPED_VAR1": "value1",  # No mapping
+            "UNMAPPED_VAR2": "value2",  # No mapping
+        }
+        
+        framework_env = map_common_to_framework("react", common_env)
+        
+        # Check that mapped variables are transformed
+        assert "REACT_FOO" in framework_env
+        assert framework_env["REACT_FOO"] == "bar"
+        
+        # Check that unmapped variables get prefix applied
+        assert "REACT_APP_UNMAPPED_VAR1" in framework_env
+        assert framework_env["REACT_APP_UNMAPPED_VAR1"] == "value1"
+        assert "REACT_APP_UNMAPPED_VAR2" in framework_env
+        assert framework_env["REACT_APP_UNMAPPED_VAR2"] == "value2"
+    
+    def test_preserve_unmapped_framework_variables(self):
+        """Test that framework variables without mappings are preserved when mapping to common."""
+        framework_env = {
+            "REACT_FOO": "bar",  # Has direct mapping
+            "UNMAPPED_FRAMEWORK_VAR1": "fw_value1",  # No mapping
+            "UNMAPPED_FRAMEWORK_VAR2": "fw_value2",  # No mapping
+        }
+        
+        common_env = map_framework_to_common("react", framework_env)
+        
+        # Check that mapped variables are transformed
+        assert "FOO" in common_env
+        assert common_env["FOO"] == "bar"
+        
+        # Check that unmapped variables are preserved as-is
+        assert "UNMAPPED_FRAMEWORK_VAR1" in common_env
+        assert common_env["UNMAPPED_FRAMEWORK_VAR1"] == "fw_value1"
+        assert "UNMAPPED_FRAMEWORK_VAR2" in common_env
+        assert common_env["UNMAPPED_FRAMEWORK_VAR2"] == "fw_value2"
 
 
 class TestEdgeCases:
@@ -304,27 +374,25 @@ class TestIntegration:
         template_path = get_template_path("react")
         
         # Parse template
-        mapping, wildcard_patterns = parse_template_file(template_path)
+        prefix, mapping = parse_template_file(template_path)
         
         # Verify template structure
         assert isinstance(mapping, dict)
-        assert isinstance(wildcard_patterns, list)
-        assert len(wildcard_patterns) > 0
+        assert len(mapping) > 0
         
         # Test with sample data
         common_env = {
             "DATABASE_URL": "postgresql://localhost:5432/mydb",
             "API_KEY": "abc123",
-            "SAMPLE_ENV_FOR_UNIINIT": "test_value"
+            "FOO": "bar"
         }
         
         # Forward mapping
         framework_env = map_common_to_framework("react", common_env)
         
         # Verify results
-        assert "REACT_APP_DATABASE_URL" in framework_env
-        assert "REACT_APP_API_KEY" in framework_env
-        assert "REACT_CUSTOM_PREIFX_SAMPLE_ENV_FOR_UNIINIT" in framework_env
+        assert "REACT_FOO" in framework_env
+        assert framework_env["REACT_FOO"] == "bar"
         
         # Reverse mapping
         back_to_common = map_framework_to_common("react", framework_env)
