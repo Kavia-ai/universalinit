@@ -194,6 +194,66 @@ Then use:
 uniinit --config ./my-config.json
 ```
 
+## Environment Variable Mapping (env.template Syntax)
+
+Framework templates can define how environment variables are mapped using an `env.template` file. This allows you to control how your common environment variables are translated to framework-specific ones.
+
+### Syntax
+
+There are two supported mapping syntaxes:
+
+#### 1. Direct Mapping
+Map a specific framework environment variable to a common variable:
+
+```
+FRAMEWORK_SPECIFIC_VAR = COMMON_VAR
+```
+
+**Example:**
+```
+REACT_CUSTOM_PREFIX_SAMPLE_ENV_FOR_UNIINIT = SAMPLE_ENV_FOR_UNIINIT
+```
+
+#### 2. Wildcard Mapping (Prefix)
+Map all common environment variables to a framework-specific prefix using a wildcard:
+
+```
+FRAMEWORK_PREFIX_* = *
+```
+
+**Example:**
+```
+REACT_APP_* = *
+```
+This will map any common environment variable (e.g. `DATABASE_URL`) to a framework variable with the prefix (e.g. `REACT_APP_DATABASE_URL`).
+
+#### 3. Wildcard Mapping (Complex)
+You can also use wildcards in both the framework and common variable names for more advanced mapping:
+
+```
+FRAMEWORK_PATTERN_*_SUFFIX = *_COMMON_PATTERN
+```
+
+**Example:**
+```
+API_*_KEY = *_API_KEY
+```
+This will map `USER_API_KEY` to `API_USER_KEY`.
+
+### Example env.template
+```
+# Direct mapping
+REACT_CUSTOM_PREFIX_SAMPLE_ENV_FOR_UNIINIT = SAMPLE_ENV_FOR_UNIINIT
+
+# Wildcard mapping (prefix)
+REACT_APP_* = *
+```
+
+### Notes
+- You can combine direct and wildcard mappings in the same file.
+- Only prefix and complex wildcard patterns are supported (not suffix-only patterns).
+- Unknown variables not covered by any mapping will be ignored.
+
 ## Development
 
 ### Running Tests

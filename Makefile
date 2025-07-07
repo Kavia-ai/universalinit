@@ -14,7 +14,7 @@ install-env:
 	pip install universalinit-env/dist/universalinit_env-*.whl
 
 test-env:
-	cd universalinit-env && PYTHONPATH=src pytest ../../test/test_envmapper.py -v
+	cd universalinit-env && PYTHONPATH=src pytest ../test/test_envmapper.py -v
 
 clean-env:
 	rm -rf universalinit-env/dist/
