@@ -75,20 +75,26 @@ def apply_wildcard_mapping(common_env: Dict[str, str], wildcard_patterns: List[s
                     if match and match.groups():
                         # Replace * in framework pattern with the captured group
                         framework_var = framework_pattern.replace('*', match.group(1))
-                        framework_env[framework_var] = value
+                        # Only add if not already processed by direct mapping
+                        if framework_var not in framework_env:
+                            framework_env[framework_var] = value
             elif '*' in framework_pattern and common_pattern == '*':
                 # Handle prefix patterns like "PREFIX_*=*"
                 prefix = framework_pattern.replace('*', '')
                 for common_var, value in common_env.items():
                     framework_var = f"{prefix}{common_var}"
-                    framework_env[framework_var] = value
+                    # Only add if not already processed by direct mapping
+                    if framework_var not in framework_env:
+                        framework_env[framework_var] = value
             elif framework_pattern == '*' and '*' in common_pattern:
                 # Handle suffix patterns like "*=SUFFIX_*"
                 suffix = common_pattern.replace('*', '')
                 for common_var, value in common_env.items():
                     if common_var.startswith(suffix):
                         framework_var = common_var[len(suffix):]
-                        framework_env[framework_var] = value
+                        # Only add if not already processed by direct mapping
+                        if framework_var not in framework_env:
+                            framework_env[framework_var] = value
     
     return framework_env
 
@@ -164,20 +170,26 @@ def map_framework_to_common(framework: str, framework_env: Dict[str, str]) -> Di
                     if match and match.groups():
                         # Replace * in common pattern with the captured group
                         common_var = common_pattern.replace('*', match.group(1))
-                        common_env[common_var] = value
+                        # Only add if not already processed by direct mapping
+                        if common_var not in common_env:
+                            common_env[common_var] = value
             elif '*' in framework_pattern and common_pattern == '*':
                 # Handle prefix patterns like "PREFIX_*=*" (reverse)
                 prefix = framework_pattern.replace('*', '')
                 for framework_var, value in framework_env.items():
                     if framework_var.startswith(prefix):
                         common_var = framework_var[len(prefix):]
-                        common_env[common_var] = value
+                        # Only add if not already processed by direct mapping
+                        if common_var not in common_env:
+                            common_env[common_var] = value
             elif framework_pattern == '*' and '*' in common_pattern:
                 # Handle suffix patterns like "*=SUFFIX_*" (reverse)
                 suffix = common_pattern.replace('*', '')
                 for framework_var, value in framework_env.items():
                     common_var = f"{suffix}{framework_var}"
-                    common_env[common_var] = value
+                    # Only add if not already processed by direct mapping
+                    if common_var not in common_env:
+                        common_env[common_var] = value
     
     return common_env
 

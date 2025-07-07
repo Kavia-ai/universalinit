@@ -6,7 +6,7 @@ A package for mapping environment variables between different frameworks and a c
 
 from .envmapper import *
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 __all__ = [
     "get_template_path",
     "parse_template_file", 
