@@ -92,7 +92,7 @@ def test_django_init_info(template_dir, project_config):
     # Check that init_info has all required components
     assert isinstance(init_info, TemplateInitInfo)
     assert init_info.openapi_generation.command == 'python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt && python manage.py migrate && python manage.py generate_openapi'
-    assert init_info.configure_enviroment.command == 'python3 -m venv venv && \
+    assert init_info.configure_environment.command == 'python3 -m venv venv && \
                 source venv/bin/activate && \
                 pip install -r requirements.txt && \
                 python manage.py makemigrations && \

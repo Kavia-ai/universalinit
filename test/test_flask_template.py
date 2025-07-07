@@ -135,7 +135,7 @@ def test_flask_init_info(template_dir, project_config):
             source venv/bin/activate && \
             pip install -r requirements.txt && \
             python src/api/generate_openapi.py"
-    assert init_info.configure_enviroment.command == 'python3 -m venv venv && \
+    assert init_info.configure_environment.command == 'python3 -m venv venv && \
                 source venv/bin/activate && \
                 pip install -r requirements.txt'
 

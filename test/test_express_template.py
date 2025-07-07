@@ -104,7 +104,7 @@ def test_express_init_info(template_dir, project_config):
     # Check that init_info has all required components
     assert isinstance(init_info, TemplateInitInfo)
     assert init_info.openapi_generation.command == 'npm install && node generate_openapi.js'
-    assert init_info.configure_enviroment.command == 'npm install'
+    assert init_info.configure_environment.command == 'npm install'
 
 
 def test_project_initialization(template_dir, project_config):
