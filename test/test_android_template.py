@@ -266,7 +266,7 @@ def test_android_init_info(template_dir, project_config):
     assert init_info.test_tool.command == './gradlew test'
     assert init_info.init_style == 'android'
     assert init_info.openapi_generation.command == ''
-    assert init_info.configure_enviroment.command == './gradlew assembleDebug'
+    assert init_info.configure_environment.command == './gradlew assembleDebug'
 
 
 def test_android_with_missing_template_config(temp_dir, project_config):

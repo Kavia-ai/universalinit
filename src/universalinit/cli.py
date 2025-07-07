@@ -50,8 +50,8 @@ def template_init_info_to_dict(init_info: TemplateInitInfo, project_path: Path) 
 
     return {
         "configure_environment":{
-            "command": init_info.configure_enviroment.command,
-            "working_directory": init_info.configure_enviroment.working_directory,
+            "command": init_info.configure_environment.command,
+            "working_directory": init_info.configure_environment.working_directory,
         },
         "build_cmd": {
             "command": init_info.build_cmd.command,
