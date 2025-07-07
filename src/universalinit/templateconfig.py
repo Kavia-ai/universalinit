@@ -153,7 +153,6 @@ class OpenapiGenerationTool:
 @dataclass
 class TemplateInitInfo:
     """Complete template initialization information."""
-    configure_environment: Optional[ConfigureEnvironment] = None
     build_cmd: BuildCommand
     install_dependencies: InstallDependenciesCommand
     env_config: EnvironmentConfig
@@ -167,6 +166,7 @@ class TemplateInitInfo:
     post_processing: ProcessingScript
     entry_point_url: Optional[str] = None
     openapi_generation: Optional[OpenapiGenerationTool] = None
+    configure_environment: Optional[ConfigureEnvironment] = None
 
 class TemplateConfigProvider:
     """Provides template initialization configuration."""
@@ -190,7 +190,7 @@ class TemplateConfigProvider:
             configure_environment=ConfigureEnvironment(
                 command=config_data.get('configure_environment', {}).get('command', ''),
                 working_directory=config_data.get('configure_environment', {}).get('working_directory', '')
-            ),
+            ) if 'configure_environment' in config_data else None,
             build_cmd=BuildCommand(
                 command=config_data['build_cmd']['command'],
                 working_directory=config_data['build_cmd']['working_directory']
