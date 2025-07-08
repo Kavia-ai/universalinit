@@ -2,11 +2,9 @@ import os
 import subprocess
 import tempfile
 import time
-import signal
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
-from enum import Enum, auto
-from typing import Dict, List, Optional, Any
+from enum import Enum
+from typing import Dict, List, Optional
 from pathlib import Path
 import json
 
@@ -361,7 +359,8 @@ class AngularTemplate(ProjectTemplate):
         FileSystemHelper.copy_template(
             self.template_path,
             self.config.output_path,
-            replacements
+            replacements,
+            include_hidden=True
         )
 
     def setup_testing(self) -> None:
@@ -670,7 +669,8 @@ class ReactTemplate(ProjectTemplate):
         FileSystemHelper.copy_template(
             self.template_path,
             self.config.output_path,
-            replacements
+            replacements,
+            include_hidden=True
         )
 
     def setup_testing(self) -> None:
@@ -726,7 +726,8 @@ class RemotionTemplate(ProjectTemplate):
         FileSystemHelper.copy_template(
             self.template_path,
             self.config.output_path,
-            replacements
+            replacements,
+            include_hidden=True
         )
 
     def setup_testing(self) -> None:
@@ -791,7 +792,8 @@ class TypeScriptTemplate(ProjectTemplate):
         FileSystemHelper.copy_template(
             self.template_path,
             self.config.output_path,
-            replacements
+            replacements,
+            include_hidden=True
         )
 
     def setup_testing(self) -> None:
@@ -812,7 +814,8 @@ class ViteTemplate(ProjectTemplate):
         FileSystemHelper.copy_template(
             self.template_path,
             self.config.output_path,
-            replacements
+            replacements,
+            include_hidden=True
         )
 
     def setup_testing(self) -> None:
@@ -832,7 +835,8 @@ class VueTemplate(ProjectTemplate):
         FileSystemHelper.copy_template(
             self.template_path,
             self.config.output_path,
-            replacements
+            replacements,
+            include_hidden=True
         )
 
     def setup_testing(self) -> None:
