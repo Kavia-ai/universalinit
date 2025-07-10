@@ -7,7 +7,7 @@ build_cmd:
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 install_dependencies:
-  command: "ls"
+  command: "cd db_visualizer && npm install"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
   
 env:
