@@ -1,0 +1,35 @@
+[project]
+name = "universalinit-env"
+version = "0.1.5"
+description = "Environment variable mapping utilities for UniversalInit framework"
+authors = [
+    {name = "Zoltan Kuscsik", email = "zoltan@s57.io"},
+    {name = "Raphael Marchetti Calciolari", email = "rapha.marchetti@gmail.com"}
+]
+readme = "README-env.md"
+requires-python = ">=3.11"
+dependencies = ["PyYAML>=6.0"]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "universalinit-env"
+version = "0.1.5"
+description = "Environment variable mapping utilities for UniversalInit framework"
+authors = [
+    "Zoltan Kuscsik <zoltan@s57.io>",
+    "Raphael Marchetti Calciolari <rapha.marchetti@gmail.com>"
+]
+readme = "README-env.md"
+packages = [
+    { from = "src", include = "universalinit_env" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+PyYAML = "^6.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4" 
