@@ -44,4 +44,5 @@ post_processing:
   script: |
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
+    touch .env
     flutter pub get
