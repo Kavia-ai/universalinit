@@ -262,7 +262,7 @@ EOF
 cat > "gradle.properties" << EOF
 # Build speed optimizations
 org.gradle.jvmargs=-Xmx4g -XX:+UseG1GC -XX:MaxMetaspaceSize=1g -Dfile.encoding=UTF-8 -XX:+UseStringDeduplication
-org.gradle.daemon=true
+org.gradle.daemon=false
 org.gradle.parallel=true
 org.gradle.caching=true
 org.gradle.workers.max=6
