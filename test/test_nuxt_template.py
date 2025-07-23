@@ -27,15 +27,15 @@ def template_dir(temp_dir):
     # Create mock config.yml
     config = {
         'configure_environment': {
-            'command': 'npm install',
+            'command': 'npm install --legacy-peer-deps',
             'working_directory': str(nuxt_path)
         },
         'build_cmd': {
-            'command': 'npm install && npm run build',
+            'command': 'npm install --legacy-peer-deps && npm run build',
             'working_directory': str(nuxt_path)
         },
         'install_dependencies': {
-            'command': 'npm install',
+            'command': 'npm install --legacy-peer-deps',
             'working_directory': str(nuxt_path)
         },
         'env': {
@@ -58,7 +58,7 @@ def template_dir(temp_dir):
             'script_content': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\nnpx eslint "$@"\nESLINT_EXIT_CODE=$?\nnpm run build\nBUILD_EXIT_CODE=$?\nif [ $ESLINT_EXIT_CODE -ne 0 ] || [ $BUILD_EXIT_CODE -ne 0 ]; then\n       exit 1\nfi'
         },
         'post_processing': {
-            'script': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\nnpm install'
+            'script': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\nnpm install --legacy-peer-deps'
         }
     }
 
@@ -98,7 +98,7 @@ def test_nuxt_init_info(template_dir, project_config):
 
     # Check that init_info has all required components
     assert isinstance(init_info, TemplateInitInfo)
-    assert init_info.configure_environment.command == 'npm install'
+    assert init_info.configure_environment.command == 'npm install --legacy-peer-deps'
 
 
 def test_project_initialization(template_dir, project_config):

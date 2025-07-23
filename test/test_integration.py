@@ -28,15 +28,15 @@ def template_dir(temp_dir):
     # Create mock config.yml
     config = {
         'configure_environment': {
-            'command': 'npm install',
+            'command': 'npm install --legacy-peer-deps',
             'working_directory': str(react_path)
         },
         'build_cmd': {
-            'command': 'npm install && npx tsc --noEmit && npm test -- --ci',
+            'command': 'npm install --legacy-peer-deps && npx tsc --noEmit && npm test -- --ci',
             'working_directory': str(react_path)
         },
         'install_dependencies': {
-            'command': 'npm install',
+            'command': 'npm install --legacy-peer-deps',
             'working_directory': str(react_path)
         },
         'env': {
@@ -60,7 +60,7 @@ def template_dir(temp_dir):
             'script_content': '#!/bin/bash\neslint "$@"'
         },
         'post_processing': {
-            'script': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\nnpm install'
+            'script': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\nnpm install --legacy-peer-deps'
         }
     }
 

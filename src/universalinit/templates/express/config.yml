@@ -1,13 +1,13 @@
 configure_environment:
-  command: "npm install"
+  command: "npm install --legacy-peer-deps"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 build_cmd:
-  command: "npm install" 
+  command: "npm install --legacy-peer-deps" 
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 install_dependencies:
-  command: "npm install"
+  command: "npm install --legacy-peer-deps"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 env:
@@ -20,7 +20,7 @@ init_files: []
 init_minimal: "Minimal Express application initialized"
 
 openapi_generation:
-  command: "npm install && node generate_openapi.js"
+  command: "npm install --legacy-peer-deps && node generate_openapi.js"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 run_tool:
@@ -49,5 +49,5 @@ post_processing:
   script: |
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
-    npm install
+    npm install --legacy-peer-deps
     npm run lint

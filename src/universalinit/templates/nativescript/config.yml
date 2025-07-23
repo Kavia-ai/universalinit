@@ -1,13 +1,13 @@
 configure_environment:
-  command: "npm install"
+  command: "npm install --legacy-peer-deps"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 build_cmd:
-  command: "npm install && ns build" # TODO: FIX
+  command: "npm install --legacy-peer-deps && ns build" # TODO: FIX
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 install_dependencies: 
-  command: "npm install"
+  command: "npm install --legacy-peer-deps"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 env:
@@ -53,4 +53,4 @@ post_processing: # TODO: FIX
     fi
     
     # Install dependencies
-    npm install
+    npm install --legacy-peer-deps

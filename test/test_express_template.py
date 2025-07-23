@@ -27,7 +27,7 @@ def template_dir(temp_dir):
     # Create mock config.yml
     config = {
         'configure_environment': {
-            'command': 'npm install',
+            'command': 'npm install --legacy-peer-deps',
             'working_directory': str(express_path)
         },
         'build_cmd': {
@@ -35,7 +35,7 @@ def template_dir(temp_dir):
             'working_directory': str(express_path)
         },
         'install_dependencies': {
-            'command': 'npm install',
+            'command': 'npm install --legacy-peer-deps',
             'working_directory': str(express_path)
         },      
         'env': {
@@ -50,7 +50,7 @@ def template_dir(temp_dir):
             'working_directory': str(express_path)
         },
         "openapi_generation": {
-            "command": "npm install && node generate_openapi.js",
+            "command": "npm install --legacy-peer-deps && node generate_openapi.js",
             "working_directory": str(express_path)
         },
         'test_tool': {
@@ -103,8 +103,8 @@ def test_express_init_info(template_dir, project_config):
 
     # Check that init_info has all required components
     assert isinstance(init_info, TemplateInitInfo)
-    assert init_info.openapi_generation.command == 'npm install && node generate_openapi.js'
-    assert init_info.configure_environment.command == 'npm install'
+    assert init_info.openapi_generation.command == 'npm install --legacy-peer-deps && node generate_openapi.js'
+    assert init_info.configure_environment.command == 'npm install --legacy-peer-deps'
 
 
 def test_project_initialization(template_dir, project_config):

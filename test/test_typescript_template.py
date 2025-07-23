@@ -27,15 +27,15 @@ def template_dir(temp_dir):
     # Create mock config.yml
     config = {
         'configure_environment': {
-            'command': 'npm install',
+            'command': 'npm install --legacy-peer-deps',
             'working_directory': str(typescript_path)
         },
         'build_cmd': {
-            'command': 'npm install && npm run build',
+            'command': 'npm install --legacy-peer-deps && npm run build',
             'working_directory': str(typescript_path)
         },
         'install_dependencies': {
-            'command': 'npm install',
+            'command': 'npm install --legacy-peer-deps',
             'working_directory': str(typescript_path)
         },
         'env': {
@@ -58,7 +58,7 @@ def template_dir(temp_dir):
             'script_content': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\nnpm run build\nEXIT_CODE=$?\nif [ $EXIT_CODE -ne 0 ]; then\n\t   exit 1\nfi'
         },
         'post_processing': {
-            'script': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\nnpm install'
+            'script': '#!/bin/bash\ncd {KAVIA_PROJECT_DIRECTORY}\nnpm install --legacy-peer-deps'
         }
     }
 
@@ -99,7 +99,7 @@ def test_typescript_init_info(template_dir, project_config):
 
     # Check that init_info has all required components
     assert isinstance(init_info, TemplateInitInfo)
-    assert init_info.configure_environment.command == 'npm install'
+    assert init_info.configure_environment.command == 'npm install --legacy-peer-deps'
 
 
 

@@ -8,10 +8,10 @@ Make sure to install dependencies:
 
 ```bash
 # npm
-npm install
+npm install --legacy-peer-deps
 
 # pnpm
-pnpm install
+pnpm install --legacy-peer-deps
 
 # yarn
 yarn install

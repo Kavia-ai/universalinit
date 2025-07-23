@@ -18,7 +18,7 @@ It is highly recommended to install the Blits [VS-code extension](https://market
 Run the following command to install the dependencies of your App:
 
 ```sh
-npm install
+npm install --legacy-peer-deps
 ```
 
 #### Build and run in development mode

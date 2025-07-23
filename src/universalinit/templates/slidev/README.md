@@ -2,7 +2,7 @@
 
 To start the slide show:
 
-- `pnpm install`
+- `pnpm install --legacy-peer-deps`
 - `pnpm dev`
 - visit <http://localhost:3030>
 
