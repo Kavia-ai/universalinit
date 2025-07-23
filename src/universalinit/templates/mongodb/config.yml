@@ -7,7 +7,7 @@ build_cmd:
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 install_dependencies:
-  command: "cd db_visualizer && npm install"
+  command: "cd db_visualizer && npm install --legacy-peer-deps"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
   
 env:
@@ -43,5 +43,5 @@ post_processing:
     chmod +x startup.sh
     sudo ./startup.sh
     cd db_visualizer
-    npm install
+    npm install --legacy-peer-deps
     echo "MongoDB is starting on port {KAVIA_DB_PORT}..."

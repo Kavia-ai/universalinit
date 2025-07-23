@@ -1,13 +1,13 @@
 configure_environment:
-  command: "npm install"
+  command: "npm install --legacy-peer-deps"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 build_cmd:
-  command: "npm install && npx tsc --noEmit && npm test -- --ci"
+  command: "npm install --legacy-peer-deps && npx tsc --noEmit && npm test -- --ci"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 install_dependencies:
-  command: "npm install"
+  command: "npm install --legacy-peer-deps"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 env:
@@ -43,4 +43,4 @@ post_processing:
   script: |
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
-    npm install
+    npm install --legacy-peer-deps
