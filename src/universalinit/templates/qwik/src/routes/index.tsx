@@ -5,17 +5,17 @@ import type { DocumentHead } from "@builder.io/qwik-city";
 export default component$(() => {
   return (
     <div class="page-container">
-      <h1 class="main-title">Welcome</h1>
+      <h1 class="main-title">{KAVIA_TEMPLATE_PROJECT_NAME} is being generated</h1>
     </div>
   );
 });
 
 export const head: DocumentHead = {
-  title: "Ultralight Qwik Template",
+  title: "{KAVIA_TEMPLATE_PROJECT_NAME}",
   meta: [
     {
       name: "description",
-      content: "Ultralight Qwik template with centered h1 title",
+      content: "Ultralight Qwik template",
     },
   ],
 };
