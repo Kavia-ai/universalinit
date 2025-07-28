@@ -73,9 +73,8 @@ class ProjectConfig:
 
     def get_replaceable_parameters(self) -> Dict[str, str]:
         """Get dictionary of replaceable parameters."""
-        # For Java projects, convert project name to valid Java identifier
         project_name = self.name
-        if self.project_type in [ProjectType.SPRINGBOOT, ProjectType.KOTLIN, ProjectType.ANDROID]:
+        if self.project_type in [ProjectType.SPRINGBOOT]:
             # Replace hyphens and spaces with underscores, remove special characters
             project_name = self.name.replace('-', '').replace(' ', '').replace('_', '')
             # Ensure it starts with a letter (Java requirement)
