@@ -284,6 +284,7 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.EXPRESS, ExpressTemplate)
         self.template_factory.register_template(ProjectType.FASTAPI, FastAPITemplate)
         self.template_factory.register_template(ProjectType.FLASK, FlaskTemplate)
+        self.template_factory.register_template(ProjectType.SPRINGBOOT, SpringBootTemplate)
         # Register database templates
         self.template_factory.register_template(ProjectType.POSTGRESQL, PostgreSQLTemplate)
         self.template_factory.register_template(ProjectType.MONGODB, MongoDBTemplate)
@@ -499,6 +500,26 @@ class FlaskTemplate(ProjectTemplate):
     def setup_testing(self) -> None:
         pass
 
+class SpringBootTemplate(ProjectTemplate):
+    """Template implementation for Spring Boot projects."""
+
+    def validate_parameters(self) -> bool:
+        # Spring Boot has simpler requirements, most configuration is in the template
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True
+        )
+
+    def setup_testing(self) -> None:
+        # Spring Boot testing is already configured in the template
+        pass
 
 class FlutterTemplate(ProjectTemplate):
     """Template implementation for Flutter projects."""
@@ -949,6 +970,7 @@ class FileSystemHelper:
         path_str = str(path)
         for key, value in replacements.items():
             path_str = path_str.replace(f"${key}", str(value))
+            path_str = path_str.replace(f"{{{key}}}", str(value))
         return Path(path_str)
 
     @staticmethod

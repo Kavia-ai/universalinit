@@ -35,6 +35,7 @@ class ProjectType(Enum):
     EXPRESS = "express"
     FASTAPI = "fastapi"
     FLASK = "flask"
+    SPRINGBOOT = "springboot"
 
     # Databases
     POSTGRESQL = "postgresql"
@@ -72,8 +73,16 @@ class ProjectConfig:
 
     def get_replaceable_parameters(self) -> Dict[str, str]:
         """Get dictionary of replaceable parameters."""
+        project_name = self.name
+        if self.project_type in [ProjectType.SPRINGBOOT]:
+            # Replace hyphens and spaces with underscores, remove special characters
+            project_name = self.name.replace('-', '').replace(' ', '').replace('_', '')
+            # Ensure it starts with a letter (Java requirement)
+            if project_name and not project_name[0].isalpha():
+                project_name = 'App' + project_name
+        
         replacements = {
-            'KAVIA_TEMPLATE_PROJECT_NAME': self.name,
+            'KAVIA_TEMPLATE_PROJECT_NAME': project_name,
             'KAVIA_PROJECT_DESCRIPTION': self.description,
             'KAVIA_PROJECT_AUTHOR': self.author,
             'KAVIA_PROJECT_VERSION': self.version,
