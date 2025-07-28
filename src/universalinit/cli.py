@@ -117,6 +117,7 @@ Example usage:
   uniinit --name my-express-site --type express --author "Kavia" --output ./my-express-site --parameters typescript=true
   uniinit --name my-fastapi-site --type fastapi --author "Kavia" --output ./my-fastapi-site
   uniinit --name my-flask-site --type flask --author "Kavia" --output ./my-flask-site
+  uniinit --name my-springboot-site --type springboot --author "Kavia" --output ./my-springboot-site
   uniinit --name my-vite-app --type vite --author "Kavia" --output ./my-vite-app --parameters typescript=true
   uniinit --name my-nextjs-app --type nextjs --author "Kavia" --output ./my-nextjs-app
   uniinit --name my-nuxt-app --type nuxt --author "Kavia" --output ./my-nuxt-app
@@ -145,6 +146,7 @@ Available project types:
   - express
   - fastapi
   - flask
+  - springboot
   - flutter
   - ios
   - kotlin
