@@ -24,7 +24,7 @@ openapi_generation:
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 run_tool:
-  command: "./gradlew bootRun"
+  command: "./gradlew bootRun --args='--server.port=<port> --server.address=<host>'"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
