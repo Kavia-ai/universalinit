@@ -73,7 +73,7 @@ for dir in hdpi xhdpi xxhdpi xxxhdpi; do
 done
 
 # Create settings.gradle
-cat > "settings.gradle" << EOF
+cat > "settings.gradle.kts" << EOF
 pluginManagement {
     repositories {
         google()
@@ -88,80 +88,71 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = '${PROJECT_NAME}'
-include ':app'
+rootProject.name = "${PROJECT_NAME}"
+include(":app")
 EOF
 
 # Create top-level build.gradle
-cat > "build.gradle" << EOF
+cat > "build.gradle.kts" << EOF
 buildscript {
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.7.1'
+        classpath("com.android.tools.build:gradle:8.7.1")
     }
 }
 EOF
 
-# Create gradle-wrapper.properties
-cat > "gradle/wrapper/gradle-wrapper.properties" << EOF
-distributionBase=GRADLE_USER_HOME
-distributionPath=wrapper/dists
-distributionUrl=https\://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip
-networkTimeout=10000
-validateDistributionUrl=true
-zipStoreBase=GRADLE_USER_HOME
-zipStorePath=wrapper/dists
-EOF
+
 
 # Create app/build.gradle
-cat > "app/build.gradle" << EOF
+cat > "app/build.gradle.kts" << EOF
 plugins {
-    id 'com.android.application'
+    id("com.android.application")
 }
 
 android {
-    namespace '${PACKAGE_NAME}'
-    compileSdk ${COMPILE_SDK}
+    namespace = "${PACKAGE_NAME}"
+    compileSdk = ${COMPILE_SDK}
     
     buildFeatures {
-        buildConfig true
+        buildConfig = true
     }
     
     defaultConfig {
-        applicationId "${PACKAGE_NAME}"
-        minSdk ${MIN_SDK}
-        targetSdk ${TARGET_SDK}
-        versionCode 1
-        versionName "1.0"
+        applicationId = "${PACKAGE_NAME}"
+        minSdk = ${MIN_SDK}
+        targetSdk = ${TARGET_SDK}
+        versionCode = 1
+        versionName = "1.0"
         
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'com.google.android.material:material:1.12.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
-    implementation 'androidx.core:core:1.15.0'
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
+    implementation("androidx.core:core:1.15.0")
     
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 }
 EOF
 
@@ -286,11 +277,26 @@ EOF
 # Use Gradle to generate the wrapper instead of manual download
 echo "Generating Gradle wrapper..."
 if command -v gradle >/dev/null 2>&1; then
-    gradle wrapper --gradle-version=${GRADLE_VERSION}
-    echo "Gradle wrapper generated successfully!"
+    gradle wrapper --gradle-version=${GRADLE_VERSION} --no-daemon || true
+    # If gradle wrapper command did not create the script, fall back
+    if [ ! -f "gradlew" ]; then
+        echo "Gradle wrapper generation failed or gradle version < ${GRADLE_VERSION} not downloaded, falling back to manual wrapper creation."
+        USE_FALLBACK=true
+    fi
 else
     echo "Warning: Gradle not found in PATH. You may need to run 'gradle wrapper' manually."
     echo "Creating basic gradlew scripts as fallback..."
+    # Create gradle-wrapper.properties for the fallback
+    mkdir -p "gradle/wrapper"
+    cat > "gradle/wrapper/gradle-wrapper.properties" << EOF_PROP
+    distributionBase=GRADLE_USER_HOME
+    distributionPath=wrapper/dists
+    distributionUrl=https\://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip
+    networkTimeout=10000
+    validateDistributionUrl=true
+    zipStoreBase=GRADLE_USER_HOME
+    zipStorePath=wrapper/dists
+EOF_PROP
     
     # Create gradlew as fallback
     cat > "gradlew" << 'EOF'
