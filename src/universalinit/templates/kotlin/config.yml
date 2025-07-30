@@ -44,6 +44,6 @@ post_processing:
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
     chmod +x ./init_script.sh
-    ./init_script.sh {KAVIA_TEMPLATE_PROJECT_NAME}
+    ./init_script.sh {KAVIA_TEMPLATE_PROJECT_NAME} --min-sdk 24 --target-sdk 35
     rm init_script.sh
     echo "Kotlin project pro-processing complete"
