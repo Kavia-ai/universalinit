@@ -17,12 +17,12 @@ PACKAGE_NAME="com.example.$(echo ${PROJECT_NAME} | tr '[:upper:]' '[:lower:]' | 
 # Create a safe theme name (no dashes, spaces, etc.)
 THEME_NAME="AppTheme"
 
-# Default values
+# Default values - updated for new environment
 MIN_SDK=24
-TARGET_SDK=34
-COMPILE_SDK=34
+TARGET_SDK=35
+COMPILE_SDK=35
 GRADLE_VERSION="8.12"
-KOTLIN_VERSION="1.9.22"
+KOTLIN_VERSION="2.1.0"
 
 # Parse remaining command line arguments
 while [[ $# -gt 0 ]]; do
@@ -103,7 +103,7 @@ EOF
 cat > "build.gradle.kts" << EOF
 // Top-level build file
 plugins {
-    id("com.android.application") version "8.2.0" apply false
+    id("com.android.application") version "8.7.1" apply false
     id("org.jetbrains.kotlin.android") version "${KOTLIN_VERSION}" apply false
 }
 EOF
@@ -119,29 +119,7 @@ zipStoreBase=GRADLE_USER_HOME
 zipStorePath=wrapper/dists
 EOF
 
-# Create simple gradlew script
-cat > "gradlew" << 'EOF'
-#!/bin/sh
-
-# Add default JVM options here
-DEFAULT_JVM_OPTS="-Xmx64m -Xms64m"
-
-# Determine the project root directory
-SCRIPT_DIR=$(dirname "$0")
-APP_HOME=$(cd "$SCRIPT_DIR" >/dev/null && pwd)
-
-# Set up classpath
-CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
-
-# Execute Gradle
-exec java $DEFAULT_JVM_OPTS \
-  -Dorg.gradle.appname=gradlew \
-  -classpath "$CLASSPATH" \
-  org.gradle.wrapper.GradleWrapperMain "$@"
-EOF
-chmod +x "gradlew"
-
-# Create app/build.gradle.kts
+# Create app/build.gradle.kts with updated dependencies and configurations
 cat > "app/build.gradle.kts" << EOF
 plugins {
     id("com.android.application")
@@ -158,6 +136,8 @@ android {
         targetSdk = ${TARGET_SDK}
         versionCode = 1
         versionName = "1.0"
+        
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -178,17 +158,27 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.core:core-ktx:1.15.0")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
+    implementation("androidx.activity:activity-ktx:1.9.3")
+    implementation("androidx.fragment:fragment-ktx:1.8.5")
+    
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 }
 EOF
 
-# Create gradle.properties
+# Create gradle.properties with updated optimizations
 cat > "gradle.properties" << EOF
 # Build speed optimizations
 org.gradle.jvmargs=-Xmx4g -XX:+UseG1GC -XX:MaxMetaspaceSize=1g -Dfile.encoding=UTF-8 -XX:+UseStringDeduplication
@@ -196,6 +186,7 @@ org.gradle.daemon=false
 org.gradle.parallel=true
 org.gradle.caching=true
 org.gradle.workers.max=6
+org.gradle.vfs.watch=false
 
 # Kotlin optimizations
 kotlin.compiler.execution.strategy=in-process
@@ -207,6 +198,10 @@ android.useAndroidX=true
 android.debug.testCoverageEnabled=false
 android.nonTransitiveRClass=true
 android.nonFinalResIds=true
+android.enableJetifier=true
+
+# NDK
+android.ndkVersion=27.3.13750724
 EOF
 
 # Create proguard-rules.pro
@@ -214,6 +209,24 @@ cat > "app/proguard-rules.pro" << EOF
 # Add project specific ProGuard rules here.
 # You can control the set of applied configuration files using the
 # proguardFiles setting in build.gradle.kts.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
+
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
+
+# Uncomment this to preserve the line number information for
+# debugging stack traces.
+#-keepattributes SourceFile,LineNumberTable
+
+# If you keep the line number information, uncomment this to
+# hide the original source file name.
+#-renamesourcefileattribute SourceFile
 EOF
 
 # Create AndroidManifest.xml
@@ -266,6 +279,7 @@ cat > "app/src/main/res/layout/activity_main.xml" << EOF
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello Kotlin World!"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -284,173 +298,249 @@ EOF
 # Create themes.xml
 cat > "app/src/main/res/values/themes.xml" << EOF
 <resources>
-    <style name="${THEME_NAME}" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="colorPrimary">#6200EE</item>
-        <item name="colorPrimaryDark">#3700B3</item>
-        <item name="colorAccent">#03DAC5</item>
+    <style name="${THEME_NAME}" parent="Theme.Material3.DayNight">
+        <item name="colorPrimary">@color/md_theme_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_onSecondaryContainer</item>
+        <item name="colorError">@color/md_theme_error</item>
+        <item name="colorOnError">@color/md_theme_onError</item>
+        <item name="colorErrorContainer">@color/md_theme_errorContainer</item>
+        <item name="colorOnErrorContainer">@color/md_theme_onErrorContainer</item>
+        <item name="colorSurface">@color/md_theme_surface</item>
+        <item name="colorOnSurface">@color/md_theme_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_theme_outline</item>
+        <item name="android:colorBackground">@color/md_theme_background</item>
+        <item name="colorOnBackground">@color/md_theme_onBackground</item>
     </style>
 </resources>
 EOF
 
-# Create colors.xml
+# Create colors.xml with Material Design 3 color scheme
 cat > "app/src/main/res/values/colors.xml" << EOF
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    
+    <!-- Material Design 3 colors -->
+    <color name="md_theme_primary">#6750A4</color>
+    <color name="md_theme_onPrimary">#FFFFFF</color>
+    <color name="md_theme_primaryContainer">#EADDFF</color>
+    <color name="md_theme_onPrimaryContainer">#21005D</color>
+    <color name="md_theme_secondary">#625B71</color>
+    <color name="md_theme_onSecondary">#FFFFFF</color>
+    <color name="md_theme_secondaryContainer">#E8DEF8</color>
+    <color name="md_theme_onSecondaryContainer">#1D192B</color>
+    <color name="md_theme_error">#B3261E</color>
+    <color name="md_theme_onError">#FFFFFF</color>
+    <color name="md_theme_errorContainer">#F9DEDC</color>
+    <color name="md_theme_onErrorContainer">#410E0B</color>
+    <color name="md_theme_outline">#79747E</color>
+    <color name="md_theme_background">#FFFBFE</color>
+    <color name="md_theme_onBackground">#1C1B1F</color>
+    <color name="md_theme_surface">#FFFBFE</color>
+    <color name="md_theme_onSurface">#1C1B1F</color>
+    <color name="md_theme_surfaceVariant">#E7E0EC</color>
+    <color name="md_theme_onSurfaceVariant">#49454F</color>
 </resources>
 EOF
 
-# Create gradlew.bat for Windows
-cat > "gradlew.bat" << 'EOF'
-@rem
-@rem Copyright 2015 the original author or authors.
-@rem
-@rem Licensed under the Apache License, Version 2.0 (the "License");
-@rem you may not use this file except in compliance with the License.
-@rem You may obtain a copy of the License at
-@rem
-@rem      https://www.apache.org/licenses/LICENSE-2.0
-@rem
-@rem Unless required by applicable law or agreed to in writing, software
-@rem distributed under the License is distributed on an "AS IS" BASIS,
-@rem WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-@rem See the License for the specific language governing permissions and
-@rem limitations under the License.
-@rem
+# Create gradlew
 
-@if "%DEBUG%" == "" @echo off
-@rem ##########################################################################
-@rem
-@rem  Gradle startup script for Windows
-@rem
-@rem ##########################################################################
-
-@rem Set local scope for the variables with windows NT shell
-if "%OS%"=="Windows_NT" setlocal
-
-set DIRNAME=%~dp0
-if "%DIRNAME%" == "" set DIRNAME=.
-set APP_BASE_NAME=%~n0
-set APP_HOME=%DIRNAME%
-
-@rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
-set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m"
-
-@rem Find java.exe
-if defined JAVA_HOME goto findJavaFromJavaHome
-
-set JAVA_EXE=java.exe
-%JAVA_EXE% -version >NUL 2>&1
-if "%ERRORLEVEL%" == "0" goto execute
-
-echo.
-echo ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
-echo.
-echo Please set the JAVA_HOME variable in your environment to match the
-echo location of your Java installation.
-
-goto fail
-
-:findJavaFromJavaHome
-set JAVA_HOME=%JAVA_HOME:"=%
-set JAVA_EXE=%JAVA_HOME%/bin/java.exe
-
-if exist "%JAVA_EXE%" goto execute
-
-echo.
-echo ERROR: JAVA_HOME is set to an invalid directory: %JAVA_HOME%
-echo.
-echo Please set the JAVA_HOME variable in your environment to match the
-echo location of your Java installation.
-
-goto fail
-
-:execute
-@rem Setup the command line
-
-set CLASSPATH=%APP_HOME%\gradle\wrapper\gradle-wrapper.jar
-
-
-@rem Execute Gradle
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% "-Dorg.gradle.appname=%APP_BASE_NAME%" -classpath "%CLASSPATH%" org.gradle.wrapper.GradleWrapperMain %*
-
-:end
-@rem End local scope for the variables with windows NT shell
-if "%ERRORLEVEL%"=="0" goto mainEnd
-
-:fail
-rem Set variable GRADLE_EXIT_CONSOLE if you need the _script_ return code instead of
-rem the _cmd.exe /c_ return code!
-if not ""=="%GRADLE_EXIT_CONSOLE%" exit 1
-exit /b 1
-
-:mainEnd
-if "%OS%"=="Windows_NT" endlocal
-
-:omega
-EOF
-
-# Download Gradle wrapper jar - improved method with better error handling
-echo "Downloading gradle-wrapper.jar..."
+# Generate Gradle wrapper using the installed Gradle or fallback methods
+echo "Generating Gradle wrapper..."
 mkdir -p gradle/wrapper
 
-# Try multiple download methods
-download_success=false
-
-# Try curl first
-if command -v curl > /dev/null; then
-    if curl -L --retry 3 --retry-delay 2 -o "gradle/wrapper/gradle-wrapper.jar" \
-        "https://raw.githubusercontent.com/gradle/gradle/master/gradle/wrapper/gradle-wrapper.jar"; then
-        download_success=true
-    else
-        echo "Warning: curl download failed, trying alternative methods..."
-    fi
-fi
-
-# Try wget if curl failed
-if [ "$download_success" = false ] && command -v wget > /dev/null; then
-    if wget -O "gradle/wrapper/gradle-wrapper.jar" \
-        "https://raw.githubusercontent.com/gradle/gradle/master/gradle/wrapper/gradle-wrapper.jar"; then
-        download_success=true
-    else
-        echo "Warning: wget download failed, trying alternative source..."
-    fi
-fi
-
-# Try alternative download source
-if [ "$download_success" = false ]; then
-    if command -v curl > /dev/null; then
-        if curl -L --retry 3 -o "gradle/wrapper/gradle-wrapper.jar" \
-            "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-wrapper.jar"; then
-            download_success=true
-        fi
-    elif command -v wget > /dev/null; then
-        if wget -O "gradle/wrapper/gradle-wrapper.jar" \
-            "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-wrapper.jar"; then
-            download_success=true
-        fi
-    fi
-fi
-
-# Check if download succeeded
-if [ ! -s "gradle/wrapper/gradle-wrapper.jar" ]; then
-    # Last resort: create a minimal wrapper jar from base64-encoded content
-    echo "Warning: Failed to download gradle-wrapper.jar. Creating minimal wrapper..."
-    echo "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" | base64 -d > "gradle/wrapper/gradle-wrapper.jar"
-    download_success=true
-fi
-
-# Final check and set permissions
-if [ "$download_success" = true ]; then
-    chmod 644 "gradle/wrapper/gradle-wrapper.jar"
-    echo "Gradle wrapper jar installed successfully."
+# Try to use installed Gradle first
+if command -v gradle >/dev/null 2>&1; then
+    gradle wrapper --gradle-version=${GRADLE_VERSION}
+    echo "Gradle wrapper generated successfully using installed Gradle!"
 else
-    echo "Error: Could not install gradle-wrapper.jar through any method. Please install manually."
+    echo "Gradle not found in PATH. Using fallback wrapper generation..."
+    
+    # Create gradlew script
+    cat > "gradlew" << 'EOF'
+#!/bin/sh
+
+# Gradle start script for UN*X
+
+# Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
+
+# Use the maximum available, or set MAX_FD != -1 to use that value.
+MAX_FD="maximum"
+
+warn () {
+    echo "$*"
+}
+
+die () {
+    echo
+    echo "$*"
+    echo
     exit 1
+}
+
+# OS specific support (must be 'true' or 'false').
+cygwin=false
+msys=false
+darwin=false
+nonstop=false
+case "`uname`" in
+  CYGWIN* )
+    cygwin=true
+    ;;
+  Darwin* )
+    darwin=true
+    ;;
+  MINGW* )
+    msys=true
+    ;;
+  NONSTOP* )
+    nonstop=true
+    ;;
+esac
+
+CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
+
+# Determine the Java command to use to start the JVM.
+if [ -n "$JAVA_HOME" ] ; then
+    if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
+        # IBM's JDK on AIX uses strange locations for the executables
+        JAVACMD="$JAVA_HOME/jre/sh/java"
+    else
+        JAVACMD="$JAVA_HOME/bin/java"
+    fi
+    if [ ! -x "$JAVACMD" ] ; then
+        die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME
+
+Please set the JAVA_HOME variable in your environment to match the
+location of your Java installation."
+    fi
+else
+    JAVACMD="java"
+    which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+
+Please set the JAVA_HOME variable in your environment to match the
+location of your Java installation."
 fi
 
-echo "Project created successfully! You can now run the project with:"
-echo "./gradlew assembleDebug"
-echo "To install to a connected device, run:"
-echo "./gradlew installDebug"
+# Increase the maximum file descriptors if we can.
+if [ "$cygwin" = "false" -a "$darwin" = "false" -a "$nonstop" = "false" ] ; then
+    MAX_FD_LIMIT=`ulimit -H -n`
+    if [ $? -eq 0 ] ; then
+        if [ "$MAX_FD" = "maximum" -o "$MAX_FD" = "max" ] ; then
+            MAX_FD="$MAX_FD_LIMIT"
+        fi
+        ulimit -n $MAX_FD
+        if [ $? -ne 0 ] ; then
+            warn "Could not set maximum file descriptor limit: $MAX_FD"
+        fi
+    else
+        warn "Could not query maximum file descriptor limit: $MAX_FD_LIMIT"
+    fi
+fi
+
+# For Darwin, add options to specify how the application appears in the dock
+if [ "$darwin" = "true" ]; then
+    GRADLE_OPTS="$GRADLE_OPTS \"-Xdock:name=Gradle\" \"-Xdock:icon=$APP_HOME/media/gradle.icns\""
+fi
+
+# For Cygwin or MSYS, switch paths to Windows format before running java
+if [ "$cygwin" = "true" -o "$msys" = "true" ] ; then
+    APP_HOME=`cygpath --path --mixed "$APP_HOME"`
+    CLASSPATH=`cygpath --path --mixed "$CLASSPATH"`
+    
+    JAVACMD=`cygpath --unix "$JAVACMD"`
+
+    # We build the pattern for arguments to be converted via cygpath
+    ROOTDIRSRAW=`find -L / -maxdepth 1 -mindepth 1 -type d 2>/dev/null`
+    SEP=""
+    for dir in $ROOTDIRSRAW ; do
+        ROOTDIRS="$ROOTDIRS$SEP$dir"
+        SEP="|"
+    done
+    OURCYGPATTERN="(^($ROOTDIRS))"
+    # Add a user-defined pattern to the cygpath arguments
+    if [ "$GRADLE_CYGPATTERN" != "" ] ; then
+        OURCYGPATTERN="$OURCYGPATTERN|($GRADLE_CYGPATTERN)"
+    fi
+    # Now convert the arguments - kludge to limit ourselves to /bin/sh
+    i=0
+    for arg in "$@" ; do
+        CHECK=`echo "$arg"|egrep -c "$OURCYGPATTERN" -`
+        CHECK2=`echo "$arg"|egrep -c "^-"`                                 ### Determine if an option
+
+        if [ $CHECK -ne 0 ] && [ $CHECK2 -eq 0 ] ; then                    ### Added a condition
+            eval `echo args$i`=`cygpath --path --ignore --mixed "$arg"`
+        else
+            eval `echo args$i`="\"$arg\""
+        fi
+        i=`expr $i + 1`
+    done
+    case $i in
+        0) set -- ;;
+        1) set -- "$args0" ;;
+        2) set -- "$args0" "$args1" ;;
+        3) set -- "$args0" "$args1" "$args2" ;;
+        4) set -- "$args0" "$args1" "$args2" "$args3" ;;
+        5) set -- "$args0" "$args1" "$args2" "$args3" "$args4" ;;
+        6) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" ;;
+        7) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" ;;
+        8) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" ;;
+        9) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" "$args8" ;;
+    esac
+fi
+
+# Escape application args
+save () {
+    for i do printf %s\\n "$i" | sed "s/'/'\\\\''/g;1s/^/'/;\$s/\$/' \\\\/" ; done
+    echo " "
+}
+APP_ARGS=`save "$@"`
+
+# Collect all arguments for the java command
+set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS \
+        -classpath "\"$CLASSPATH\"" \
+        org.gradle.wrapper.GradleWrapperMain \
+        "$APP_ARGS"
+
+exec "$JAVACMD" "$@"
+EOF
+    chmod +x "gradlew"
+
+    # Try to download gradle-wrapper.jar
+    echo "Downloading gradle-wrapper.jar..."
+    download_success=false
+
+    # Try curl first
+    if command -v curl > /dev/null; then
+        if curl -L --retry 3 --retry-delay 2 -o "gradle/wrapper/gradle-wrapper.jar" \
+            "https://raw.githubusercontent.com/gradle/gradle/master/gradle/wrapper/gradle-wrapper.jar"; then
+            download_success=true
+        fi
+    fi
+
+    # Try wget if curl failed
+    if [ "$download_success" = false ] && command -v wget > /dev/null; then
+        if wget -O "gradle/wrapper/gradle-wrapper.jar" \
+            "https://raw.githubusercontent.com/gradle/gradle/master/gradle/wrapper/gradle-wrapper.jar"; then
+            download_success=true
+        fi
+    fi
+
+    # Check if download succeeded
+    if [ ! -s "gradle/wrapper/gradle-wrapper.jar" ]; then
+        echo "Warning: Failed to download gradle-wrapper.jar. You may need to run 'gradle wrapper' manually."
+    else
+        chmod 644 "gradle/wrapper/gradle-wrapper.jar"
+        echo "Gradle wrapper jar installed successfully."
+    fi
+fi
