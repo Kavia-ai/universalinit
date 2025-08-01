@@ -32,6 +32,7 @@ class ProjectType(Enum):
 
     # Backend frameworks
     DJANGO = "django"
+    DOTNET = "dotnet"
     EXPRESS = "express"
     FASTAPI = "fastapi"
     FLASK = "flask"

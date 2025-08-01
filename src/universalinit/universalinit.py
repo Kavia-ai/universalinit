@@ -281,6 +281,7 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.VUE, VueTemplate)
         # Register backend framework templates
         self.template_factory.register_template(ProjectType.DJANGO, DjangoTemplate)
+        self.template_factory.register_template(ProjectType.DOTNET, DotNetTemplate)
         self.template_factory.register_template(ProjectType.EXPRESS, ExpressTemplate)
         self.template_factory.register_template(ProjectType.FASTAPI, FastAPITemplate)
         self.template_factory.register_template(ProjectType.FLASK, FlaskTemplate)
@@ -399,6 +400,32 @@ class AstroTemplate(ProjectTemplate):
 
 class DjangoTemplate(ProjectTemplate):
     """Template implementation for Django projects."""
+
+    def validate_parameters(self) -> bool:
+        # Define which parameters are allowed (not required)
+        allowed_params = {}
+        # If no parameters provided, that's fine
+        if not self.config.parameters:
+            return True
+        # All provided parameters should be in the allowed list
+        return all(param in allowed_params for param in self.config.parameters.keys())
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True  # Include hidden files like .gitignore
+        )
+
+    def setup_testing(self) -> None:
+        pass
+
+
+class DotNetTemplate(ProjectTemplate):
+    """Template implementation for DotNet projects."""
 
     def validate_parameters(self) -> bool:
         # Define which parameters are allowed (not required)
