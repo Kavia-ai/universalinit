@@ -30,7 +30,7 @@ own Lightning 3 App.
 
 ``` {.shiki .shiki-themes .github-light .github-dark .vp-code tabindex="0"}
 cd my_blits_app
-npm install
+npm install --legacy-peer-deps
 ```
 :::
 
