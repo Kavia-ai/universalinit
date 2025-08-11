@@ -29,4 +29,5 @@ TEMPLATE_MAP = {
    ProjectType.MONGODB: "mongodb-kavia",
    ProjectType.MYSQL: "mysql-kavia",
    ProjectType.SQLITE: "sqlite-kavia",
+   ProjectType.NATIVE: "native",
 }

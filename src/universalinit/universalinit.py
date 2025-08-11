@@ -291,6 +291,7 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.MONGODB, MongoDBTemplate)
         self.template_factory.register_template(ProjectType.MYSQL, MySQLTemplate)
         self.template_factory.register_template(ProjectType.SQLITE, SQLiteTemplate)
+        self.template_factory.register_template(ProjectType.NATIVE, CommonTemplate)
         self.template = None
     def initialize_project(self, config: ProjectConfig) -> bool:
         """Initialize a project using the appropriate template."""
@@ -345,6 +346,25 @@ class AndroidTemplate(ProjectTemplate):
 
     def setup_testing(self) -> None:
         # Testing is already configured in the template
+        pass
+
+class CommonTemplate(ProjectTemplate):
+    """Template implementation for Angular projects."""
+
+    def validate_parameters(self) -> bool:
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True
+        )
+
+    def setup_testing(self) -> None:
         pass
 
 
