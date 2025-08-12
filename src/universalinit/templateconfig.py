@@ -43,7 +43,7 @@ class ProjectType(Enum):
     MONGODB = "mongodb"
     MYSQL = "mysql"
     SQLITE = "sqlite"
-
+    NATIVE = "native"
     @classmethod
     def from_string(cls, value: str) -> 'ProjectType':
         try:
