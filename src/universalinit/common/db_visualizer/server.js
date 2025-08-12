@@ -9,6 +9,20 @@ const sqlite3 = require('sqlite3').verbose();
 const { MongoClient } = require('mongodb');
 
 const app = express();
+app.use((req, res, next) => {
+  // Set headers to allow embedding in iframes
+  res.setHeader('X-Frame-Options', 'ALLOWALL');
+  res.setHeader('Content-Security-Policy', "frame-ancestors *;");
+
+  // CORS headers
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,PATCH,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+  next();
+});
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Load environment variables from .env files
