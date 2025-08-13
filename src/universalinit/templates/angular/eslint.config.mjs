@@ -1,23 +1,13 @@
-import js from "@eslint/js";
-import tseslint from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
 
 export default [
-  js.configs.recommended,
   {
     ignores: [
-      ".angular",
       ".angular/**",
-      "**/.angular/**",
       "node_modules/**",
-      "build/",
-      "dist/",
-      "*.log",
-      "*.tmp",
-      "*.tsbuildinfo",
-      "coverage/",
-      ".vscode/",
-      ".idea/",
+      "dist/**",
+      "build/**",
+      "coverage/**",
       "*.config.mjs",
     ]
   },
@@ -26,23 +16,41 @@ export default [
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        project: "./tsconfig.json",
+        ecmaVersion: "latest",
+        sourceType: "module"
       },
       globals: {
+        // Test globals
         describe: "readonly",
+        beforeEach: "readonly",
         it: "readonly",
         expect: "readonly",
-        beforeEach: "readonly",
-        afterEach: "readonly",
+        // Browser globals
+        HTMLElement: "readonly",
+        // Node.js globals
         process: "readonly",
-        console: "readonly",
-      },
-    },
-    plugins: {
-      "@typescript-eslint": tseslint,
+        console: "readonly"
+      }
     },
     rules: {
-      // Your custom rules here
-    },
-  },
+      "no-undef": "error",
+      "no-unused-vars": "off", // Turn off since TS handles this
+      "no-unreachable": "error",
+      "no-unexpected-multiline": "error",
+      "no-unsafe-finally": "error",
+      "no-invalid-regexp": "error",
+      "no-obj-calls": "error",
+      "no-dupe-keys": "error",
+      "no-dupe-args": "error",
+      "no-duplicate-case": "error",
+      "no-empty-character-class": "error",
+      "no-ex-assign": "error",
+      "no-func-assign": "error",
+      "no-inner-declarations": "error",
+      "no-irregular-whitespace": "error",
+      "no-sparse-arrays": "error",
+      "use-isnan": "error",
+      "valid-typeof": "error"
+    }
+  }
 ];
