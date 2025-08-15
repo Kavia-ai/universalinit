@@ -41,6 +41,18 @@ def create_project_config(args) -> ProjectConfig:
         parameters=parse_parameters(args.parameters)
     )
 
+def create_minimal_project_config(project_type: str, parameters: str = None) -> ProjectConfig:
+    """Create minimal ProjectConfig just for retrieving template info."""
+    return ProjectConfig(
+        name="temp",
+        version="0.0.0",
+        description="",
+        author="temp",
+        project_type=ProjectType.from_string(project_type),
+        output_path=Path("/tmp"),
+        parameters=parse_parameters(parameters) if parameters else {}
+    )
+
 def make_path_absolute(path: str, base_path: Path) -> str:
     """Convert a relative path to absolute path."""
     return str(base_path / path)
@@ -101,13 +113,63 @@ def output_json(success: bool, message: str, template_info: TemplateInitInfo = N
     print(json.dumps(result, indent=2))
     return 0 if success else 1
 
+def output_get_run_command(project_type: str, run_command: str):
+    """Output the run command for a specific project type."""
+    result = {
+        "success": True,
+        "project_type": project_type,
+        "run_command": run_command
+    }
+    print(json.dumps(result, indent=2))
+    return 0
+
+def handle_get_run_command(args):
+    """Handle the --get-run-command option."""
+    initializer = ProjectInitializer()
+    
+    try:
+        # Create minimal config just to get template info
+        config = create_minimal_project_config(args.type, args.parameters)
+        
+        # Create template instance to get init info
+        template = initializer.template_factory.create_template(config)
+        init_info = template.get_init_info()
+        
+        # Extract run command
+        run_command = init_info.run_tool.command if init_info.run_tool else ""
+        
+        if not run_command:
+            print(json.dumps({
+                "success": False,
+                "project_type": args.type,
+                "message": f"No run command defined for project type: {args.type}"
+            }, indent=2))
+            return 1
+        
+        return output_get_run_command(args.type, run_command)
+        
+    except Exception as e:
+        print(json.dumps({
+            "success": False,
+            "project_type": args.type,
+            "message": f"Error retrieving run command: {str(e)}"
+        }, indent=2))
+        return 1
+
 def main():
     parser = argparse.ArgumentParser(
         description='Universal Project Initializer',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Example usage:
+  # Initialize a new project:
   uniinit --name my-app --type react --author "Kavia" --output ./my-react-app --parameters typescript=true,styling_solution=styled-components
+  
+  # Get run command for a framework:
+  uniinit --get-run-command --type react
+  uniinit --get-run-command --type nextjs --parameters typescript=true
+  
+  # More initialization examples:
   uniinit --name myservice --type python --author "Kavia" --output ./myservice --parameters async=true,use_fastapi=true
   uniinit --name my-vue-app --type vue --author "Kavia" --output ./my-vue-app
   uniinit --name my-flutter-app --type flutter --author "Kavia" --output ./my-flutter-app
@@ -174,17 +236,36 @@ Available project types:
     """
 )
 
-    parser.add_argument('--name', required=True, help='Project name')
+    # Special command for getting run command
+    parser.add_argument('--get-run-command', action='store_true', 
+                        help='Get the run command for a specific project type')
+    
+    # Required for normal operation, optional for get-run-command
+    parser.add_argument('--name', help='Project name')
     parser.add_argument('--version', default='0.1.0', help='Project version (default: 0.1.0)')
     parser.add_argument('--description', default='', help='Project description')
-    parser.add_argument('--author', required=True, help='Project author')
-    parser.add_argument('--type', required=True, help='Project type (react, ios, android, python, node)')
-    parser.add_argument('--output', required=True, help='Output directory path')
+    parser.add_argument('--author', help='Project author')
+    parser.add_argument('--type', help='Project type (react, ios, android, python, node, etc.)')
+    parser.add_argument('--output', help='Output directory path')
     parser.add_argument('--parameters', help='Additional parameters as key=value pairs, comma-separated')
     parser.add_argument('--config', help='Path to JSON config file (overrides other arguments)')
 
     args = parser.parse_args()
 
+    # Handle special get-run-command mode
+    if args.get_run_command:
+        if not args.type:
+            print(json.dumps({
+                "success": False,
+                "message": "Error: --type is required when using --get-run-command"
+            }, indent=2))
+            return 1
+        return handle_get_run_command(args)
+    
+    # Normal project initialization mode
+    if not args.name or not args.author or not args.type or not args.output:
+        parser.error("--name, --author, --type, and --output are required for project initialization")
+    
     initializer = ProjectInitializer()
 
     try:
