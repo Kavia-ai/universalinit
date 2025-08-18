@@ -1,4 +1,4 @@
-#include "welcome.h"
+#include "mainApp.h"
 #include <QApplication>
 #include <QLabel>
 #include <QVBoxLayout>
