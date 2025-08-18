@@ -25,7 +25,7 @@ openapi_generation:
 init_minimal: "Minimal Qt6 application initialized"
 
 run_tool:
-  command: "./build/welcome"
+  command: "cmake --build build && DISPLAY=:99  cmake --build build --target run "
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 test_tool:
@@ -46,6 +46,8 @@ linter:
 post_processing:
   script: |
     #!/bin/bash
+    sudo apt-get update && sudo apt-get install -y qt6-base-dev qt6-base-dev-tools cmake build-essential
+    nohup sudo /usr/local/bin/start_vnc &
     cd {KAVIA_PROJECT_DIRECTORY}
     cmake -B build
     cmake --build build
