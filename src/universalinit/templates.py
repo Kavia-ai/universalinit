@@ -18,6 +18,7 @@ TEMPLATE_MAP = {
    ProjectType.NUXT: "nuxt-kavia",
    ProjectType.QWIK: "qwik-kavia",
    ProjectType.REACT : "react-kavia",
+   ProjectType.REACT_NATIVE : "reactnative-kavia",
    ProjectType.REMIX : "remix-kavia",
    ProjectType.REMOTION: "remotion-kavia",
    ProjectType.SLIDEV: "slidev-kavia",

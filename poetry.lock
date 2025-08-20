@@ -139,14 +139,14 @@ files = [
 
 [[package]]
 name = "universalinit-env"
-version = "0.1.6"
+version = "0.1.7"
 description = "Environment variable mapping utilities for UniversalInit framework"
 optional = false
 python-versions = ">=3.11"
 groups = ["main"]
 files = [
-    {file = "universalinit_env-0.1.6-py3-none-any.whl", hash = "sha256:87ad6adcb69e070953fc6a12bc3eb0cd39c67b11d409aee1fcfcd9ae3bc35223"},
-    {file = "universalinit_env-0.1.6.tar.gz", hash = "sha256:bce33f668902ae15c658b93620b81b877dd50c2f1ed01b29a17770ee9399e202"},
+    {file = "universalinit_env-0.1.7-py3-none-any.whl", hash = "sha256:d99dbe359189610487c14794a4c3fe0ab68272ff5a82f67b43b0e4298495091f"},
+    {file = "universalinit_env-0.1.7.tar.gz", hash = "sha256:ccd5e144779e085ce189fddcd4336d3a05ba0ed629ffc11c8ad94ab51a9dabe9"},
 ]
 
 [package.dependencies]
@@ -155,4 +155,4 @@ PyYAML = ">=6.0"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11"
-content-hash = "ce74bcb908d83d34309497e54b7c3f633574757978723625fd82660e7098ef11"
+content-hash = "af3055cdab0430409955222be1a368adfb0de45e26f7d2bc1f90925a1f17ed8c"

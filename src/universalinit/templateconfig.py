@@ -22,6 +22,7 @@ class ProjectType(Enum):
     PYTHON = "python"
     QWIK = "qwik"
     REACT = "react"
+    REACT_NATIVE = "reactnative"
     REMIX = "remix"
     REMOTION = "remotion"
     SLIDEV = "slidev"
