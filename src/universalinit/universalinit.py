@@ -272,6 +272,7 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.NUXT, NuxtTemplate)
         self.template_factory.register_template(ProjectType.QWIK, QwikTemplate)
         self.template_factory.register_template(ProjectType.REACT, ReactTemplate)
+        self.template_factory.register_template(ProjectType.REACT_NATIVE, ReactNativeTemplate)
         self.template_factory.register_template(ProjectType.REMIX, RemixTemplate)
         self.template_factory.register_template(ProjectType.REMOTION, RemotionTemplate)
         self.template_factory.register_template(ProjectType.SLIDEV, SlidevTemplate)
@@ -750,6 +751,26 @@ class ReactTemplate(ProjectTemplate):
                 self.config.output_path / "test",
                 {'{KAVIA_TEMPLATE_PROJECT_NAME}': self.config.name}
             )
+
+
+class ReactNativeTemplate(ProjectTemplate):
+    """Template implementation for React projects."""
+
+    def validate_parameters(self) -> bool:
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True
+        )
+
+    def setup_testing(self) -> None:
+        pass
 
 
 class RemixTemplate(ProjectTemplate):
