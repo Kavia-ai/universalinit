@@ -21,7 +21,7 @@ def temp_dir():
 def template_dir(temp_dir):
     """Create a mock template directory with necessary files."""
     templates_path = temp_dir / "templates"
-    nextjs_path = templates_path / "nextjs"
+    nextjs_path = templates_path / "solananextjs"
     nextjs_path.mkdir(parents=True)
 
     # Create mock config.yml
@@ -82,7 +82,7 @@ def template_dir(temp_dir):
 def project_config(temp_dir):
     """Create a test project configuration."""
     return ProjectConfig(
-        name="test-nextjs-app",
+        name="test-solananextjs-app",
         version="1.0.0",
         description="Test NextJS Application",
         author="Test Author",
@@ -126,10 +126,10 @@ def test_project_initialization(template_dir, project_config):
 
     # Verify content replacement
     page_content = (output_dir / "src" / "app" / "page.tsx").read_text()
-    assert "test-nextjs-app" in page_content
+    assert "test-solananextjs-app" in page_content
 
     package_json = (output_dir / "package.json").read_text()
-    assert "test-nextjs-app" in package_json
+    assert "test-solananextjs-app" in package_json
     
     # Verify hidden files are included
     assert (output_dir / ".gitignore").exists()
@@ -140,7 +140,7 @@ def test_parameter_defaults(template_dir, temp_dir):
     """Test that NextJS template applies parameter defaults correctly."""
     # Create config with no parameters
     project_config = ProjectConfig(
-        name="test-nextjs-app",
+        name="test-solananextjs-app",
         version="1.0.0",
         description="Test NextJS Application",
         author="Test Author",
@@ -164,7 +164,7 @@ def test_parameter_defaults(template_dir, temp_dir):
 def test_post_processing_execution(template_dir, project_config, temp_dir):
     """Test that post-processing script is executed."""
     # Create a test post-processing script that creates a marker file
-    config_path = template_dir / "nextjs" / "config.yml"
+    config_path = template_dir / "solananextjs" / "config.yml"
     with open(config_path, 'r') as f:
         config = yaml.safe_load(f)
 
@@ -193,7 +193,7 @@ def test_config_file_loading(temp_dir):
         "version": "1.0.0",
         "description": "Test from JSON config",
         "author": "Test Author",
-        "project_type": "nextjs",
+        "project_type": "solananextjs",
         "output_path": str(temp_dir / "output"),
         "parameters": {
             "typescript": True,
@@ -214,7 +214,7 @@ def test_config_file_loading(temp_dir):
 
 def test_template_variable_replacement(template_dir, project_config):
     """Test template variable replacement in file contents."""
-    test_file = template_dir / "nextjs" / "test.txt"
+    test_file = template_dir / "solananextjs" / "test.txt"
     test_content = """
     Project: ${KAVIA_TEMPLATE_PROJECT_NAME}
     Author: {KAVIA_PROJECT_AUTHOR}
