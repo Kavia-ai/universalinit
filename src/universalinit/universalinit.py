@@ -269,6 +269,7 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.LIGHTNINGJS, LightningjsTemplate)
         self.template_factory.register_template(ProjectType.NATIVESCRIPT, NativeScriptTemplate)
         self.template_factory.register_template(ProjectType.NEXTJS, NextJSTemplate)
+        self.template_factory.register_template(ProjectType.SOLANANEXTJS, SolanaNextJSTemplate)
         self.template_factory.register_template(ProjectType.NUXT, NuxtTemplate)
         self.template_factory.register_template(ProjectType.QWIK, QwikTemplate)
         self.template_factory.register_template(ProjectType.REACT, ReactTemplate)
@@ -613,7 +614,7 @@ class KotlinTemplate(ProjectTemplate):
 
 
 class LightningjsTemplate(ProjectTemplate):
-    """Template implementation for NextJS projects."""
+    """Template implementation for LightningJS projects."""
 
     def validate_parameters(self) -> bool:
         # Lightningjs has no required parameters for basic setup
@@ -661,6 +662,31 @@ class NextJSTemplate(ProjectTemplate):
 
     def validate_parameters(self) -> bool:
         # NextJS has similar configuration patterns as React
+        required_params = {'typescript', 'styling_solution'}
+        for param in required_params:
+            if param not in self.config.parameters:
+                self.config.parameters[param] = True if param == 'typescript' else 'css'
+        return True
+
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+        
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True  # Include .gitignore, .eslintrc, etc.
+        )
+
+    def setup_testing(self) -> None:
+        # Testing is already configured in the NextJS template
+        pass
+
+
+class SolanaNextJSTemplate(ProjectTemplate):
+    """Template implementation for Solana-NextJS projects."""
+
+    def validate_parameters(self) -> bool:
         required_params = {'typescript', 'styling_solution'}
         for param in required_params:
             if param not in self.config.parameters:

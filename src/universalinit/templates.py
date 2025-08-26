@@ -15,6 +15,7 @@ TEMPLATE_MAP = {
    ProjectType.LIGHTNINGJS: "lightningjs-kavia",
    ProjectType.NATIVESCRIPT: "nativescript-kavia",
    ProjectType.NEXTJS: "nextjs-kavia",
+   ProjectType.SOLANANEXTJS: "solananextjs-kavia",
    ProjectType.NUXT: "nuxt-kavia",
    ProjectType.QWIK: "qwik-kavia",
    ProjectType.REACT : "react-kavia",
