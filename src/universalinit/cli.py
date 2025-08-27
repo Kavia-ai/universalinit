@@ -183,6 +183,7 @@ Example usage:
   uniinit --name my-springboot-site --type springboot --author "Kavia" --output ./my-springboot-site
   uniinit --name my-vite-app --type vite --author "Kavia" --output ./my-vite-app --parameters typescript=true
   uniinit --name my-nextjs-app --type nextjs --author "Kavia" --output ./my-nextjs-app
+  uniinit --name my-solana-nextjs-app --type solananextjs --author "Kavia" --output ./my-nextjs-app
   uniinit --name my-nuxt-app --type nuxt --author "Kavia" --output ./my-nuxt-app
   uniinit --name my-ns-app --type nativescript --author "Kavia" --output ./my-ns-app --parameters typescript=true
   uniinit --name my-slides --type slidev --author "Kavia" --output ./my-slides
@@ -218,6 +219,7 @@ Available project types:
   - lightningjs
   - nativescript
   - nextjs
+  - solananextjs
   - node
   - nuxt
   - python

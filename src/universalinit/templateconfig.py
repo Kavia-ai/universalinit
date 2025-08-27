@@ -17,6 +17,7 @@ class ProjectType(Enum):
     LIGHTNINGJS = "lightningjs"
     NATIVESCRIPT = "nativescript"
     NEXTJS = "nextjs"
+    SOLANANEXTJS = "solananextjs"
     NODE = "node"
     NUXT = "nuxt"
     PYTHON = "python"

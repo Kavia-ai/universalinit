@@ -52,6 +52,7 @@ uniinit --name my-app --type react --output ./my-app --author "Your Name" --para
 - `flutter`: Flutter application
 - `nativescript`: NativeScript application
 - `nextjs`: Next.js application
+- `solananextjs`: Solana Next.js application
 - `nuxt`: Nuxt.js application
 - `qwik`: Qwik application
 - `react`: React application
@@ -97,6 +98,11 @@ uniinit --name my-astro-site --type astro --output ./my-astro-site --author "You
 #### Next.js Project
 ```bash
 uniinit --name my-nextjs-app --type nextjs --output ./my-nextjs-app --author "Your Name" --parameters typescript=true,styling_solution=tailwind
+```
+
+#### Solana Next.js Project
+```bash
+uniinit --name my-solana-nextjs-app --type solananextjs --output ./my-solana-nextjs-app --author "Your Name" --parameters typescript=true,styling_solution=tailwind
 ```
 
 #### Nuxt Project
