@@ -974,7 +974,11 @@ class PostgreSQLTemplate(ProjectTemplate):
             self.config.output_path,
             replacements,
             include_hidden=True,
-            extra_files=[ str(Path.joinpath(base_path, 'db_visualizer')) ],
+            extra_files=[
+                str(Path.joinpath(base_path, 'db_visualizer')),
+                str(Path.joinpath(base_path, 'backup_db.sh')),
+                str(Path.joinpath(base_path, 'restore_db.sh')),
+            ],
         )
 
     def setup_testing(self) -> None:
@@ -996,7 +1000,11 @@ class MongoDBTemplate(ProjectTemplate):
             self.config.output_path,
             replacements,
             include_hidden=True,
-            extra_files=[ str(Path.joinpath(base_path, 'db_visualizer')) ],
+            extra_files=[
+                str(Path.joinpath(base_path, 'db_visualizer')),
+                str(Path.joinpath(base_path, 'backup_db.sh')),
+                str(Path.joinpath(base_path, 'restore_db.sh')),
+            ],
         )
 
     def setup_testing(self) -> None:
@@ -1018,7 +1026,11 @@ class MySQLTemplate(ProjectTemplate):
             self.config.output_path,
             replacements,
             include_hidden=True,
-            extra_files=[ str(Path.joinpath(base_path, 'db_visualizer')) ],
+            extra_files=[
+                str(Path.joinpath(base_path, 'db_visualizer')),
+                str(Path.joinpath(base_path, 'backup_db.sh')),
+                str(Path.joinpath(base_path, 'restore_db.sh')),
+            ],
         )
 
     def setup_testing(self) -> None:
@@ -1040,7 +1052,11 @@ class SQLiteTemplate(ProjectTemplate):
             self.config.output_path,
             replacements,
             include_hidden=True,
-            extra_files=[ str(Path.joinpath(base_path, 'db_visualizer')) ],
+            extra_files=[
+                str(Path.joinpath(base_path, 'db_visualizer')),
+                str(Path.joinpath(base_path, 'backup_db.sh')),
+                str(Path.joinpath(base_path, 'restore_db.sh')),
+            ],
         )
 
     def setup_testing(self) -> None:

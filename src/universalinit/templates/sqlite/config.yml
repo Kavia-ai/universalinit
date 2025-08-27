@@ -39,6 +39,8 @@ post_processing:
   script: |
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
+    chmod +x backup_db.sh
+    chmod +x restore_db.sh
     python init_db.py
     cd db_visualizer
     npm install
