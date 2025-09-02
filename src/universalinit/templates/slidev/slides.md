@@ -1,636 +1,574 @@
 ---
-# You can also start simply with 'default'
-theme: seriph
-# random image from a curated Unsplash collection by Anthony
-# like them? see https://unsplash.com/collections/94734566/slidev
-background: https://cover.sli.dev
-# some information about your slides (markdown enabled)
-title: Welcome to Slidev
-info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
-
-  Learn more at [Sli.dev](https://sli.dev)
-# apply unocss classes to the current slide
-class: text-center
-# https://sli.dev/features/drawing
-drawings:
-  persist: false
-# slide transition: https://sli.dev/guide/animations.html#slide-transitions
-transition: slide-left
-# enable MDC Syntax: https://sli.dev/features/mdc
-mdc: true
----
-
-# Welcome to Slidev
-
-Presentation slides for developers
-
-<div @click="$slidev.nav.next" class="mt-12 py-1" hover:bg="white op-10">
-  Press Space for next page <carbon:arrow-right />
-</div>
-
-<div class="abs-br m-6 text-xl">
-  <button @click="$slidev.nav.openInEditor" title="Open in Editor" class="slidev-icon-btn">
-    <carbon:edit />
-  </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" class="slidev-icon-btn">
-    <carbon:logo-github />
-  </a>
-</div>
-
-<!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
--->
-
----
-transition: fade-out
----
-
-# What is Slidev?
-
-Slidev is a slides maker and presenter designed for developers, consist of the following features
-
-- 📝 **Text-based** - focus on the content with Markdown, and then style them later
-- 🎨 **Themable** - themes can be shared and re-used as npm packages
-- 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
-- 🤹 **Interactive** - embed Vue components to enhance your expressions
-- 🎥 **Recording** - built-in recording and camera view
-- 📤 **Portable** - export to PDF, PPTX, PNGs, or even a hostable SPA
-- 🛠 **Hackable** - virtually anything that's possible on a webpage is possible in Slidev
-<br>
-<br>
-
-Read more about [Why Slidev?](https://sli.dev/guide/why)
-
-<!--
-You can have `style` tag in markdown to override the style for the current page.
-Learn more: https://sli.dev/features/slide-scope-style
--->
-
-<style>
-h1 {
-  background-color: #2B90B6;
-  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-}
-</style>
-
-<!--
-Here is another comment.
--->
-
----
-transition: slide-up
-level: 2
----
-
-# Navigation
-
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/ui#navigation-bar)
-
-## Keyboard Shortcuts
-
-|                                                     |                             |
-| --------------------------------------------------- | --------------------------- |
-| <kbd>right</kbd> / <kbd>space</kbd>                 | next animation or slide     |
-| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd>                                       | previous slide              |
-| <kbd>down</kbd>                                     | next slide                  |
-
-<!-- https://sli.dev/guide/animations.html#click-animation -->
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-  alt=""
-/>
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
-
----
-layout: two-cols
-layoutClass: gap-16
----
-
-# Table of contents
-
-You can use the `Toc` component to generate a table of contents for your slides:
-
-```html
-<Toc minDepth="1" maxDepth="1" />
-```
-
-The title will be inferred from your slide content, or you can override it with `title` and `level` in your frontmatter.
-
-::right::
-
-<Toc text-sm minDepth="1" maxDepth="2" />
-
----
-layout: image-right
-image: https://cover.sli.dev
----
-
-# Code
-
-Use code snippets and get the highlighting directly, and even types hover!
-
-```ts {all|5|7|7-8|10|all} twoslash
-// TwoSlash enables TypeScript hover information
-// and errors in markdown code blocks
-// More at https://shiki.style/packages/twoslash
-
-import { computed, ref } from 'vue'
-
-const count = ref(0)
-const doubled = computed(() => count.value * 2)
-
-doubled.value = 2
-```
-
-<arrow v-click="[4, 5]" x1="350" y1="310" x2="195" y2="334" color="#953" width="2" arrowSize="1" />
-
-<!-- This allow you to embed external code blocks -->
-<<< @/snippets/external.ts#snippet
-
-<!-- Footer -->
-
-[Learn more](https://sli.dev/features/line-highlighting)
-
-<!-- Inline style -->
-<style>
-.footnotes-sep {
-  @apply mt-5 opacity-10;
-}
-.footnotes {
-  @apply text-sm opacity-75;
-}
-.footnote-backref {
-  display: none;
-}
-</style>
-
-<!--
-Notes can also sync with clicks
-
-[click] This will be highlighted after the first click
-
-[click] Highlighted with `count = ref(0)`
-
-[click:3] Last click (skip two clicks)
--->
-
----
-level: 2
----
-
-# Shiki Magic Move
-
-Powered by [shiki-magic-move](https://shiki-magic-move.netlify.app/), Slidev supports animations across multiple code snippets.
-
-Add multiple code blocks and wrap them with <code>````md magic-move</code> (four backticks) to enable the magic move. For example:
-
-````md magic-move {lines: true}
-```ts {*|2|*}
-// step 1
-const author = reactive({
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-})
-```
-
-```ts {*|1-2|3-4|3-4,8}
-// step 2
-export default {
-  data() {
-    return {
-      author: {
-        name: 'John Doe',
-        books: [
-          'Vue 2 - Advanced Guide',
-          'Vue 3 - Basic Guide',
-          'Vue 4 - The Mystery'
-        ]
-      }
-    }
-  }
-}
-```
-
-```ts
-// step 3
-export default {
-  data: () => ({
-    author: {
-      name: 'John Doe',
-      books: [
-        'Vue 2 - Advanced Guide',
-        'Vue 3 - Basic Guide',
-        'Vue 4 - The Mystery'
-      ]
-    }
-  })
-}
-```
-
-Non-code blocks are ignored.
-
-```vue
-<!-- step 4 -->
-<script setup>
-const author = {
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-}
-</script>
-```
-````
-
----
-
-# Components
-
-<div grid="~ cols-2 gap-4">
-<div>
-
-You can use Vue components directly inside your slides.
-
-We have provided a few built-in components like `<Tweet/>` and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
-
-```html
-<Counter :count="10" />
-```
-
-<!-- ./components/Counter.vue -->
-<Counter :count="10" m="t-4" />
-
-Check out [the guides](https://sli.dev/builtin/components.html) for more.
-
-</div>
-<div>
-
-```html
-<Tweet id="1390115482657726468" />
-```
-
-<Tweet id="1390115482657726468" scale="0.65" />
-
-</div>
-</div>
-
-<!--
-Presenter note with **bold**, *italic*, and ~~striked~~ text.
-
-Also, HTML elements are valid:
-<div class="flex w-full">
-  <span style="flex-grow: 1;">Left content</span>
-  <span>Right content</span>
-</div>
--->
-
----
-class: px-20
----
-
-# Themes
-
-Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
-
-<div grid="~ cols-2 gap-2" m="t-2">
-
-```yaml
----
+# Global deck settings
 theme: default
----
-```
-
-```yaml
----
-theme: seriph
----
-```
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true" alt="">
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true" alt="">
-
-</div>
-
-Read more about [How to use a theme](https://sli.dev/guide/theme-addon#use-theme) and
-check out the [Awesome Themes Gallery](https://sli.dev/resources/theme-gallery).
-
+title: Your Presentation Title
+info: |
+  Professional presentation template with dark theme
+  20 slides with modern components
+class: text-left
+mdc: true
+transition: slide-left
+fonts:
+  sans: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial
+  mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
+css: |
+  @import "./style.css";
 ---
 
-# Clicks Animations
-
-You can add `v-click` to elements to add a click animation.
-
-<div v-click>
-
-This shows up when you click the slide:
-
-```html
-<div v-click>This shows up when you click the slide.</div>
-```
-
-</div>
-
-<br>
-
-<v-click>
-
-The <span v-mark.red="3"><code>v-mark</code> directive</span>
-also allows you to add
-<span v-mark.circle.orange="4">inline marks</span>
-, powered by [Rough Notation](https://roughnotation.com/):
-
-```html
-<span v-mark.underline.orange>inline markers</span>
-```
-
-</v-click>
-
-<div mt-20 v-click>
-
-[Learn more](https://sli.dev/guide/animations#click-animation)
-
-</div>
-
----
-
-# Motions
-
-Motion animations are powered by [@vueuse/motion](https://motion.vueuse.org/), triggered by `v-motion` directive.
-
-```html
-<div
-  v-motion
-  :initial="{ x: -80 }"
-  :enter="{ x: 0 }"
-  :click-3="{ x: 80 }"
-  :leave="{ x: 1000 }"
->
-  Slidev
-</div>
-```
-
-<div class="w-60 relative">
-  <div class="relative w-40 h-40">
-    <img
-      v-motion
-      :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-square.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ y: 500, x: -100, scale: 2 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-circle.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-triangle.png"
-      alt=""
-    />
-  </div>
-
-  <div
-    class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
-    v-motion
-    :initial="{ x: -80, opacity: 0}"
-    :enter="{ x: 0, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
-    Slidev
+# PROJECT TITLE
+<div class="title-slide with-hero-glow">
+  <div class="hero-copy">
+    <h2 class="text-hero">Transform Your Business with Innovation</h2>
+    <p class="subtitle text-md">A comprehensive solution for modern enterprises</p>
+    <div class="subtitle text-xs">Presenter Name • Date • contact@example.com</div>
+    <div class="hero-ctas mt-2">
+      <button class="btn-primary">Get Started</button>
+      <button class="btn-secondary">Learn More</button>
+    </div>
   </div>
 </div>
 
-<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
-<script setup lang="ts">
-const final = {
-  x: 0,
-  y: 0,
-  rotate: 0,
-  scale: 1,
-  transition: {
-    type: 'spring',
-    damping: 10,
-    stiffness: 20,
-    mass: 2
-  }
-}
-</script>
+---
 
-<div
-  v-motion
-  :initial="{ x:35, y: 30, opacity: 0}"
-  :enter="{ y: 0, opacity: 1, transition: { delay: 3500 } }">
+# The Challenge
 
-[Learn more](https://sli.dev/guide/animations.html#motion)
+<div class="problem-grid">
+  <div class="problem-card">
+    <div class="eyebrow">Current State</div>
+    <h3 class="feature-title">Market Inefficiencies</h3>
+    <ul class="points-clean">
+      <li>Complex processes and workflows</li>
+      <li>Disconnected systems and data silos</li>
+      <li>High operational costs</li>
+    </ul>
+  </div>
 
+  <div class="problem-card">
+    <div class="eyebrow">Industry Trends</div>
+    <h3 class="feature-title">Rapid Digital Evolution</h3>
+    <ul class="points-clean">
+      <li>Accelerating technology adoption</li>
+      <li>Changing customer expectations</li>
+      <li>New competitive pressures</li>
+    </ul>
+  </div>
+
+  <div class="problem-card">
+    <div class="eyebrow">Gap Analysis</div>
+    <h3 class="feature-title">Missing Capabilities</h3>
+    <ul class="points-clean">
+      <li>Limited automation tools</li>
+      <li>Insufficient analytics</li>
+      <li>Poor integration options</li>
+      <li>Lack of scalability</li>
+    </ul>
+  </div>
 </div>
 
 ---
 
-# LaTeX
+# Our Solution
 
-LaTeX is supported out-of-box. Powered by [KaTeX](https://katex.org/).
+A comprehensive platform that addresses key business challenges
 
-<div h-3 />
+<div class="stats-band mt-2">
+  <div class="stat-card">
+    <div class="stat-number">10x</div>
+    <div class="stat-label">Faster Processing</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">50%</div>
+    <div class="stat-label">Cost Reduction</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">99.9%</div>
+    <div class="stat-label">Uptime</div>
+  </div>
+</div>
 
-Inline $\sqrt{3x-1}+(1+x)^2$
+<div class="card-grid three mt-2">
+  <div class="feature-card">
+    <div class="eyebrow">Core</div>
+    <h3 class="feature-title">Intelligent Automation</h3>
+    <p class="muted">Streamline workflows with AI-powered processes</p>
+  </div>
 
-Block
-$$ {1|3|all}
-\begin{aligned}
-\nabla \cdot \vec{E} &= \frac{\rho}{\varepsilon_0} \\
-\nabla \cdot \vec{B} &= 0 \\
-\nabla \times \vec{E} &= -\frac{\partial\vec{B}}{\partial t} \\
-\nabla \times \vec{B} &= \mu_0\vec{J} + \mu_0\varepsilon_0\frac{\partial\vec{E}}{\partial t}
-\end{aligned}
-$$
+  <div class="feature-card">
+    <div class="eyebrow">Integration</div>
+    <h3 class="feature-title">Seamless Connectivity</h3>
+    <p class="muted">Connect all your tools and systems effortlessly</p>
+  </div>
 
-[Learn more](https://sli.dev/features/latex)
+  <div class="feature-card">
+    <div class="eyebrow">Analytics</div>
+    <h3 class="feature-title">Real-time Insights</h3>
+    <p class="muted">Make data-driven decisions with powerful analytics</p>
+  </div>
+</div>
 
 ---
 
-# Diagrams
+# Key Features
 
-You can create diagrams / graphs from textual descriptions, directly in your Markdown.
+<div class="split-cols mt-2">
+  <div class="left">
+    <div class="feature-card">
+      <h3 class="feature-title">Smart Dashboard</h3>
+      <p class="muted">Centralized control and monitoring</p>
+    </div>
+    <div class="feature-card">
+      <h3 class="feature-title">Advanced Analytics</h3>
+      <p class="muted">Deep insights and predictive modeling</p>
+    </div>
+    <div class="feature-card">
+      <h3 class="feature-title">Workflow Automation</h3>
+      <p class="muted">Streamline repetitive tasks</p>
+    </div>
+  </div>
+  <div class="right">
+    <div class="glass-frame tall">
+      <div class="placeholder">Product Screenshot / Dashboard UI</div>
+    </div>
+  </div>
+</div>
 
-<div class="grid grid-cols-4 gap-5 pt-4 -mb-6">
+---
 
-```mermaid {scale: 0.5, alt: 'A simple sequence diagram'}
-sequenceDiagram
-    Alice->John: Hello John, how are you?
-    Note over Alice,John: A typical interaction
-```
-
-```mermaid {theme: 'neutral', scale: 0.8}
-graph TD
-B[Text] --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
+# Architecture Overview
 
 ```mermaid
-mindmap
-  root((mindmap))
-    Origins
-      Long history
-      ::icon(fa fa-book)
-      Popularisation
-        British popular psychology author Tony Buzan
-    Research
-      On effectiveness<br/>and features
-      On Automatic creation
-        Uses
-            Creative techniques
-            Strategic planning
-            Argument mapping
-    Tools
-      Pen and paper
-      Mermaid
+%%{init: {
+  "theme": "dark",
+  "themeVariables": {
+    "primaryTextColor": "#E6EDF3",
+    "primaryColor": "#0B1220",
+    "lineColor": "#6E7681"
+  }
+}}%%
+
+flowchart TD
+    UI[🖥️ User Interface] --> API[⚙️ API Gateway]
+    API --> Auth[🔐 Authentication]
+    API --> Core[💼 Core Services]
+    Core --> DB[(📊 Database)]
+    Core --> Cache[(⚡ Cache)]
+    Core --> Queue[📬 Message Queue]
+    Queue --> Workers[🤖 Background Workers]
+    
+    style UI fill:#1C1A2B,stroke:#6B7FEB
+    style API fill:#1C1A2B,stroke:#6B7FEB
+    style Core fill:#1C1A2B,stroke:#6B7FEB
+    style DB fill:#2B2931,stroke:#40D79E
+    style Cache fill:#2B2931,stroke:#FFC75A
 ```
 
-```plantuml {scale: 0.7}
-@startuml
+---
 
-package "Some Group" {
-  HTTP - [First Component]
-  [Another Component]
-}
+# Use Cases
 
-node "Other Groups" {
-  FTP - [Second Component]
-  [First Component] --> FTP
-}
-
-cloud {
-  [Example 1]
-}
-
-database "MySql" {
-  folder "This is my folder" {
-    [Folder 3]
-  }
-  frame "Foo" {
-    [Frame 4]
-  }
-}
-
-[Another Component] --> [Example 1]
-[Example 1] --> [Folder 3]
-[Folder 3] --> [Frame 4]
-
-@enduml
-```
-
+<div class="card-grid three mt-2">
+  <div class="feature-card"><h3 class="feature-title">Enterprise Resource Planning</h3><p class="muted">Unified business management</p></div>
+  <div class="feature-card"><h3 class="feature-title">Customer Relationship Management</h3><p class="muted">360-degree customer view</p></div>
+  <div class="feature-card"><h3 class="feature-title">Supply Chain Optimization</h3><p class="muted">End-to-end visibility</p></div>
+  <div class="feature-card"><h3 class="feature-title">Financial Analytics</h3><p class="muted">Real-time financial insights</p></div>
+  <div class="feature-card"><h3 class="feature-title">HR Management</h3><p class="muted">Streamlined HR processes</p></div>
+  <div class="feature-card"><h3 class="feature-title">Project Management</h3><p class="muted">Collaborative project tracking</p></div>
 </div>
 
-Learn more: [Mermaid Diagrams](https://sli.dev/features/mermaid) and [PlantUML Diagrams](https://sli.dev/features/plantuml)
-
----
-foo: bar
-dragPos:
-  square: 691,32,167,_,-16
 ---
 
-# Draggable Elements
+# Market Opportunity
 
-Double-click on the draggable elements to edit their positions.
-
-<br>
-
-###### Directive Usage
-
-```md
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-```
-
-<br>
-
-###### Component Usage
-
-```md
-<v-drag text-3xl>
-  <div class="i-carbon:arrow-up" />
-  Use the `v-drag` component to have a draggable container!
-</v-drag>
-```
-
-<v-drag pos="663,206,261,_,-15">
-  <div text-center text-3xl border border-main rounded>
-    Double-click me!
+<div class="split-cols mt-2">
+  <div class="left">
+    <div class="feature-card">
+      <div class="eyebrow">TAM</div>
+      <h3 class="feature-title">Total Addressable Market</h3>
+      <p class="muted">$100B+ globally</p>
+    </div>
+    <div class="feature-card">
+      <div class="eyebrow">Growth</div>
+      <h3 class="feature-title">Market Expansion</h3>
+      <p class="muted">25% CAGR expected</p>
+    </div>
+    <div class="feature-card">
+      <div class="eyebrow">Segments</div>
+      <ul class="points-clean">
+        <li>Enterprise (500+ employees)</li>
+        <li>Mid-market (50-500)</li>
+        <li>SMB (under 50)</li>
+      </ul>
+    </div>
   </div>
-</v-drag>
-
-<img v-drag="'square'" src="https://sli.dev/logo.png">
-
-###### Draggable Arrow
-
-```md
-<v-drag-arrow two-way />
-```
-
-<v-drag-arrow pos="67,452,253,46" two-way op70 />
-
----
-src: ./pages/imported-slides.md
-hide: false
----
+  <div class="right">
+    <div class="glass-frame">
+      <div class="placeholder">Market Size Chart</div>
+    </div>
+  </div>
+</div>
 
 ---
 
-# Monaco Editor
+# Competitive Landscape
 
-Slidev provides built-in Monaco Editor support.
+<div class="glass-frame wide mt-2">
+  <div class="placeholder">Competitive Positioning Matrix</div>
+</div>
 
-Add `{monaco}` to the code block to turn it into an editor:
+<div class="card-grid three mt-2">
+  <div class="feature-card">
+    <h3 class="feature-title">Our Advantages</h3>
+    <ul class="points-clean">
+      <li>Superior technology</li>
+      <li>Better user experience</li>
+      <li>Competitive pricing</li>
+    </ul>
+  </div>
+  <div class="feature-card">
+    <h3 class="feature-title">Market Position</h3>
+    <ul class="points-clean">
+      <li>Leader in innovation</li>
+      <li>Strong brand recognition</li>
+      <li>Growing market share</li>
+    </ul>
+  </div>
+  <div class="feature-card">
+    <h3 class="feature-title">Differentiators</h3>
+    <ul class="points-clean">
+      <li>AI-powered features</li>
+      <li>Seamless integrations</li>
+      <li>Enterprise-grade security</li>
+    </ul>
+  </div>
+</div>
 
-```ts {monaco}
-import { ref } from 'vue'
-import { emptyArray } from './external'
+---
 
-const arr = ref(emptyArray(10))
-```
+# Implementation Timeline
 
-Use `{monaco-run}` to create an editor that can execute the code directly in the slide:
+<div class="timeline mt-2">
+  <div class="time-node">
+    <div class="time-dot"></div>
+    <div class="time-card">
+      <div class="eyebrow">Phase 1: Q1 2025</div>
+      <h4>Foundation</h4>
+      <ul class="points-clean">
+        <li>System architecture design</li>
+        <li>Core infrastructure setup</li>
+        <li>Initial team formation</li>
+      </ul>
+    </div>
+  </div>
+  <div class="time-node">
+    <div class="time-dot"></div>
+    <div class="time-card">
+      <div class="eyebrow">Phase 2: Q2 2025</div>
+      <h4>Development</h4>
+      <ul class="points-clean">
+        <li>MVP development</li>
+        <li>Beta testing program</li>
+        <li>Initial customer feedback</li>
+      </ul>
+    </div>
+  </div>
+  <div class="time-node">
+    <div class="time-dot future"></div>
+    <div class="time-card">
+      <div class="eyebrow">Phase 3: Q3 2025</div>
+      <h4>Launch</h4>
+      <ul class="points-clean">
+        <li>Public release</li>
+        <li>Marketing campaign</li>
+        <li>Customer onboarding</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
-```ts {monaco-run}
-import { version } from 'vue'
-import { emptyArray, sayHello } from './external'
+---
 
-sayHello()
-console.log(`vue ${version}`)
-console.log(emptyArray<number>(10).reduce(fib => [...fib, fib.at(-1)! + fib.at(-2)!], [1, 1]))
-```
+# Success Metrics
+
+<div class="stats-grid mt-2">
+  <div class="stat-card">
+    <div class="stat-number">1M+</div>
+    <div class="stat-label">Active Users</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">$50M</div>
+    <div class="stat-label">ARR</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">95%</div>
+    <div class="stat-label">Retention Rate</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">150</div>
+    <div class="stat-label">Enterprise Clients</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">4.8</div>
+    <div class="stat-label">Customer Rating</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-number">24/7</div>
+    <div class="stat-label">Support</div>
+  </div>
+</div>
+
+---
+
+# Case Study
+
+<div class="split-cols mt-2">
+  <div class="left">
+    <div class="feature-card">
+      <div class="eyebrow">Client</div>
+      <h3 class="feature-title">Fortune 500 Company</h3>
+      <ul class="points-clean">
+        <li>10,000+ employees</li>
+        <li>Global operations</li>
+        <li>Complex IT infrastructure</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <div class="eyebrow">Challenge</div>
+      <ul class="points-clean">
+        <li>Fragmented systems</li>
+        <li>Manual processes</li>
+        <li>Limited visibility</li>
+      </ul>
+    </div>
+  </div>
+  <div class="right">
+    <div class="feature-card glass">
+      <div class="eyebrow">Results</div>
+      <h3 class="feature-title">Transformation Achieved</h3>
+      <ul class="points-clean">
+        <li>60% efficiency improvement</li>
+        <li>$5M annual savings</li>
+        <li>Real-time insights</li>
+      </ul>
+    </div>
+    <div class="glass-frame short">
+      <div class="placeholder">ROI Chart</div>
+    </div>
+  </div>
+</div>
+
+---
+
+# Pricing & Plans
+
+<div class="card-grid three mt-2">
+  <div class="feature-card">
+    <div class="eyebrow">Starter</div>
+    <h3 class="feature-title">$99/month</h3>
+    <ul class="points-clean">
+      <li>Up to 10 users</li>
+      <li>Basic features</li>
+      <li>Email support</li>
+      <li>5GB storage</li>
+    </ul>
+    <button class="btn-secondary mt-2">Choose Plan</button>
+  </div>
+  <div class="feature-card">
+    <div class="pill">Popular</div>
+    <h3 class="feature-title">$299/month</h3>
+    <ul class="points-clean">
+      <li>Up to 50 users</li>
+      <li>Advanced features</li>
+      <li>Priority support</li>
+      <li>100GB storage</li>
+      <li>API access</li>
+    </ul>
+    <button class="btn-primary mt-2">Choose Plan</button>
+  </div>
+  <div class="feature-card">
+    <div class="eyebrow">Enterprise</div>
+    <h3 class="feature-title">Custom</h3>
+    <ul class="points-clean">
+      <li>Unlimited users</li>
+      <li>All features</li>
+      <li>Dedicated support</li>
+      <li>Unlimited storage</li>
+      <li>Custom integrations</li>
+    </ul>
+    <button class="btn-secondary mt-2">Contact Sales</button>
+  </div>
+</div>
+
+---
+
+# Technology Stack
+
+<div class="feature-grid mt-2">
+  <div class="feature-card">
+    <div class="eyebrow">Frontend</div>
+    <ul class="points-clean">
+      <li>React / Vue.js / Angular</li>
+      <li>TypeScript</li>
+      <li>Tailwind CSS</li>
+    </ul>
+  </div>
+  <div class="feature-card">
+    <div class="eyebrow">Backend</div>
+    <ul class="points-clean">
+      <li>Node.js / Python / Go</li>
+      <li>GraphQL / REST APIs</li>
+      <li>Microservices</li>
+    </ul>
+  </div>
+  <div class="feature-card">
+    <div class="eyebrow">Infrastructure</div>
+    <ul class="points-clean">
+      <li>AWS / Azure / GCP</li>
+      <li>Kubernetes</li>
+      <li>CI/CD pipelines</li>
+    </ul>
+  </div>
+  <div class="feature-card">
+    <div class="eyebrow">Data</div>
+    <ul class="points-clean">
+      <li>PostgreSQL / MongoDB</li>
+      <li>Redis</li>
+      <li>Elasticsearch</li>
+    </ul>
+  </div>
+  <div class="feature-card">
+    <div class="eyebrow">Security</div>
+    <ul class="points-clean">
+      <li>End-to-end encryption</li>
+      <li>OAuth 2.0 / SAML</li>
+      <li>SOC 2 compliant</li>
+    </ul>
+  </div>
+  <div class="feature-card">
+    <div class="eyebrow">Monitoring</div>
+    <ul class="points-clean">
+      <li>Prometheus / Grafana</li>
+      <li>ELK Stack</li>
+      <li>APM tools</li>
+    </ul>
+  </div>
+</div>
+
+---
+
+# Team
+
+<div class="card-grid four mt-2">
+  <div class="feature-card">
+    <h4 class="feature-title">CEO</h4>
+    <p class="muted small">20+ years experience</p>
+    <p class="muted small">Former Fortune 500 exec</p>
+  </div>
+  <div class="feature-card">
+    <h4 class="feature-title">CTO</h4>
+    <p class="muted small">15+ years in tech</p>
+    <p class="muted small">Ex-FAANG engineer</p>
+  </div>
+  <div class="feature-card">
+    <h4 class="feature-title">CPO</h4>
+    <p class="muted small">Product visionary</p>
+    <p class="muted small">3 successful exits</p>
+  </div>
+  <div class="feature-card">
+    <h4 class="feature-title">CFO</h4>
+    <p class="muted small">Finance expert</p>
+    <p class="muted small">IPO experience</p>
+  </div>
+</div>
+
+<div class="card mt-2">
+  <h3>Advisory Board</h3>
+  <ul class="points-clean">
+    <li>Industry veterans from leading tech companies</li>
+    <li>Domain experts in enterprise software</li>
+    <li>Strategic advisors with deep market connections</li>
+  </ul>
+</div>
+
+---
+
+# Customer Testimonials
+
+<div class="card-grid two mt-2">
+  <div class="feature-card glass">
+    <p class="muted">"This platform transformed our operations. We've seen incredible efficiency gains and cost savings."</p>
+    <div class="mt-2">
+      <strong>John Smith</strong><br>
+      <span class="text-xs muted">CTO, Tech Corp</span>
+    </div>
+  </div>
+  <div class="feature-card glass">
+    <p class="muted">"The best investment we've made. ROI was evident within the first quarter."</p>
+    <div class="mt-2">
+      <strong>Jane Doe</strong><br>
+      <span class="text-xs muted">CEO, Innovation Inc</span>
+    </div>
+  </div>
+</div>
+
+---
+
+# Next Steps
+
+<div class="cta-band">
+  <div>
+    <div class="overline">Get Started Today</div>
+    <h2 class="text-hero">Ready to Transform Your Business?</h2>
+    <p class="muted">Join thousands of companies already using our platform</p>
+    <div class="cta-actions">
+      <button class="btn-primary">Start Free Trial</button>
+      <button class="btn-secondary">Schedule Demo</button>
+    </div>
+  </div>
+  <div>
+    <div class="card">
+      <div class="eyebrow">Contact</div>
+      <ul class="points-clean">
+        <li>Sales: sales@example.com</li>
+        <li>Support: support@example.com</li>
+        <li>Phone: 1-800-EXAMPLE</li>
+      </ul>
+      <div class="muted small mt-4">www.example.com</div>
+    </div>
+  </div>
+</div>
+
+---
+
+# Appendix
+
+<div class="card-grid two mt-2">
+  <div class="feature-card">
+    <h3 class="feature-title">Resources</h3>
+    <ul class="points-clean">
+      <li>Technical documentation</li>
+      <li>API reference</li>
+      <li>Video tutorials</li>
+      <li>Community forum</li>
+    </ul>
+  </div>
+  <div class="feature-card">
+    <h3 class="feature-title">Legal</h3>
+    <ul class="points-clean">
+      <li>Terms of service</li>
+      <li>Privacy policy</li>
+      <li>Security compliance</li>
+      <li>SLA agreements</li>
+    </ul>
+  </div>
+</div>
 
 ---
 layout: center
 class: text-center
 ---
 
-# Learn More
+# Thank You
 
-[Documentation](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/resources/showcases)
+Questions?
 
-<PoweredBySlidev mt-10 />
+<div class="mt-4 subtle">Press S for presenter mode • Press E to open editor • Use arrow keys to navigate</div>
