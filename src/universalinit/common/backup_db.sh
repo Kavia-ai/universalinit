@@ -30,15 +30,59 @@ if [ -n "$PG_VERSION" ]; then
     fi
 fi
 
-# MySQL check and backup
-if sudo mysqladmin ping --socket=/var/run/mysqld/mysqld.sock --silent 2>/dev/null; then
+# MySQL check and backup - Fixed to use correct port and TCP connection
+# Check if MySQL is running on the specified port
+if mysqladmin ping -h localhost -P ${DB_PORT} --silent 2>/dev/null || \
+   sudo mysqladmin ping --socket=/var/run/mysqld/mysqld.sock --silent 2>/dev/null; then
     echo "Backing up MySQL database..."
-    sudo mysqldump --socket=/var/run/mysqld/mysqld.sock \
-        -u root -p${DB_PASSWORD} \
-        --databases ${DB_NAME} --add-drop-database \
-        --routines --triggers > database_backup.sql
-    echo "✓ Backup saved to database_backup.sql"
-    exit 0
+    
+    # First try with TCP connection on specified port (for Docker or custom port setups)
+    if mysql -h localhost -P ${DB_PORT} -u ${DB_USER} -p${DB_PASSWORD} \
+        -e "SELECT 1" >/dev/null 2>&1; then
+        mysqldump -h localhost -P ${DB_PORT} \
+            -u ${DB_USER} -p${DB_PASSWORD} \
+            --databases ${DB_NAME} --add-drop-database \
+            --routines --triggers > database_backup.sql
+        echo "✓ Backup saved to database_backup.sql (via TCP port ${DB_PORT})"
+        exit 0
+    fi
+    
+    # Fallback to root user with TCP if appuser doesn't work
+    if mysql -h localhost -P ${DB_PORT} -u root -p${DB_PASSWORD} \
+        -e "SELECT 1" >/dev/null 2>&1; then
+        mysqldump -h localhost -P ${DB_PORT} \
+            -u root -p${DB_PASSWORD} \
+            --databases ${DB_NAME} --add-drop-database \
+            --routines --triggers > database_backup.sql
+        echo "✓ Backup saved to database_backup.sql (via TCP port ${DB_PORT} as root)"
+        exit 0
+    fi
+    
+    # Final fallback to socket connection for standard MySQL installations
+    if sudo mysql --socket=/var/run/mysqld/mysqld.sock \
+        -u root -p${DB_PASSWORD} -e "SELECT 1" >/dev/null 2>&1; then
+        sudo mysqldump --socket=/var/run/mysqld/mysqld.sock \
+            -u root -p${DB_PASSWORD} \
+            --databases ${DB_NAME} --add-drop-database \
+            --routines --triggers > database_backup.sql
+        echo "✓ Backup saved to database_backup.sql (via socket)"
+        exit 0
+    fi
+    
+    # Try without password for local root
+    if sudo mysql --socket=/var/run/mysqld/mysqld.sock \
+        -u root -e "SELECT 1" >/dev/null 2>&1; then
+        sudo mysqldump --socket=/var/run/mysqld/mysqld.sock \
+            -u root \
+            --databases ${DB_NAME} --add-drop-database \
+            --routines --triggers > database_backup.sql
+        echo "✓ Backup saved to database_backup.sql (via socket, no password)"
+        exit 0
+    fi
+    
+    echo "⚠ MySQL is running but authentication failed"
+    echo "  Please check your credentials"
+    exit 1
 fi
 
 # MongoDB check and backup
