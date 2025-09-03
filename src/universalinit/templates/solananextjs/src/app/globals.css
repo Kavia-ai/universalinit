@@ -2,15 +2,15 @@
 
 /* Light theme (default) using provided palette only */
 :root {
-  --color-primary: #3f51b5; /* primary */
-  --color-secondary: #009688; /* secondary */
-  --color-accent: #ff9800; /* accent */
-  --color-background: #fafafa; /* background */
+  --color-primary: #2E86AB; /* primary */
+  --color-secondary: #ffffff; /* secondary */
+  --color-accent: #E07A5F; /* accent */
+  --color-background: #F6F9FC; /* background */
   --color-text: #1f2937; /* slate-800 */
   --color-muted: #6b7280; /* gray-500 */
   --surface: #ffffff;
   --border: #e5e7eb;
-  --ring: rgba(63, 81, 181, 0.35);
+  --ring: rgba(46, 134, 171, 0.35);
 }
 
 * {

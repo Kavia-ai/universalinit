@@ -1,19 +1,20 @@
-declare global {
-  interface SolanaProvider {
-    isPhantom?: boolean;
-    isConnected?: boolean;
-    publicKey?: {
-      toString(): string;
-      toBase58(): string;
-    };
-    connect: (opts?: { onlyIfTrusted?: boolean }) => Promise<{ publicKey: { toString(): string; toBase58(): string } }>;
-    disconnect: () => Promise<void>;
-    signMessage?: (message: Uint8Array, display?: string) => Promise<Uint8Array | { signature: Uint8Array }>;
-  }
-
-  interface Window {
-    solana?: SolanaProvider;
+declare namespace NodeJS {
+  interface ProcessEnv {
+    NEXT_PUBLIC_SOLANA_RPC_URL: string;
+    NEXT_PUBLIC_SOLANA_WS_URL: string;
   }
 }
 
-export {};
+interface Window {
+  solana?: {
+    isPhantom?: boolean;
+    connect(): Promise<{ publicKey: { toBase58(): string; toString(): string } }>;
+    disconnect(): Promise<void>;
+    signMessage?(message: Uint8Array, encoding: string): Promise<Uint8Array | { signature: Uint8Array }>;
+    signTransaction?(transaction: import("@solana/web3.js").Transaction): Promise<import("@solana/web3.js").Transaction>;
+    publicKey?: {
+      toBase58?(): string;
+      toString?(): string;
+    };
+  };
+}
