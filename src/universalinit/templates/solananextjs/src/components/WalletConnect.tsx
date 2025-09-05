@@ -18,7 +18,7 @@ export default function WalletConnect({ role }: { role: "doctor" | "pharmacist" 
   }
 
   return (
-    <Button onClick={() => connect(role)} variant="secondary">
+    <Button onClick={() => connect(role)} variant="accent">
       Connect {role === "doctor" ? "Doctor" : "Pharmacist"} Wallet
     </Button>
   );

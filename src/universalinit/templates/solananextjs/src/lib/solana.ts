@@ -2,6 +2,22 @@
 
 import nacl from "tweetnacl";
 import bs58 from "bs58";
+import { 
+  Connection, 
+  PublicKey, 
+  Transaction, 
+  TransactionInstruction 
+} from "@solana/web3.js";
+
+// Default to localnet if environment variables are not set
+const rpcUrl = process.env.NEXT_PUBLIC_SOLANA_RPC_URL || "http://localhost:8899";
+const wsUrl = process.env.NEXT_PUBLIC_SOLANA_WS_URL || "ws://localhost:8900";
+
+// Create a singleton connection instance
+export const connection = new Connection(rpcUrl, {
+  wsEndpoint: wsUrl,
+  commitment: "confirmed"
+});
 
 /** Phantom-like provider detection. */
 // PUBLIC_INTERFACE
@@ -76,4 +92,71 @@ export function verifySignature(message: string, signatureB58: string, publicKey
   const sigBytes = bs58.decode(signatureB58);
   const pubKeyBytes = bs58.decode(publicKeyB58);
   return nacl.sign.detached.verify(msgBytes, sigBytes, pubKeyBytes);
+}
+
+// PUBLIC_INTERFACE
+export async function submitMemoTransaction(message: string): Promise<string> {
+  /** Submit a memo transaction to the Solana blockchain with the given message. */
+  const provider = getProvider();
+  if (!provider) throw new Error("No wallet available.");
+  if (!provider.publicKey) throw new Error("Wallet not connected.");
+
+  // Use the configured connection (defaults to localnet if not configured)
+  const connection = new Connection(rpcUrl);
+
+  // Create memo program instruction
+  const MEMO_PROGRAM_ID = new PublicKey("MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr");
+  const instruction = new TransactionInstruction({
+    keys: [],
+    programId: MEMO_PROGRAM_ID,
+    data: Buffer.from(message),
+  });
+
+  // Create transaction
+  const transaction = new Transaction().add(instruction);
+  if (!provider.publicKey) throw new Error("Wallet not connected");
+  const publicKeyStr = provider.publicKey?.toBase58?.() ?? provider.publicKey?.toString?.();
+  if (!publicKeyStr) throw new Error("Unable to read wallet public key");
+  transaction.feePayer = new PublicKey(publicKeyStr);
+  
+  try {
+    // Get recent blockhash
+    const { blockhash } = await connection.getLatestBlockhash();
+    transaction.recentBlockhash = blockhash;
+
+    // Request signature from wallet
+    if (!provider.signTransaction) {
+      throw new Error("Wallet does not support transaction signing");
+    }
+    const signedTransaction = await provider.signTransaction(transaction);
+    
+    // Send transaction
+    const signature = await connection.sendRawTransaction(signedTransaction.serialize());
+    
+    // Confirm transaction
+    await connection.confirmTransaction(signature);
+    
+    return signature;
+  } catch (error: unknown) {
+    console.error("Failed to submit memo transaction:", error);
+    
+    // Check for insufficient balance error
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    if (errorMessage.includes("Attempt to debit an account but found no record of a prior credit")) {
+      // Developer note: For development, fund the wallet using:
+      // solana airdrop 1 <WALLET_ADDRESS> --url http://localhost:8899
+      console.warn(
+        "Developer Note: Local wallet needs SOL. Use 'solana airdrop' command to fund the wallet for development."
+      );
+      
+      throw new Error(
+        "Insufficient SOL balance in wallet. Please ensure your wallet has SOL tokens before signing transactions."
+      );
+    }
+    
+    // Handle other transaction errors
+    throw new Error(
+      `Failed to submit prescription to blockchain: ${errorMessage}`
+    );
+  }
 }

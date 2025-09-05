@@ -20,18 +20,3 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## SolRx Frontend
-
-This template provides a modern, minimal UI to create, sign, and verify medical prescriptions using a Solana wallet. No backend is used — data is persisted in your browser via localStorage.
-
-Key features:
-- Doctor wallet login and prescription signing
-- Pharmacist wallet login and verification
-- Responsive UI with modal dialogs
-- Light/Dark theme (toggle in navbar)
-- Local storage of sessions and prescriptions
-
-Notes:
-- A Solana wallet extension such as Phantom is required in the browser.
-- Signature verification uses Ed25519 (tweetnacl) and Base58 (bs58).
-- Doctor can export a prescription as JSON (copy to clipboard) and share securely with the pharmacist.
