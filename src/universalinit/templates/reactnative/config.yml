@@ -3,7 +3,7 @@ configure_environment:
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 build_cmd:
-  command: "npm run prebuild && cd android && ./gradlew assembleDebug"
+  command: "npm run build"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
 
 install_dependencies:
