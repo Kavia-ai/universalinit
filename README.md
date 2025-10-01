@@ -67,6 +67,7 @@ uniinit --name my-app --type react --output ./my-app --author "Your Name" --para
 - `express`: Express backend
 - `fastapi`: FastAPI backend
 - `flask` : Flask backend
+- `springboot` : Springboot backend
 
 ### Parameter Examples
 
@@ -175,6 +176,10 @@ uniinit --name my-fastapi-app --type fastapi --output ./my-fastapi-app --author 
 uniinit --name my-flask-app --type flask --output ./my-flask-app --author "Your Name"
 ```
 
+#### Springboot Project
+```bash
+uniinit --name my-springboot-app --type springboot --output ./my-springboot-app --author "Your Name"
+```
 
 ## JSON Configuration
 
