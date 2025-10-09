@@ -1,4 +1,3 @@
-const prettier = require('eslint-plugin-prettier')
 const globals = require('globals')
 const js = require('@eslint/js')
 
@@ -11,12 +10,8 @@ const compat = new FlatCompat({
 })
 
 module.exports = [
-  ...compat.extends('eslint:recommended', 'plugin:prettier/recommended', 'prettier'),
+  ...compat.extends('eslint:recommended'),
   {
-    plugins: {
-      prettier,
-    },
-
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -32,27 +27,20 @@ module.exports = [
     },
 
     rules: {
+      // Disable console and debugger checks (not syntax errors)
       'no-console': 'off',
       'no-debugger': 'off',
-      quotes: [2, 'single', 'avoid-escape'],
-      semi: [2, 'never'],
+      
+      // Turn off all formatting rules
+      'quotes': 'off',
+      'semi': 'off',
       'no-extra-boolean-cast': 'off',
 
+      // Keep only actual code quality issues
       'no-unused-vars': [
-        1,
+        'warn',
         {
           argsIgnorePattern: 'res|next|^err',
-        },
-      ],
-
-      'prettier/prettier': [
-        'error',
-        {
-          trailingComma: 'es5',
-          singleQuote: true,
-          tabWidth: 2,
-          semi: false,
-          printWidth: 100,
         },
       ],
     },
