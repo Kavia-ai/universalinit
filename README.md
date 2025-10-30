@@ -47,27 +47,38 @@ uniinit --name my-app --type react --output ./my-app --author "Your Name" --para
 ### Available Project Types
 
 - `android`: Android application
+- `androidtv`: Android TV (Kotlin) application
 - `angular`: Angular application
 - `astro`: Astro website
+- `django`: Django backend
+- `dotnet`: .NET application
+- `express`: Express backend
+- `fastapi`: FastAPI backend
+- `flask`: Flask backend
 - `flutter`: Flutter application
+- `kotlin`: Kotlin application
+- `lightningjs`: LightningJS Blits application
+- `mongodb`: MongoDB database
+- `mysql`: MySQL database
+- `native`: C++ native application
 - `nativescript`: NativeScript application
 - `nextjs`: Next.js application
-- `solananextjs`: Solana Next.js application
 - `nuxt`: Nuxt.js application
+- `postgresql`: PostgreSQL database
 - `qwik`: Qwik application
 - `react`: React application
+- `reactnative`: React Native application
 - `remix`: Remix application
 - `remotion`: Remotion video project
 - `slidev`: Slidev presentation
+- `solananextjs`: Solana Next.js application
+- `springboot`: Spring Boot backend
+- `sqlite`: SQLite database
 - `svelte`: Svelte application
+- `tizen`: Samsung Tizen TV (React) application
 - `typescript`: TypeScript application
 - `vite`: Vite application
 - `vue`: Vue application
-- `django`: Django backend
-- `express`: Express backend
-- `fastapi`: FastAPI backend
-- `flask` : Flask backend
-- `springboot` : Springboot backend
 
 ### Parameter Examples
 
@@ -89,6 +100,16 @@ uniinit --name my-flutter-app --type flutter --output ./my-flutter-app --author 
 #### Android Project
 ```bash
 uniinit --name my-android-app --type android --output ./my-android-app --author "Your Name" --parameters min_sdk=24,target_sdk=34,gradle_version=8.12
+```
+
+#### Android TV Project
+```bash
+uniinit --name my-android-tv-app --type androidtv --output ./my-android-tv-app --author "Your Name" --parameters min_sdk=24,target_sdk=35
+```
+
+#### Tizen TV Project
+```bash
+uniinit --name my-tizen-tv-app --type tizen --output ./my-tizen-tv-app --author "Your Name"
 ```
 
 #### Astro Project
@@ -264,6 +285,11 @@ REACT_APP_* = *
 - You can combine direct and wildcard mappings in the same file.
 - Only prefix and complex wildcard patterns are supported (not suffix-only patterns).
 - Unknown variables not covered by any mapping will be ignored.
+
+## FAQ
+
+### How is Android TV different from Tizen?
+Android TV apps target the Android ecosystem and use standard Android tooling with TV-specific APIs, such as Leanback and Jetpack TV libraries. The androidtv template initializes a Kotlin-based Android project configured for TV with the correct launcher category and SDK levels. Tizen is a separate Samsung TV operating system with different tooling and packaging. The new tizen template creates a minimal React-based Tizen web app scaffold, suitable as a base for generating a .wgt package.
 
 ## Development
 
