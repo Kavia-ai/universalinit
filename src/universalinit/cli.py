@@ -174,6 +174,7 @@ Example usage:
   uniinit --name my-vue-app --type vue --author "Kavia" --output ./my-vue-app
   uniinit --name my-flutter-app --type flutter --author "Kavia" --output ./my-flutter-app
   uniinit --name my-android-app --type android --author "Kavia" --output ./my-android-app --parameters min_sdk=24,target_sdk=34,gradle_version=8.12
+  uniinit --name my-android-tv-app --type androidtv --author "Kavia" --output ./my-android-tv-app --parameters min_sdk=24,target_sdk=34
   uniinit --name my-astro-site --type astro --author "Kavia" --output ./my-astro-site --parameters typescript=true
   uniinit --name my-django-site --type django --author "Kavia" --output ./my-django-site
   uniinit --name my-dotnet-api --type dotnet --author "Kavia" --output ./my-dotnet-api
@@ -190,6 +191,7 @@ Example usage:
   uniinit --name my-svelte-app --type svelte --author "Kavia" --output ./my-svelte-app
   uniinit --name my-remix-app --type remix --author "Kavia" --output ./my-remix-app --parameters typescript=true,styling_solution=tailwind
   uniinit --name my-ts-app --type typescript --author "Kavia" --output ./my-ts-app
+  uniinit --name my-tizen-tv-app --type tizen --author "Kavia" --output ./my-tizen-tv-app
   uniinit --name my-remotion-app --type remotion --author "Kavia" --output ./my-remotion-app
   uniinit --name my-angular-app --type angular --author "Kavia" --output ./my-angular-app
   uniinit --name my-qwik-app --type qwik --author "Kavia" --output ./my-qwik-app
@@ -205,6 +207,7 @@ Example usage:
 
 Available project types:
   - android
+  - androidtv
   - angular
   - astro
   - django
@@ -230,6 +233,7 @@ Available project types:
   - remotion
   - slidev
   - svelte
+  - tizen
   - typescript
   - vite
   - vue
