@@ -17,7 +17,7 @@ env:
 
 init_files: []
 
-init_minimal: "Android TV application initialized with Leanback support"
+init_minimal: "Minimal Android TV application initialized"
 
 run_tool:
   command: "./gradlew installDebug"
@@ -43,6 +43,7 @@ post_processing:
   script: |
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
-    chmod +x ./gradlew
-    ./gradlew dependencies --quiet
+    chmod +x ./init_script.sh
+    ./init_script.sh {KAVIA_TEMPLATE_PROJECT_NAME}
+    rm init_script.sh
     echo "Android TV project post-processing complete"
