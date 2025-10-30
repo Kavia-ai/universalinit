@@ -2,6 +2,7 @@ from .templateconfig import ProjectType
 
 TEMPLATE_MAP = {
    ProjectType.ANDROID: "android-kavia",
+   ProjectType.ANDROIDTV: "androidtv-kavia",
    ProjectType.ANGULAR: "angular-kavia",
    ProjectType.ASTRO: "astro-kavia",
    ProjectType.DJANGO: "django-kavia",
@@ -24,6 +25,7 @@ TEMPLATE_MAP = {
    ProjectType.REMOTION: "remotion-kavia",
    ProjectType.SLIDEV: "slidev-kavia",
    ProjectType.SVELTE : "svelte-kavia",
+   ProjectType.TIZEN: "tizen-kavia",
    ProjectType.TYPESCRIPT: "typescript-kavia",
    ProjectType.VITE: "vite-kavia",
    ProjectType.VUE: "vue-kavia",

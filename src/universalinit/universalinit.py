@@ -266,7 +266,6 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.ASTRO, AstroTemplate)
         self.template_factory.register_template(ProjectType.FLUTTER, FlutterTemplate)
         self.template_factory.register_template(ProjectType.KOTLIN, KotlinTemplate)
-        self.template_factory.register_template(ProjectType.LIGHTNINGJS, LightningjsTemplate)
         self.template_factory.register_template(ProjectType.NATIVESCRIPT, NativeScriptTemplate)
         self.template_factory.register_template(ProjectType.NEXTJS, NextJSTemplate)
         self.template_factory.register_template(ProjectType.SOLANANEXTJS, SolanaNextJSTemplate)
@@ -294,6 +293,10 @@ class ProjectInitializer:
         self.template_factory.register_template(ProjectType.MYSQL, MySQLTemplate)
         self.template_factory.register_template(ProjectType.SQLITE, SQLiteTemplate)
         self.template_factory.register_template(ProjectType.NATIVE, CommonTemplate)
+        # Register RDK templates
+        self.template_factory.register_template(ProjectType.ANDROIDTV, AndroidTVTemplate)
+        self.template_factory.register_template(ProjectType.LIGHTNINGJS, LightningjsTemplate)
+        self.template_factory.register_template(ProjectType.TIZEN, TizenTemplate)
         self.template = None
     def initialize_project(self, config: ProjectConfig) -> bool:
         """Initialize a project using the appropriate template."""
@@ -344,6 +347,27 @@ class AndroidTemplate(ProjectTemplate):
             self.config.output_path,
             replacements,
             include_hidden=True  # Android projects may have hidden files
+        )
+
+    def setup_testing(self) -> None:
+        # Testing is already configured in the template
+        pass
+
+class AndroidTVTemplate(ProjectTemplate):
+    """Template implementation for Android TV projects."""
+
+    def validate_parameters(self) -> bool:
+        # No required parameters for basic template; Android TV also supports optional params
+        return True
+
+    def generate_structure(self) -> None:
+        # Reuse same copy logic as Android — template assets live under 'androidtv'
+        replacements = self.config.get_replaceable_parameters()
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True  # Android TV projects may include hidden files
         )
 
     def setup_testing(self) -> None:
@@ -891,6 +915,33 @@ class SvelteTemplate(ProjectTemplate):
 
     def setup_testing(self) -> None:
         # Testing is already configured in the template
+        pass
+
+
+class TizenTemplate(ProjectTemplate):
+    """Template implementation for Samsung Tizen TV (React) projects.
+
+    This class provides a dedicated template handler for Tizen TV apps so the CLI
+    can selectively initialize the React-based Tizen template and any future
+    Tizen-specific logic can be encapsulated here without impacting other templates.
+    """
+    
+    def validate_parameters(self) -> bool:
+        # Currently no required parameters; uses standard replacement variables.
+        return True
+    
+    def generate_structure(self) -> None:
+        replacements = self.config.get_replaceable_parameters()
+
+        FileSystemHelper.copy_template(
+            self.template_path,
+            self.config.output_path,
+            replacements,
+            include_hidden=True
+        )
+
+    def setup_testing(self) -> None:
+        # The Tizen template ships with its own configuration.
         pass
 
 

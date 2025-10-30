@@ -9,6 +9,7 @@ class ProjectType(Enum):
     """Supported project types."""
     # Frontend frameworks
     ANDROID = "android"
+    ANDROIDTV = "androidtv"
     ANGULAR = "angular"
     ASTRO = "astro"
     FLUTTER = "flutter"
@@ -28,6 +29,7 @@ class ProjectType(Enum):
     REMOTION = "remotion"
     SLIDEV = "slidev"
     SVELTE = "svelte"
+    TIZEN = "tizen"
     TYPESCRIPT = "typescript"
     VITE = "vite"
     VUE = "vue"
