@@ -11658,3 +11658,1031 @@ TimeoutError
 2026-01-29 05:25:11,882 - Knowledge - INFO - ⚡ Total Redis path: 0.89s (vs ~300s from disk)
 2026-01-29 05:25:12,053 - Knowledge - INFO - Saving knowledge to Redis...
 2026-01-29 05:25:12,478 - Knowledge - INFO - Knowledge saved to Redis successfully
+2026-01-29 14:15:43,507 - Knowledge - INFO - Created shared MongoDB connection pool
+2026-01-29 14:15:43,822 - Knowledge - INFO - Starting Knowledge Graph processing with 20 threads
+2026-01-29 14:15:44,027 - Knowledge - INFO - Initial configuration: chunk_size=65536, max_cache_size=500
+2026-01-29 14:15:44,228 - Knowledge - INFO - Knowledge Graph concurrency configuration: workers=20, max_batch_size=10, max_concurrent_llm_calls=50
+2026-01-29 14:15:45,698 - Knowledge - INFO - 🔍 _load_persisted_knowledge called - checking for Redis optimization
+2026-01-29 14:15:45,862 - Knowledge - WARNING - ❌ load_from_redis method not found - Redis support not attached
+2026-01-29 14:15:46,053 - Knowledge - INFO - load persisted knowledge: begin
+2026-01-29 14:15:46,301 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:46,491 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:46,699 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/svelte/tsconfig.json
+2026-01-29 14:15:46,888 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:47,101 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:47,369 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/components/starter/icons/qwik.tsx
+2026-01-29 14:15:47,572 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:47,744 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:47,962 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/react/src/App.test.js
+2026-01-29 14:15:48,154 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:48,318 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:48,508 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/angular/config.yml
+2026-01-29 14:15:48,708 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:48,872 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:49,067 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/angular/tsconfig.spec.json
+2026-01-29 14:15:49,260 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:49,424 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:49,669 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/App_Resources/Android/src/main/res/values-v21/colors.xml
+2026-01-29 14:15:49,909 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:50,118 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:50,298 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/postgresql/startup.sh
+2026-01-29 14:15:50,471 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:50,649 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:50,843 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/svelte/README.md
+2026-01-29 14:15:51,006 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:51,200 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:51,425 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/components/starter/infobox/infobox.module.css
+2026-01-29 14:15:51,638 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:51,802 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:52,008 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/components_component_state.md
+2026-01-29 14:15:52,241 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:52,446 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:52,613 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_vue_template.py
+2026-01-29 14:15:52,798 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:52,972 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:53,158 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/express/config.yml
+2026-01-29 14:15:53,333 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:53,507 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:53,707 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/angular/src/main.server.ts
+2026-01-29 14:15:53,876 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:54,058 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:54,217 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/angular/src/app/app.config.server.ts
+2026-01-29 14:15:54,434 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:54,598 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:54,792 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/django/config/settings.py
+2026-01-29 14:15:54,969 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:55,128 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:55,336 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vue/env.d.ts
+2026-01-29 14:15:55,513 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:55,684 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:55,854 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/components/starter/counter/counter.tsx
+2026-01-29 14:15:56,022 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:56,215 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:56,400 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vue/eslint.config.ts
+2026-01-29 14:15:56,594 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:56,782 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:56,972 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/flask/app/__init__.py
+2026-01-29 14:15:57,169 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:57,332 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:57,503 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/typescript/vite.config.ts
+2026-01-29 14:15:57,739 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:57,891 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:58,057 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/App_Resources/Android/src/main/AndroidManifest.xml
+2026-01-29 14:15:58,280 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:58,452 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:58,615 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/sqlite/config.yml
+2026-01-29 14:15:58,817 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:59,017 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:59,237 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/App_Resources/iOS/Assets.xcassets/LaunchScreen.AspectFill.imageset/Contents.json
+2026-01-29 14:15:59,432 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:15:59,592 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:15:59,759 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_vite_template.py
+2026-01-29 14:15:59,967 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:00,139 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:00,315 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/typescript/src/main.ts
+2026-01-29 14:16:00,485 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:00,651 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:00,852 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_fastapi_template.py
+2026-01-29 14:16:01,062 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:01,215 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:01,429 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/package.json
+2026-01-29 14:16:01,632 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:01,821 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:02,015 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remotion/src/HelloWorld/Subtitle.tsx
+2026-01-29 14:16:02,182 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:02,348 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:02,532 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/essentials_components.md
+2026-01-29 14:16:02,730 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:02,916 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:03,117 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remotion/eslint.config.mjs
+2026-01-29 14:16:03,299 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:03,527 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:03,748 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/express/src/controllers/health.js
+2026-01-29 14:16:04,014 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:04,203 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:04,466 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/entry.ssr.tsx
+2026-01-29 14:16:04,650 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:04,820 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:05,025 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/webpack.config.js
+2026-01-29 14:16:05,204 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:05,385 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:05,555 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nextjs/package.json
+2026-01-29 14:16:05,740 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:05,928 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:06,102 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/react/public/index.html
+2026-01-29 14:16:06,279 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:06,465 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:06,662 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remix/app/tailwind.css
+2026-01-29 14:16:06,858 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:07,082 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:07,329 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/svelte/src/routes/+page.ts
+2026-01-29 14:16:07,531 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:07,724 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:07,911 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/slidev/vite.config.ts
+2026-01-29 14:16:08,120 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:08,301 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:08,487 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/vite.config.js
+2026-01-29 14:16:08,680 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:08,865 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:09,079 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/angular/src/app/app.component.ts
+2026-01-29 14:16:09,243 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:09,449 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:09,632 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/components/starter/gauge/gauge.module.css
+2026-01-29 14:16:09,834 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:10,007 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:10,182 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/express/eslint.config.js
+2026-01-29 14:16:10,404 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:10,582 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:10,802 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vue/vitest.config.ts
+2026-01-29 14:16:11,002 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:11,156 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:11,356 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/app/app.js
+2026-01-29 14:16:11,521 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:11,705 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:11,910 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/components/starter/header/header.module.css
+2026-01-29 14:16:12,126 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:12,326 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:12,511 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/package.json
+2026-01-29 14:16:12,717 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:12,928 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:13,110 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/slidev/vercel.json
+2026-01-29 14:16:13,293 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:13,490 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:13,659 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/app/app.css
+2026-01-29 14:16:13,890 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:14,054 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:14,241 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/src/components/Button.js
+2026-01-29 14:16:14,442 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:14,636 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:14,840 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/App_Resources/Android/app.gradle
+2026-01-29 14:16:15,032 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:15,213 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:15,389 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/components/router-head/router-head.tsx
+2026-01-29 14:16:15,559 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:15,730 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:15,903 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/components_utility_methods.md
+2026-01-29 14:16:16,075 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:16,250 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:16,472 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/components/starter/footer/footer.module.css
+2026-01-29 14:16:16,650 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:16,829 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:17,005 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_postgresql_template.py
+2026-01-29 14:16:17,206 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:17,459 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:17,627 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/angular/angular.json
+2026-01-29 14:16:17,815 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:17,987 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:18,217 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/universalinit-env/src/universalinit_env/__init__.py
+2026-01-29 14:16:18,430 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:18,601 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:18,797 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/App_Resources/Android/src/main/res/values/ic_launcher_background.xml
+2026-01-29 14:16:19,028 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:19,195 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:19,401 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vue/src/components/__tests__/HelloWorld.spec.ts
+2026-01-29 14:16:19,621 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:19,814 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:19,980 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nextjs/next.config.ts
+2026-01-29 14:16:20,195 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:20,362 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:20,516 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/slidev/README.md
+2026-01-29 14:16:20,715 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:20,871 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:21,035 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/src/App.js
+2026-01-29 14:16:21,214 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:21,417 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:21,648 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vite/package.json
+2026-01-29 14:16:21,851 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:22,021 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:22,225 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/svelte/vite.config.ts
+2026-01-29 14:16:22,447 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:22,637 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:22,802 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/fastapi/src/api/main.py
+2026-01-29 14:16:23,021 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:23,194 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:23,468 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/slidev/snippets/external.ts
+2026-01-29 14:16:23,656 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:23,862 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:24,101 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/components/starter/hero/hero.tsx
+2026-01-29 14:16:24,316 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:24,527 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:24,732 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/astro/eslint.config.mjs
+2026-01-29 14:16:24,920 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:25,098 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:25,269 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/root.tsx
+2026-01-29 14:16:25,433 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:25,618 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:25,804 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vue/src/router/index.ts
+2026-01-29 14:16:25,981 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:26,166 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:26,343 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/essentials_template_syntax.md
+2026-01-29 14:16:26,505 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:26,721 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:26,898 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/react/public/manifest.json
+2026-01-29 14:16:27,088 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:27,300 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:27,474 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/typescript/tsconfig.json
+2026-01-29 14:16:27,669 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:27,916 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:28,083 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_qwik_template.py
+2026-01-29 14:16:28,252 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:28,413 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:28,634 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/mysql/config.yml
+2026-01-29 14:16:28,865 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:29,034 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:29,221 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templateconfig.py
+2026-01-29 14:16:29,388 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:29,578 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:29,826 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/routes/demo/flower/flower.css
+2026-01-29 14:16:30,024 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:30,213 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:30,358 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_nextjs_template.py
+2026-01-29 14:16:30,531 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:30,706 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:30,918 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nuxt/README.md
+2026-01-29 14:16:31,087 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:31,254 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:31,427 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/index.html
+2026-01-29 14:16:31,625 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:31,784 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:31,976 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/flutter/config.yml
+2026-01-29 14:16:32,147 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:32,350 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:32,554 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vue/package.json
+2026-01-29 14:16:32,746 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:32,938 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:33,138 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/conftest.py
+2026-01-29 14:16:33,351 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:33,517 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:33,708 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/react/README.md
+2026-01-29 14:16:33,883 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:34,085 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:34,295 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/components/starter/next-steps/next-steps.module.css
+2026-01-29 14:16:34,484 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:34,690 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:34,858 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/angular/src/index.html
+2026-01-29 14:16:35,020 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:35,192 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:35,371 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/universalinit-env/pyproject.toml
+2026-01-29 14:16:35,574 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:35,765 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:35,969 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/django/api/admin.py
+2026-01-29 14:16:36,205 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:36,371 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:36,640 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/angular/src/styles.css
+2026-01-29 14:16:36,834 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:37,024 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:37,238 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/App_Resources/iOS/Assets.xcassets/Contents.json
+2026-01-29 14:16:37,455 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:37,604 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:37,794 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/slidev/netlify.toml
+2026-01-29 14:16:37,977 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:38,163 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:38,377 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vue/tsconfig.app.json
+2026-01-29 14:16:38,541 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:38,719 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:38,930 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/plugins_theme.md
+2026-01-29 14:16:39,182 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:39,357 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:39,581 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/router_hooks.md
+2026-01-29 14:16:39,774 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:39,964 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:40,156 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/App_Resources/Android/src/main/res/values/styles.xml
+2026-01-29 14:16:40,331 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:40,496 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:40,736 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_nativescript_template.py
+2026-01-29 14:16:40,980 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:41,150 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:41,377 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nuxt/tsconfig.json
+2026-01-29 14:16:41,555 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:41,714 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:41,899 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/mongodb/config.yml
+2026-01-29 14:16:42,136 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:42,302 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:42,555 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/app/home/home-page.js
+2026-01-29 14:16:42,775 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:42,955 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:43,168 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/mongodb/startup.sh
+2026-01-29 14:16:43,372 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:43,590 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:43,767 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/sqlite/init_db.py
+2026-01-29 14:16:43,933 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:44,099 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:44,281 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nextjs/config.yml
+2026-01-29 14:16:44,528 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:44,710 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:44,882 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remotion/src/HelloWorld/Arc.tsx
+2026-01-29 14:16:45,064 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:45,222 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:45,409 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/entry.preview.tsx
+2026-01-29 14:16:45,622 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:45,779 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:45,955 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/config.yml
+2026-01-29 14:16:46,133 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:46,313 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:46,510 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/android/init_script.sh
+2026-01-29 14:16:46,673 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:46,874 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:47,035 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/eslint.config.cjs
+2026-01-29 14:16:47,224 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:47,470 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:47,660 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/App_Resources/iOS/Assets.xcassets/LaunchScreen.Center.imageset/Contents.json
+2026-01-29 14:16:47,869 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:48,088 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:48,330 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/svelte/src/app.d.ts
+2026-01-29 14:16:48,505 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:48,746 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:48,919 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remix/tsconfig.json
+2026-01-29 14:16:49,098 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:49,256 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:49,431 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_sqlite_template.py
+2026-01-29 14:16:49,617 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:49,812 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:50,041 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/typescript/eslint.config.mjs
+2026-01-29 14:16:50,213 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:50,405 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:50,626 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/config.yml
+2026-01-29 14:16:50,871 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:51,066 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:51,257 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remix/README.md
+2026-01-29 14:16:51,481 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:51,656 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:51,836 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/mysql/startup.sh
+2026-01-29 14:16:52,027 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:52,206 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:52,406 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/universalinit-env/src/universalinit_env/envmapper.py
+2026-01-29 14:16:52,593 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:52,764 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:52,953 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nuxt/server/tsconfig.json
+2026-01-29 14:16:53,141 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:53,316 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:53,487 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/typescript/index.html
+2026-01-29 14:16:53,797 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:53,990 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:54,215 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/essentials_element_attributes.md
+2026-01-29 14:16:54,398 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:54,612 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:54,785 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/components/starter/hero/hero.module.css
+2026-01-29 14:16:54,950 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:55,189 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:55,412 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/svelte/src/routes/about/+page.ts
+2026-01-29 14:16:55,642 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:55,833 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:55,991 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/react/src/App.js
+2026-01-29 14:16:56,203 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:56,407 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:56,609 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/kotlin/init_script.sh
+2026-01-29 14:16:56,779 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:56,961 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:57,139 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/cli.py
+2026-01-29 14:16:57,326 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:57,502 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:57,677 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/App_Resources/Android/src/main/res/values-v21/styles.xml
+2026-01-29 14:16:57,854 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:58,026 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:58,200 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/svelte/src/app.css
+2026-01-29 14:16:58,394 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:58,574 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:58,759 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/components/starter/infobox/infobox.tsx
+2026-01-29 14:16:58,932 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:59,124 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:59,305 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vite/src/counter.js
+2026-01-29 14:16:59,473 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:16:59,681 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:16:59,895 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/express/nodemon.json
+2026-01-29 14:17:00,062 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:00,271 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:00,483 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remotion/README.md
+2026-01-29 14:17:00,642 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:00,828 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:01,006 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/flutter/lib/main.dart
+2026-01-29 14:17:01,181 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:01,363 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:01,539 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/components_computed_properties.md
+2026-01-29 14:17:01,719 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:01,934 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:02,095 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_express_template.py
+2026-01-29 14:17:02,351 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:02,521 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:02,707 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/pyproject.toml
+2026-01-29 14:17:02,913 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:03,096 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:03,256 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/react/eslint.config.mjs
+2026-01-29 14:17:03,420 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:03,579 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:03,745 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/App_Resources/Android/src/main/res/values/colors.xml
+2026-01-29 14:17:03,936 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:04,106 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:04,301 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nuxt/eslint.config.mjs
+2026-01-29 14:17:04,523 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:04,718 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:04,943 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/slidev/slides.md
+2026-01-29 14:17:05,156 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:05,329 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:05,500 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remix/tailwind.config.ts
+2026-01-29 14:17:05,707 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:05,886 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:06,103 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remotion/tsconfig.json
+2026-01-29 14:17:06,284 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:06,467 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:06,655 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/essentials_displaying_text.md
+2026-01-29 14:17:06,816 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:07,035 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:07,216 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/components/starter/header/header.tsx
+2026-01-29 14:17:07,398 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:07,571 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:07,788 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/postgresql/config.yml
+2026-01-29 14:17:07,967 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:08,139 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:08,322 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remix/app/routes/_index.tsx
+2026-01-29 14:17:08,515 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:08,701 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:08,902 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/slidev/pages/imported-slides.md
+2026-01-29 14:17:09,089 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:09,244 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:09,418 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_angular_template.py
+2026-01-29 14:17:09,577 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:09,742 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:09,896 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/App_Resources/Android/src/main/res/values-v29/styles.xml
+2026-01-29 14:17:10,067 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:10,267 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:10,442 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vue/tsconfig.vitest.json
+2026-01-29 14:17:10,628 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:10,794 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:10,974 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/plugins_global_app_state.md
+2026-01-29 14:17:11,159 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:11,335 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:11,526 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/slidev/prettierrc.js
+2026-01-29 14:17:11,694 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:11,870 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:12,042 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/django/api/tests.py
+2026-01-29 14:17:12,274 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:12,463 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:12,692 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/App_Resources/Android/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
+2026-01-29 14:17:12,876 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:13,084 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:13,282 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/components/starter/counter/counter.module.css
+2026-01-29 14:17:13,479 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:13,653 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:13,842 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/qwik.env.d.ts
+2026-01-29 14:17:14,037 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:14,235 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:14,450 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/components/starter/footer/footer.tsx
+2026-01-29 14:17:14,687 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:14,858 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:15,063 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/common/db_visualizer/public/index.html
+2026-01-29 14:17:15,235 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:15,389 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:15,563 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/express/package.json
+2026-01-29 14:17:15,739 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:15,889 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:16,091 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remix/app/root.tsx
+2026-01-29 14:17:16,270 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:16,459 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:16,670 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/astro/README.md
+2026-01-29 14:17:16,846 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:17,070 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:17,278 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/angular/tsconfig.app.json
+2026-01-29 14:17:17,493 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:17,666 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:17,875 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_flutter_template.py
+2026-01-29 14:17:18,067 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:18,247 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:18,431 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_mysql_template.py
+2026-01-29 14:17:18,690 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:18,878 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:19,160 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/django/api/management/commands/generate_openapi.py
+2026-01-29 14:17:19,473 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:19,672 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:19,858 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/router_transitions.md
+2026-01-29 14:17:20,118 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:20,317 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:20,568 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/typescript/src/style.css
+2026-01-29 14:17:20,905 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:21,076 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:21,330 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/routes/demo/todolist/todolist.module.css
+2026-01-29 14:17:21,544 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:21,755 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:21,959 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vue/config.yml
+2026-01-29 14:17:22,134 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:22,353 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:22,527 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/sqlite/db_shell.py
+2026-01-29 14:17:22,720 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:22,890 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:23,085 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_mongodb_template.py
+2026-01-29 14:17:23,263 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:23,422 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:23,646 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/angular/src/app/app.component.html
+2026-01-29 14:17:23,854 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:24,025 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:24,278 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/angular/package.json
+2026-01-29 14:17:24,445 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:24,644 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:24,818 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/astro/tsconfig.json
+2026-01-29 14:17:25,007 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:25,220 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:25,415 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/app/home/home-page.xml
+2026-01-29 14:17:25,621 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:25,788 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:25,949 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remix/vite.config.ts
+2026-01-29 14:17:26,160 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:26,347 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:26,555 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/routes/demo/todolist/index.tsx
+2026-01-29 14:17:26,720 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:26,921 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:27,093 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nextjs/src/app/layout.tsx
+2026-01-29 14:17:27,273 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:27,463 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:27,649 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/fastapi/config.yml
+2026-01-29 14:17:27,874 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:28,037 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:28,214 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nextjs/src/app/globals.css
+2026-01-29 14:17:28,436 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:28,632 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:28,833 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/components_watchers.md
+2026-01-29 14:17:29,028 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:29,183 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:29,371 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/svelte/src/app.html
+2026-01-29 14:17:29,541 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:29,741 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:29,923 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/app/home/home-view-model.js
+2026-01-29 14:17:30,156 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:30,347 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:30,524 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/sqlite/test_db.py
+2026-01-29 14:17:30,739 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:30,906 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:31,082 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/README.md
+2026-01-29 14:17:31,332 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:31,549 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:31,743 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/react/src/App.css
+2026-01-29 14:17:31,917 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:32,115 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:32,295 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/flask/generate_openapi.py
+2026-01-29 14:17:32,525 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:32,712 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:32,888 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remotion/src/HelloWorld/Title.tsx
+2026-01-29 14:17:33,109 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:33,279 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:33,456 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vite/config.yml
+2026-01-29 14:17:33,670 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:33,840 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:34,027 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/components/starter/next-steps/next-steps.tsx
+2026-01-29 14:17:34,194 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:34,373 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:34,577 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/astro/astro.config.mjs
+2026-01-29 14:17:34,741 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:34,895 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:35,097 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_lightningjs_template.py
+2026-01-29 14:17:35,269 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:35,446 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:35,637 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/components_lifecycle_events.md
+2026-01-29 14:17:35,854 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:36,048 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:36,260 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vue/vite.config.ts
+2026-01-29 14:17:36,521 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:36,695 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:36,861 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_android_template.py
+2026-01-29 14:17:37,033 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:37,293 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:37,478 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/django/api/views.py
+2026-01-29 14:17:37,644 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:37,846 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:38,035 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/components_props.md
+2026-01-29 14:17:38,240 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:38,416 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:38,599 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/svelte/vitest-setup-client.ts
+2026-01-29 14:17:38,806 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:38,982 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:39,145 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_kotlin_template.py
+2026-01-29 14:17:39,351 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:39,504 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:39,700 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remotion/src/index.ts
+2026-01-29 14:17:39,892 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:40,109 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:40,273 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vue/tsconfig.node.json
+2026-01-29 14:17:40,513 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:40,697 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:40,877 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_flask_template.py
+2026-01-29 14:17:41,053 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:41,221 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:41,415 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/public/manifest.json
+2026-01-29 14:17:41,584 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:41,740 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:41,983 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vue/src/main.ts
+2026-01-29 14:17:42,160 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:42,353 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:42,508 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/routes/service-worker.ts
+2026-01-29 14:17:42,710 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:42,929 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:43,129 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/flutter/test/widget_test.dart
+2026-01-29 14:17:43,362 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:43,519 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:43,742 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remix/package.json
+2026-01-29 14:17:43,911 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:44,077 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:44,237 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remix/app/entry.client.tsx
+2026-01-29 14:17:44,427 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:44,640 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:44,828 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/angular/src/app/app.component.spec.ts
+2026-01-29 14:17:45,008 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:45,180 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:45,355 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/App_Resources/Android/src/main/res/drawable/ic_launcher_foreground.xml
+2026-01-29 14:17:45,562 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:45,728 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:45,914 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/express/src/middleware/index.js
+2026-01-29 14:17:46,091 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:46,273 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:46,428 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/components_methods.md
+2026-01-29 14:17:46,684 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:46,886 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:47,077 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remotion/src/HelloWorld/constants.ts
+2026-01-29 14:17:47,260 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:47,444 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:47,642 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/svelte/eslint.config.js
+2026-01-29 14:17:47,826 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:47,995 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:48,169 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/nativescript.config.ts
+2026-01-29 14:17:48,338 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:48,520 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:48,731 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_astro_template.py
+2026-01-29 14:17:48,935 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:49,133 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:49,347 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/built-in_for-loop.md
+2026-01-29 14:17:49,515 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:49,702 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:49,872 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/svelte/config.yml
+2026-01-29 14:17:50,063 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:50,273 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:50,448 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remix/app/entry.server.tsx
+2026-01-29 14:17:50,613 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:50,766 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:50,953 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remotion/package.json
+2026-01-29 14:17:51,138 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:51,329 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:51,530 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates.py
+2026-01-29 14:17:51,712 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:51,931 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:52,157 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/flutter/pubspec.yaml
+2026-01-29 14:17:52,333 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:52,538 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:52,756 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/built-in_layout.md
+2026-01-29 14:17:52,928 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:53,090 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:53,248 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/django/config.yml
+2026-01-29 14:17:53,437 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:53,625 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:53,786 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/react/src/index.js
+2026-01-29 14:17:53,965 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:54,173 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:54,356 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/common/db_visualizer/package.json
+2026-01-29 14:17:54,590 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:54,835 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:55,007 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/django/api/urls.py
+2026-01-29 14:17:55,208 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:55,387 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:55,567 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/essentials_application_root.md
+2026-01-29 14:17:55,741 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:55,939 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:56,099 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/App_Resources/iOS/Assets.xcassets/AppIcon.appiconset/Contents.json
+2026-01-29 14:17:56,296 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:56,468 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:56,657 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nextjs/tsconfig.json
+2026-01-29 14:17:56,833 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:57,034 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:57,270 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/django/config/wsgi.py
+2026-01-29 14:17:57,450 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:57,622 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:57,790 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/README.md
+2026-01-29 14:17:57,986 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:58,178 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:58,359 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_integration.py
+2026-01-29 14:17:58,544 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:58,701 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:58,872 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/plugins_text-to-speech-announcer.md
+2026-01-29 14:17:59,077 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:59,240 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:59,431 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/tsconfig.json
+2026-01-29 14:17:59,586 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:17:59,769 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:17:59,943 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/components/starter/gauge/index.tsx
+2026-01-29 14:18:00,109 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:00,270 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:00,444 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nextjs/README.md
+2026-01-29 14:18:00,655 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:00,852 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:01,042 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/routes/index.tsx
+2026-01-29 14:18:01,220 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:01,387 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:01,583 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/express/src/services/health.js
+2026-01-29 14:18:01,771 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:01,947 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:02,190 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/svelte/svelte.config.js
+2026-01-29 14:18:02,406 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:02,581 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:02,765 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/react/src/index.css
+2026-01-29 14:18:02,959 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:03,185 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:03,360 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nuxt/config.yml
+2026-01-29 14:18:03,559 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:03,726 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:03,884 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/react/src/setupTests.js
+2026-01-29 14:18:04,110 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:04,285 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:04,459 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/universalinit-env/README-env.md
+2026-01-29 14:18:04,655 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:04,879 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:05,069 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/astro/package.json
+2026-01-29 14:18:05,286 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:05,443 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:05,631 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/angular/eslint.config.mjs
+2026-01-29 14:18:05,824 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:05,998 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:06,162 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vue/src/assets/main.css
+2026-01-29 14:18:06,332 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:06,513 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:06,677 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/react/config.yml
+2026-01-29 14:18:06,852 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:07,074 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:07,240 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/express/swagger.js
+2026-01-29 14:18:07,447 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:07,635 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:07,797 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/fastapi/src/api/generate_openapi.py
+2026-01-29 14:18:08,080 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:08,258 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:08,442 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vite/tsconfig.json
+2026-01-29 14:18:08,630 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:08,816 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:09,011 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/transitions_animations_transitions.md
+2026-01-29 14:18:09,163 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:09,316 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:09,501 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/express/src/routes/index.js
+2026-01-29 14:18:09,731 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:09,895 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:10,108 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/App_Resources/Android/before-plugins.gradle
+2026-01-29 14:18:10,312 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:10,494 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:10,674 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_remix_template.py
+2026-01-29 14:18:10,875 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:11,073 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:11,242 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remotion/src/Root.tsx
+2026-01-29 14:18:11,425 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:11,592 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:11,817 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/django/config/urls.py
+2026-01-29 14:18:12,004 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:12,183 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:12,341 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/README.md
+2026-01-29 14:18:12,534 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:12,706 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:12,874 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/flask/run.py
+2026-01-29 14:18:13,086 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:13,256 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:13,478 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/angular/src/server.ts
+2026-01-29 14:18:13,689 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:13,883 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:14,059 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/built-in_directives.md
+2026-01-29 14:18:14,335 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:14,518 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:14,723 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/router_basics.md
+2026-01-29 14:18:14,928 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:15,138 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:15,311 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/slidev/config.yml
+2026-01-29 14:18:15,526 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:15,707 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:15,920 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vue/README.md
+2026-01-29 14:18:16,126 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:16,267 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:16,479 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/express/src/app.js
+2026-01-29 14:18:16,682 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:16,832 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:17,015 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remotion/src/HelloWorld/Atom.tsx
+2026-01-29 14:18:17,190 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:17,397 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:17,559 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/vite.config.ts
+2026-01-29 14:18:17,734 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:17,934 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:18,107 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vue/tsconfig.json
+2026-01-29 14:18:18,279 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:18,475 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:18,685 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/plugins_language.md
+2026-01-29 14:18:18,861 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:19,067 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:19,254 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/package.json
+2026-01-29 14:18:19,498 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:19,655 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:19,819 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/app/app-root.xml
+2026-01-29 14:18:19,988 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:20,193 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:20,370 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remotion/src/HelloWorld/Logo.tsx
+2026-01-29 14:18:20,533 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:20,734 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:20,899 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_remotion_template.py
+2026-01-29 14:18:21,066 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:21,270 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:21,446 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remotion/src/HelloWorld.tsx
+2026-01-29 14:18:21,629 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:21,864 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:22,029 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/typescript/config.yml
+2026-01-29 14:18:22,201 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:22,405 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:22,657 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nextjs/src/app/page.tsx
+2026-01-29 14:18:22,812 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:22,961 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:23,140 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/django/manage.py
+2026-01-29 14:18:23,317 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:23,534 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:23,727 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/typescript/package.json
+2026-01-29 14:18:23,919 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:24,087 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:24,250 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vite/eslint.config.mjs
+2026-01-29 14:18:24,454 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:24,646 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:24,840 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_svelte_template.py
+2026-01-29 14:18:24,995 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:25,203 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:25,438 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/django/config/asgi.py
+2026-01-29 14:18:25,641 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:25,823 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:26,043 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remotion/remotion.config.ts
+2026-01-29 14:18:26,217 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:26,408 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:26,588 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/typescript/src/vite-env.d.ts
+2026-01-29 14:18:26,762 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:26,963 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:27,133 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remotion/config.yml
+2026-01-29 14:18:27,359 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:27,573 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:27,800 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_django_template.py
+2026-01-29 14:18:27,993 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:28,151 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:28,349 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_envmapper.py
+2026-01-29 14:18:28,521 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:28,701 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:28,865 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/slidev/package.json
+2026-01-29 14:18:29,034 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:29,235 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:29,398 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/express/src/server.js
+2026-01-29 14:18:29,580 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:29,734 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:29,888 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remix/postcss.config.js
+2026-01-29 14:18:30,062 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:30,221 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:30,395 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vite/index.html
+2026-01-29 14:18:30,589 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:30,776 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:30,950 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/typescript/src/counter.ts
+2026-01-29 14:18:31,174 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:31,334 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:31,499 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nuxt/package.json
+2026-01-29 14:18:31,672 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:31,833 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:32,002 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/src/pages/Home.js
+2026-01-29 14:18:32,166 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:32,318 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:32,515 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/src/index.js
+2026-01-29 14:18:32,722 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:32,929 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:33,176 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/global.css
+2026-01-29 14:18:33,382 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:33,587 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:33,803 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vue/index.html
+2026-01-29 14:18:34,195 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:34,356 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:34,582 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/essentials_displaying_images.md
+2026-01-29 14:18:34,757 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:34,950 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:35,175 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vue/src/stores/counter.ts
+2026-01-29 14:18:35,408 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:35,578 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:35,792 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/express/generate_openapi.js
+2026-01-29 14:18:36,003 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:36,171 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:36,368 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/remix/config.yml
+2026-01-29 14:18:36,565 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:36,752 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:36,929 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/angular/src/app/app.config.ts
+2026-01-29 14:18:37,108 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:37,272 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:37,456 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/angular/src/main.ts
+2026-01-29 14:18:37,640 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:37,813 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:37,997 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/getting_started_intro.md
+2026-01-29 14:18:38,201 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:38,370 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:38,566 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/routes/demo/flower/index.tsx
+2026-01-29 14:18:38,763 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:38,988 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:39,163 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vue/src/assets/base.css
+2026-01-29 14:18:39,375 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:39,541 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:39,752 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/react/package.json
+2026-01-29 14:18:39,921 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:40,081 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:40,245 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/components_user_input.md
+2026-01-29 14:18:40,411 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:40,588 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:40,779 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/App_Resources/Android/src/main/res/drawable-nodpi/splash_screen.xml
+2026-01-29 14:18:40,997 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:41,162 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:41,352 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/flask/config.yml
+2026-01-29 14:18:41,519 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:41,730 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:41,896 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_slidev_template.py
+2026-01-29 14:18:42,070 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:42,263 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:42,497 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/angular/src/app/app.routes.ts
+2026-01-29 14:18:42,671 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:42,869 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:43,062 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/kotlin/config.yml
+2026-01-29 14:18:43,236 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:43,439 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:43,638 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/getting_started_getting_started.md
+2026-01-29 14:18:43,879 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:44,067 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:44,236 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nextjs/eslint.config.mjs
+2026-01-29 14:18:44,451 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:44,665 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:44,873 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/django/api/models.py
+2026-01-29 14:18:45,092 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:45,245 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:45,418 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/universalinit.py
+2026-01-29 14:18:45,585 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:45,740 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:45,915 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vite/src/style.css
+2026-01-29 14:18:46,107 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:46,328 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:46,530 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nuxt/nuxt.config.ts
+2026-01-29 14:18:46,728 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:46,931 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:47,142 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/angular/README.md
+2026-01-29 14:18:47,402 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:47,604 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:47,798 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/angular/tsconfig.json
+2026-01-29 14:18:47,975 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:48,136 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:48,367 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_typescript_template.py
+2026-01-29 14:18:48,615 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:48,814 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:49,016 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/django/api/apps.py
+2026-01-29 14:18:49,288 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:49,451 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:49,669 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nextjs/postcss.config.mjs
+2026-01-29 14:18:49,854 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:50,072 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:50,298 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/config.yml
+2026-01-29 14:18:50,567 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:50,768 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:51,098 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/android/config.yml
+2026-01-29 14:18:51,315 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:51,486 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:51,655 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/routes/styles.css
+2026-01-29 14:18:51,909 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:52,063 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:52,292 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vite/src/main.js
+2026-01-29 14:18:52,461 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:52,633 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:52,851 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/svelte/package.json
+2026-01-29 14:18:53,011 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:53,201 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:53,402 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/routes/layout.tsx
+2026-01-29 14:18:53,591 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:53,762 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:53,998 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/vite/vite.config.js
+2026-01-29 14:18:54,277 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:54,444 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:54,624 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/test/test_nuxt_template.py
+2026-01-29 14:18:54,783 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:54,933 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:55,118 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/qwik/src/entry.dev.tsx
+2026-01-29 14:18:55,374 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:55,561 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:55,737 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/docs/getting_started_file_structure.md
+2026-01-29 14:18:55,915 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:56,130 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:56,311 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/flask/app/routes/health.py
+2026-01-29 14:18:56,491 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:56,708 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:56,883 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/lightningjs/src/components/Loader.js
+2026-01-29 14:18:57,090 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:57,275 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:57,478 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/common/db_visualizer/server.js
+2026-01-29 14:18:57,653 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:57,831 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:58,026 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/astro/config.yml
+2026-01-29 14:18:58,291 - Knowledge - INFO - Found code-base-name: https://github.com/Kavia-ai/universalinit.git:kavia-main
+2026-01-29 14:18:58,494 - Knowledge - INFO - Found code_base: <app.utils.kg_build.knowledge.KnowledgeCodeBase object at 0x7ff280585250>
+2026-01-29 14:18:58,663 - Knowledge - INFO - process ingested knowledge for /app/data/T0015/310607/b13498h/universalinit/src/universalinit/templates/nativescript/jsconfig.json
+2026-01-29 14:18:58,862 - Knowledge - INFO - Loaded 335 files from persisted knowledge
+2026-01-29 14:18:59,021 - Knowledge - INFO - load persisted knowledge: end
+2026-01-29 14:18:59,201 - Knowledge - INFO - Redis support added with prefix knowledge:b13498h:
+2026-01-29 14:19:00,013 - Knowledge - INFO - Starting knowledge initialization for ID: LvnwSI-b13498h
+2026-01-29 14:19:00,210 - Knowledge - INFO - 🔍 Checking Redis for build_id: b13498h
+2026-01-29 14:19:00,413 - Knowledge - INFO - 🔍 Full session ID: LvnwSI-b13498h
+2026-01-29 14:19:00,609 - Knowledge - INFO - 🔍 Redis prefix will be: knowledge:b13498h:
+2026-01-29 14:19:00,772 - Knowledge - INFO - 🔍 Using attached load_from_redis() method
+2026-01-29 14:19:01,004 - Knowledge - INFO - 🔍 Attempting to load knowledge from Redis...
+2026-01-29 14:19:01,205 - Knowledge - INFO - 🔍 Using derived instance_id for Redis lookup: b13498h
+2026-01-29 14:19:01,426 - Knowledge - INFO - ✅ Redis cache found! Loading knowledge...
+2026-01-29 14:19:01,738 - Knowledge - INFO - ✅ Successfully loaded from Redis: 335 files
+2026-01-29 14:19:01,960 - Knowledge - INFO - ✅ Redis load complete: 335 files in 1.19s
+2026-01-29 14:19:02,151 - Knowledge - INFO - ⚡ Total Redis path: 1.19s (vs ~300s from disk)
+2026-01-29 14:19:02,341 - Knowledge - INFO - Saving knowledge to Redis...
+2026-01-29 14:19:02,832 - Knowledge - INFO - Knowledge saved to Redis successfully
