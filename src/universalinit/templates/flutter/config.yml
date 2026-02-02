@@ -46,29 +46,3 @@ post_processing:
     cd {KAVIA_PROJECT_DIRECTORY}
     touch .env
     flutter pub get
-    # Ensure gradlew has execute permissions
-    if [ -f android/gradlew ]; then
-      chmod +x android/gradlew
-    fi
-    # Configure NDK version 27.0.12077973 for plugins compatibility (shared_preferences_android, sqflite_android)
-    BUILD_GRADLE_KTS="android/app/build.gradle.kts"
-    BUILD_GRADLE="android/app/build.gradle"
-    if [ -f "$BUILD_GRADLE_KTS" ]; then
-      # Kotlin DSL - replace or add ndkVersion
-      if grep -q "ndkVersion" "$BUILD_GRADLE_KTS"; then
-        # Replace existing ndkVersion line (handles "ndkVersion = flutter.ndkVersion" and other formats)
-        sed -i.bak 's/\(ndkVersion\s*=\s*\).*/\1"27.0.12077973"/' "$BUILD_GRADLE_KTS" && rm -f "$BUILD_GRADLE_KTS.bak"
-      else
-        # Add ndkVersion after android { block (handles any indentation)
-        awk '/android\s*\{/ { print; print "    ndkVersion = \"27.0.12077973\""; next }1' "$BUILD_GRADLE_KTS" > "$BUILD_GRADLE_KTS.tmp" && mv "$BUILD_GRADLE_KTS.tmp" "$BUILD_GRADLE_KTS"
-      fi
-    elif [ -f "$BUILD_GRADLE" ]; then
-      # Groovy DSL - replace or add ndkVersion
-      if grep -q "ndkVersion" "$BUILD_GRADLE"; then
-        # Replace existing ndkVersion line
-        sed -i.bak 's/\(ndkVersion\s*=\s*\).*/\1"27.0.12077973"/' "$BUILD_GRADLE" && rm -f "$BUILD_GRADLE.bak"
-      else
-        # Add ndkVersion after android { block (handles any indentation)
-        awk '/android\s*\{/ { print; print "    ndkVersion = \"27.0.12077973\""; next }1' "$BUILD_GRADLE" > "$BUILD_GRADLE.tmp" && mv "$BUILD_GRADLE.tmp" "$BUILD_GRADLE"
-      fi
-    fi
