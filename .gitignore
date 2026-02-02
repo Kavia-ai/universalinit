@@ -8,3 +8,6 @@ src/universalinit/__pycache__/
 *.pyc
 .env
 test-folder/
+# Test projects (not part of the package)
+mi-app/
+test-*/

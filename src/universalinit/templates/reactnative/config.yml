@@ -22,7 +22,8 @@ init_minimal: "Minimal React Native (Expo) application initialized"
 run_tool:
   command: "npm run web -- --port <port>"
   working_directory: "{KAVIA_PROJECT_DIRECTORY}"
-  # Web dev server uses Vite (fast, proxy-friendly). For native: npm run start (Metro)
+  # Web: Vite dev server with HMR (fast, proxy-friendly). Native: npm run start (Metro)
+  # Web: Vite dev server with HMR (fast, proxy-friendly). Native: npm run start (Metro)
 
 test_tool:
   command: "npm run lint"
