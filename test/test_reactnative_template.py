@@ -40,7 +40,7 @@ def template_dir(temp_dir):
         },
         'env': {
             'environment_initialized': True,
-            'node_version': '18.20.8',
+            'node_version': '20.18.0',
             'npm_version': '10.8.2'
         },
         'init_files': [],
@@ -103,7 +103,7 @@ def test_reactnative_init_info(template_dir, project_config):
     assert init_info.build_cmd.command == 'npm run prebuild && cd android && ./gradlew assembleDebug'
     assert init_info.run_tool.command == 'npm run web -- --port <port>'
     assert init_info.test_tool.command == 'npm run lint'
-    assert init_info.env_config.node_version == '18.20.8'
+    assert init_info.env_config.node_version == '20.18.0'
     assert init_info.env_config.npm_version == '10.8.2'
 
 
