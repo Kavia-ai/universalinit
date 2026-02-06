@@ -38,11 +38,20 @@ linter:
 pre_processing:
   script: |
     #!/bin/bash
-    flutter create --platforms=android {KAVIA_TEMPLATE_PROJECT_NAME}
+    set -e
+    # Remove directory if exists to ensure clean creation
+    rm -rf {KAVIA_TEMPLATE_PROJECT_NAME}
+    # Create Flutter project with Android v2 embedding (default in Flutter 3+)
+    flutter create --platforms=android --android-language kotlin --project-name {KAVIA_TEMPLATE_PROJECT_NAME} {KAVIA_TEMPLATE_PROJECT_NAME}
 
 post_processing:
   script: |
     #!/bin/bash
     cd {KAVIA_PROJECT_DIRECTORY}
     touch .env
+    # Set NDK version required by shared_preferences_android and sqflite_android
+    # This prevents Gradle from downloading NDK during first build
+    if [ -f "android/app/build.gradle.kts" ]; then
+      sed -i '/namespace = /a\        ndkVersion = "27.0.12077973"' android/app/build.gradle.kts
+    fi
     flutter pub get
