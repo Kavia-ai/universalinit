@@ -1,6 +1,7 @@
 const express = require('express');
 const healthController = require('../controllers/health');
 const usersRoutes = require('./users');
+const shortenerRoutes = require('./shortener');
 
 const router = express.Router();
 // Health endpoint
@@ -35,5 +36,8 @@ router.get('/', healthController.check.bind(healthController));
 
 // Users CRUD API
 router.use('/users', usersRoutes);
+
+// URL shortener + analytics API
+router.use('/', shortenerRoutes);
 
 module.exports = router;
