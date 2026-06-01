@@ -108,7 +108,7 @@ router.post(
  *       429:
  *         description: Click limit reached
  */
-router.get('/r/:slug', shortenerController.redirect.bind(shortenerController));
+router.get('/r/:slug', asyncHandler(shortenerController.redirect.bind(shortenerController)));
 
 /**
  * @swagger
@@ -137,7 +137,7 @@ router.get('/r/:slug', shortenerController.redirect.bind(shortenerController));
  *       429:
  *         description: Click limit reached
  */
-router.get('/r/:domain/:slug', shortenerController.redirect.bind(shortenerController));
+router.get('/r/:domain/:slug', asyncHandler(shortenerController.redirect.bind(shortenerController)));
 
 /**
  * @swagger
