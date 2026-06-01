@@ -1,5 +1,6 @@
 const express = require('express');
 const shortenerController = require('../controllers/shortener');
+const { asyncHandler, validateCreateShortLinkBody, validateShortLinkStatsRequest } = require('../middleware');
 
 const router = express.Router();
 
@@ -78,7 +79,11 @@ const router = express.Router();
  *       409:
  *         description: Slug already exists for the domain
  */
-router.post('/short-links', shortenerController.create.bind(shortenerController));
+router.post(
+  '/short-links',
+  validateCreateShortLinkBody(),
+  asyncHandler(shortenerController.create.bind(shortenerController))
+);
 
 /**
  * @swagger
@@ -166,6 +171,10 @@ router.get('/r/:domain/:slug', shortenerController.redirect.bind(shortenerContro
  *       404:
  *         description: Link not found
  */
-router.get('/api/links/:id/stats', shortenerController.stats.bind(shortenerController));
+router.get(
+  '/api/links/:id/stats',
+  validateShortLinkStatsRequest(),
+  asyncHandler(shortenerController.stats.bind(shortenerController))
+);
 
 module.exports = router;

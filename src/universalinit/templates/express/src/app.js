@@ -1,6 +1,7 @@
 const cors = require('cors');
 const express = require('express');
 const routes = require('./routes');
+const { errorHandler } = require('./middleware');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('../swagger');
 
@@ -44,13 +45,7 @@ app.use(express.json());
 // Mount routes
 app.use('/', routes);
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
-    status: 'error',
-    message: 'Internal Server Error',
-  });
-});
+// Centralized error handling middleware (keep this last)
+app.use(errorHandler);
 
 module.exports = app;
