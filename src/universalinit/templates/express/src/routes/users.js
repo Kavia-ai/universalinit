@@ -15,15 +15,18 @@ const router = express.Router();
  * @swagger
  * components:
  *   schemas:
- *     User:
+ *     UsersTableUser:
  *       type: object
  *       properties:
  *         id:
  *           type: string
  *           example: 1a2b3c4d-1111-2222-3333-abcdefabcdef
- *         name:
+ *         firstName:
  *           type: string
- *           example: Ada Lovelace
+ *           example: Ada
+ *         lastName:
+ *           type: string
+ *           example: Lovelace
  *         email:
  *           type: string
  *           format: email
@@ -31,27 +34,49 @@ const router = express.Router();
  *         createdAt:
  *           type: string
  *           format: date-time
- *         updatedAt:
- *           type: string
- *           format: date-time
+ *     PaginatedUsersTableUser:
+ *       type: object
+ *       properties:
+ *         items:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/UsersTableUser'
+ *         page:
+ *           type: integer
+ *           example: 1
+ *         pageSize:
+ *           type: integer
+ *           example: 10
+ *         totalItems:
+ *           type: integer
+ *           example: 57
+ *         totalPages:
+ *           type: integer
+ *           example: 6
  *     CreateUserRequest:
  *       type: object
- *       required: [name, email]
+ *       required: [firstName, lastName, email]
  *       properties:
- *         name:
+ *         firstName:
  *           type: string
- *           example: Ada Lovelace
+ *           example: Ada
+ *         lastName:
+ *           type: string
+ *           example: Lovelace
  *         email:
  *           type: string
  *           format: email
  *           example: ada@example.com
  *     UpdateUserRequest:
  *       type: object
- *       required: [name, email]
+ *       required: [firstName, lastName, email]
  *       properties:
- *         name:
+ *         firstName:
  *           type: string
- *           example: Grace Hopper
+ *           example: Grace
+ *         lastName:
+ *           type: string
+ *           example: Hopper
  *         email:
  *           type: string
  *           format: email
@@ -63,10 +88,68 @@ const router = express.Router();
  * /users:
  *   get:
  *     tags: [Users]
- *     summary: List users
+ *     summary: List users (paginated)
+ *     description: Server-side pagination, sorting, and filtering for a Users table.
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: 1-based page index.
+ *       - in: query
+ *         name: pageSize
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Number of rows per page.
+ *       - in: query
+ *         name: sortBy
+ *         schema:
+ *           type: string
+ *           enum: [id, firstName, lastName, email, createdAt]
+ *           default: createdAt
+ *       - in: query
+ *         name: sortDir
+ *         schema:
+ *           type: string
+ *           enum: [asc, desc]
+ *           default: desc
+ *       - in: query
+ *         name: q
+ *         schema:
+ *           type: string
+ *         description: Full-text search across firstName, lastName, and email.
+ *       - in: query
+ *         name: firstName
+ *         schema:
+ *           type: string
+ *         description: Filter by firstName (contains, case-insensitive).
+ *       - in: query
+ *         name: lastName
+ *         schema:
+ *           type: string
+ *         description: Filter by lastName (contains, case-insensitive).
+ *       - in: query
+ *         name: email
+ *         schema:
+ *           type: string
+ *         description: Filter by email (contains, case-insensitive).
+ *       - in: query
+ *         name: createdAfter
+ *         schema:
+ *           type: string
+ *           format: date-time
+ *         description: createdAt >= createdAfter (ISO date string).
+ *       - in: query
+ *         name: createdBefore
+ *         schema:
+ *           type: string
+ *           format: date-time
+ *         description: createdAt <= createdBefore (ISO date string).
  *     responses:
  *       200:
- *         description: List of users
+ *         description: Paginated users
  *         content:
  *           application/json:
  *             schema:
@@ -76,9 +159,7 @@ const router = express.Router();
  *                   type: string
  *                   example: ok
  *                 data:
- *                   type: array
- *                   items:
- *                     $ref: '#/components/schemas/User'
+ *                   $ref: '#/components/schemas/PaginatedUsersTableUser'
  */
 router.get('/', usersController.list.bind(usersController));
 
@@ -106,7 +187,7 @@ router.get('/', usersController.list.bind(usersController));
  *                   type: string
  *                   example: ok
  *                 data:
- *                   $ref: '#/components/schemas/User'
+ *                   $ref: '#/components/schemas/UsersTableUser'
  *       400:
  *         description: Invalid request body
  *       409:
@@ -138,7 +219,7 @@ router.post('/', validateCreateUserBody(), usersController.create.bind(usersCont
  *                   type: string
  *                   example: ok
  *                 data:
- *                   $ref: '#/components/schemas/User'
+ *                   $ref: '#/components/schemas/UsersTableUser'
  *       404:
  *         description: User not found
  */
