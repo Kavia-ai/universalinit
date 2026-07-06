@@ -8,3 +8,5 @@ src/universalinit/__pycache__/
 *.pyc
 .env
 test-folder/
+.file_activity_report.json
+.knowledge.kavia
